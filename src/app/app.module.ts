@@ -6,6 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,9 +15,10 @@ import { CommentsService } from './services/comments.service';
     BrowserModule,
     BrowserAnimationsModule,
     MatSidenavModule,
+  ],
+  providers: [
     CommentsService,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
