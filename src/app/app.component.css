@@ -1,0 +1,13 @@
+mat-sidenav-container {
+    height: 100%;
+}
+
+mat-sidenav {
+    padding: 24px;
+
+    background: #C4C4C4;
+}
+
+mat-sidenav-content {
+    padding: 24px;
+}
