@@ -2,12 +2,14 @@ import { Comment } from '@app/models/comment';
 
 export class CommentsService {
     private comments: Comment[];
+    private counter = 0;
 
     constructor() {
         this.comments = this.getMockComments();
     }
 
     public add(comment: Comment) {
+        comment.id = this.incrementCounter();
         this.comments.push(comment);
     }
 
@@ -32,23 +34,28 @@ export class CommentsService {
     private getMockComments(): Comment[] {
         return [
             {
-                id: 1,
+                id: this.incrementCounter(),
                 articleId: 1,
                 publishDate: new Date(),
-                text: '',
+                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' +
+                ' Ut egestas justo vel orci tempor, sit amet ornare tortor mattis.',
             },
             {
-                id: 2,
+                id: this.incrementCounter(),
                 articleId: 1,
                 publishDate: new Date(),
-                text: '',
+                text: 'Sed lectus lectus, tincidunt non odio at, sollicitudin dapibus ligula.',
             },
             {
-                id: 3,
+                id: this.incrementCounter(),
                 articleId: 1,
                 publishDate: new Date(),
-                text: '',
+                text: 'Integer scelerisque pharetra sem in scelerisque. Donec luctus eu erat a consequat.',
             },
         ];
+    }
+
+    private incrementCounter(): number {
+        return ++this.counter;
     }
 }
