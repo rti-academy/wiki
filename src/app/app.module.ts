@@ -5,11 +5,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
+import { CommentsComponent } from './components/comments/comments.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,
