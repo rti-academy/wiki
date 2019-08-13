@@ -1,5 +1,10 @@
 import { Comment } from '@app/models/comment';
 
+export interface AddParams {
+    articleId: number;
+    text: string;
+}
+
 export class CommentsService {
     private comments: Comment[];
     private counter = 0;
@@ -8,12 +13,13 @@ export class CommentsService {
         this.comments = this.getMockComments();
     }
 
-    public add(comment: Comment) {
-        comment.id = this.incrementCounter();
-        this.comments.push(comment);
+    public add(params: AddParams): void {
+        const id = this.incrementCounter();
+        const publishDate = new Date();
+        this.comments.push({ id, publishDate, ...params });
     }
 
-    public delete(commentId: number) {
+    public delete(commentId: number): void {
         const index = this.comments.findIndex(c => c.id === commentId);
         this.comments.splice(index, 1);
     }
@@ -26,7 +32,7 @@ export class CommentsService {
         return this.comments.filter(c => c.articleId === articleId);
     }
 
-    public edit(comment: Comment) {
+    public edit(comment: Comment): void {
         const index = this.comments.findIndex(c => c.id === comment.id);
         this.comments[index] = comment;
     }
