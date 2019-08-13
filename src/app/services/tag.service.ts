@@ -1,36 +1,26 @@
 import { Injectable } from '@angular/core';
 
 import { Tag } from '../models/tag';
-import { throwMatDuplicatedDrawerError } from '@angular/material/sidenav';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagService {
-  tags: Tag[] = [];
+  private tags: Tag[] = [];
+  private idCount: number = 0;
 
   constructor() { }
 
-
-  addTag(tagValue:string){
-    let id=0;
-    if(this.tags.length!==0){
-      id=this.tags[this.tags.length-1].id++;
-    }
-    this.tags.push({id:id,value:tagValue});
+  public add(value: string): void {  
+    this.idCount++;  
+    this.tags.push({ id: this.idCount, value: value });    
   }
 
-  getTags(){
+  public getAll(): Tag[] {
     return this.tags;
   }
 
-  getTagById(id:number) {
-      return this.tags.find(
-      element => {
-      if(element.id===id){
-        return true;
-      }
-      return false;
-    })    
+  public getById(id: number): Tag {
+      return this.tags.find(element => (element.id === id));
   }
 }
