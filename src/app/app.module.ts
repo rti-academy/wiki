@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AppComponent } from './app.component';
+import { CommentsService } from './services/comments.service';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     MatSidenavModule,
+    CommentsService,
   ],
   providers: [],
   bootstrap: [AppComponent]
