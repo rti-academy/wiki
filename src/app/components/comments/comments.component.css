@@ -1,0 +1,29 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+.caption {
+    font-size: 1.35rem;
+    margin: 10px 0;
+}
+
+.comment {
+    box-sizing: border-box;
+    padding: 6px 20px;
+}
+
+.comment-date {
+    margin: 8px 0;
+}
+
+.comment-text {
+    margin: 8px 0;
+    white-space: pre-line;
+}
+
+.button {
+     align-self: flex-end;
+}
