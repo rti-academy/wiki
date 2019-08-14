@@ -11,7 +11,7 @@
     </mat-chip>
     <input
       placeholder="Добавить тэг"
-      #fruitInput
+      #tagInput
       [formControl]="tagCtrl"
       [matAutocomplete]="auto"
       [matChipInputFor]="chipList"
@@ -19,9 +19,12 @@
       [matChipInputAddOnBlur]="addOnBlur"
       (matChipInputTokenEnd)="add($event)">
   </mat-chip-list>
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+  <mat-autocomplete  #auto="matAutocomplete" (optionSelected)="selected($event)" >
     <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
       {{tag.value}}
     </mat-option>
   </mat-autocomplete>
+
+
 </mat-form-field>
+<br>

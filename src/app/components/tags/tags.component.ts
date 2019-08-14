@@ -17,12 +17,11 @@ import { TagService } from '../../services/tag.service';
 
 })
 export class TagsComponent implements OnInit {
-  selectable = true;
   removable = true;
-  addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
+
   tags: Tag[] = [];
-  allTags: Tag[] = [];
+  
   tagCtrl = new FormControl();
   filteredTags: Observable<Tag[]>;
 
@@ -40,8 +39,7 @@ export class TagsComponent implements OnInit {
 
       // Add our tag
       if ((value || '').trim()) {
-        this.tagService.add(value);
-        this.tags.push({ id: 0, value: value });
+        this.tags = this.tagService.add(value);
       }
 
       // Reset the input value
@@ -52,34 +50,32 @@ export class TagsComponent implements OnInit {
       this.tagCtrl.setValue('');
     }
   }
-  remove(tag: Tag): void {
-    const index = this.tags.indexOf(tag);
 
-    if (index >= 0) {
-      this.tags.splice(index, 1);
-    }
+  remove(tag: Tag): void {
+    this.tags = this.tagService.remove(tag);
   }
 
  selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push({id:0, value: event.option.viewValue});
+    console.log(event);
+   
+    /*this.tags.push({id:0, value: event.option.viewValue});
     this.tagInput.nativeElement.value = '';
-    this.tagCtrl.setValue('');
+    this.tagCtrl.setValue('');*/
   }
   
 
   ngOnInit() {
     this.filteredTags = this.tagCtrl.valueChanges
       .pipe(
-        startWith(''),
-        map((value ) => this._filter(value))
+        map(value => this._filter(value))
       );
-
   };
 
   private _filter(value: string): Tag[] {
     const filterValue = value.toLowerCase();
-    //return this.tags.filter(() => true); 
-    return this.tags.filter(option => option.value.toLowerCase().includes(filterValue));
-  }
+    return value
+      ? this.tags.filter(option => option.value.toLowerCase().includes(filterValue))
+      : [];
+  };
 
 }
