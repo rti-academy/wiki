@@ -1,0 +1,31 @@
+<div class="article" *ngIf="article; else elseBlock">
+  <div>
+    <h1 class="title">
+      {{ article.title }}
+    </h1>
+  </div>
+
+  <div class="info">
+    <div>
+      {{ article.creationTime | date: "dd.MM.yyyy" }}
+      <span class="version">версия: {{ article.version }}</span>
+    </div>
+    <div class="content">
+      {{ article.content }}
+    </div>
+  </div>
+
+  <div class="btn-controls">
+    <button mat-icon-button [routerLink]="['/articles', article.id, 'edit']">
+      <mat-icon>create</mat-icon>
+    </button>
+
+    <button mat-icon-button>
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  Не выбрана статья
+</ng-template>
