@@ -1,16 +1,21 @@
-<div class="article">
+<div *ngIf="article; else elseBlock">
   <div>
-    <h1>
+    <h1 class="title">
       {{ article.title }}
     </h1>
   </div>
 
   <div class="info">
     <div>
-      {{ creationTime }}
+      {{ article.creationTime | date: "dd.MM.yyyy" }}
+      <span class="version">версия: {{ article.version }}</span>
     </div>
-    <div>
-      {{ article.version }}
+    <div class="content">
+      {{ article.content }}
     </div>
   </div>
 </div>
+
+<ng-template #elseBlock>
+  Не выбрана статья
+</ng-template>
