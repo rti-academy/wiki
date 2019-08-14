@@ -29,7 +29,11 @@ import { ArticleService } from './services/article.service';
     MatButtonModule,
     MatIconModule,
     FormsModule,
-    RouterModule,
+    RouterModule.forRoot([
+      { path: '', component: ArticleComponent },
+      { path: 'articles/:id', component: ArticleComponent },
+      { path: 'articles/:id/edit', component: AppComponent },
+    ]),
   ],
   providers: [
     CommentsService,
