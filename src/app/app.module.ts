@@ -38,7 +38,7 @@ import { ArticleEditorComponent } from './components/article-editor/article-edit
     RouterModule.forRoot([
       { path: '', component: ArticleComponent },
       { path: 'articles/:id', component: ArticleComponent },
-      { path: 'articles/:id/edit', component: AppComponent },
+      { path: 'articles/:id/edit', component: ArticleEditorComponent },
     ]),
   ],
   providers: [
