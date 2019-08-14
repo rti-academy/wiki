@@ -31,7 +31,7 @@ export class TagsComponent implements OnInit {
 
   constructor(private tagService: TagService) { }
   
-  add(event: MatChipInputEvent): void {
+ add(event: MatChipInputEvent): void {
     // Add tag only when MatAutocomplete is not open
     // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
@@ -49,7 +49,7 @@ export class TagsComponent implements OnInit {
         input.value = '';
       }
 
-      this.tagCtrl.setValue(null);
+      this.tagCtrl.setValue('');
     }
   }
   remove(tag: Tag): void {
@@ -60,14 +60,26 @@ export class TagsComponent implements OnInit {
     }
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
+ selected(event: MatAutocompleteSelectedEvent): void {
     this.tags.push({id:0, value: event.option.viewValue});
     this.tagInput.nativeElement.value = '';
-    this.tagCtrl.setValue(null);
+    this.tagCtrl.setValue('');
   }
-
+  
 
   ngOnInit() {
+    this.filteredTags = this.tagCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map((value ) => this._filter(value))
+      );
+
+  };
+
+  private _filter(value: string): Tag[] {
+    const filterValue = value.toLowerCase();
+    //return this.tags.filter(() => true); 
+    return this.tags.filter(option => option.value.toLowerCase().includes(filterValue));
   }
 
 }
