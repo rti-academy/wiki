@@ -12,14 +12,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
 import { CommentsComponent } from './components/comments/comments.component';
-import { ArticleComponent } from './components/article/article.component';
 import { ArticleService } from './services/article.service';
+import { HeadingTreeComponent } from './components/heading-tree/heading-tree.component';
+import { HeadingTreeNodeComponent } from './components/heading-tree-node/heading-tree-node.component';
+import { ArticleComponent } from './components/article/article.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CommentsComponent,
-    ArticleComponent
+    HeadingTreeComponent,
+    HeadingTreeNodeComponent,
+    ArticleComponent,
   ],
   imports: [
     BrowserModule,
