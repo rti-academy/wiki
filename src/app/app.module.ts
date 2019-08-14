@@ -19,7 +19,8 @@ import { ArticleComponent } from "./components/article/article.component";
     MatIconModule,
     RouterModule.forRoot([
       { path: "", component: ArticleComponent },
-      { path: "articles/:id", component: ArticleComponent }
+      { path: "articles/:id", component: ArticleComponent },
+      { path: "article/edit", component: AppComponent }
     ])
   ],
   providers: [],
