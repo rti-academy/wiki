@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
 import { CommentsComponent } from './components/comments/comments.component';
 import { FormsModule } from '@angular/forms';
+import { ArticleService } from './services/article.service';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     CommentsService,
+    ArticleService
   ],
   bootstrap: [AppComponent]
 })
