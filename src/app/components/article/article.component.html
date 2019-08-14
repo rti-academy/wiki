@@ -1,4 +1,4 @@
-<div *ngIf="article; else elseBlock">
+<div class="article" *ngIf="article; else elseBlock">
   <div>
     <h1 class="title">
       {{ article.title }}
@@ -13,6 +13,16 @@
     <div class="content">
       {{ article.content }}
     </div>
+  </div>
+
+  <div class="btn-controls">
+    <button mat-icon-button>
+      <mat-icon>create</mat-icon>
+    </button>
+
+    <button mat-icon-button>
+      <mat-icon>more_horiz</mat-icon>
+    </button>
   </div>
 </div>
 
