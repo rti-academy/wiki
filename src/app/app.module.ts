@@ -20,7 +20,7 @@ import { ArticleComponent } from "./components/article/article.component";
     RouterModule.forRoot([
       { path: "", component: ArticleComponent },
       { path: "articles/:id", component: ArticleComponent },
-      { path: "article/edit", component: AppComponent }
+      { path: "articles/:id/edit", component: AppComponent }
     ])
   ],
   providers: [],
