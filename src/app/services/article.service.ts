@@ -1,5 +1,4 @@
-import { Injectable } from "@angular/core";
-import { Article } from "../models/article";
+import { Article } from '../models/article';
 
 interface AddParams {
   title: string;
@@ -7,12 +6,57 @@ interface AddParams {
   parentId: number;
 }
 
-@Injectable({
-  providedIn: "root"
-})
+const mockArticles: Article[] = [
+  {
+    id: 1,
+    title: 'Заголовок_1',
+    creationTime: new Date('2019-08-13'),
+    version: 1,
+    content: `Подзаголовок 1
+    Много текста, который описывает что-то важное
+    Подзаголовок 1.1
+    Много текста, который описывает что-то важное
+    Подзаголовок 1.2
+    Много текста, который описывает что-то важное
+    Подзаголовок 2
+    Много текста, который описывает что-то важное`,
+    parentId: 1
+  },
+  {
+    id: 2,
+    title: 'Заголовок_2',
+    creationTime: new Date('2019-08-13'),
+    version: 1,
+    content: `Подзаголовок 1
+    Много текста, который описывает что-то важное
+    Подзаголовок 1.1
+    Много текста, который описывает что-то важное
+    Подзаголовок 1.2
+    Много текста, который описывает что-то важное
+    Подзаголовок 2
+    Много текста, который описывает что-то важное`,
+    parentId: 1
+  },
+  {
+    id: 3,
+    title: 'Заголовок_3',
+    creationTime: new Date('2019-08-13'),
+    version: 1,
+    content: `Подзаголовок 1
+    Много текста, который описывает что-то важное
+    Подзаголовок 1.1
+    Много текста, который описывает что-то важное
+    Подзаголовок 1.2
+    Много текста, который описывает что-то важное
+    Подзаголовок 2
+    Много текста, который описывает что-то важное`,
+    parentId: 1
+  }
+];
+
 export class ArticleService {
   private counter = 0;
-  private articles: Article[] = [];
+  public articles: Article[] = mockArticles;
 
   public add({ title, content, parentId }: AddParams): void {
     const id = ++this.counter;
