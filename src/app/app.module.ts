@@ -16,6 +16,7 @@ import { ArticleService } from './services/article.service';
 import { HeadingTreeComponent } from './components/heading-tree/heading-tree.component';
 import { HeadingTreeNodeComponent } from './components/heading-tree/heading-tree-node/heading-tree-node.component';
 import { ArticleComponent } from './components/article/article.component';
+import { ArticleEditorComponent } from './components/article-editor/article-editor.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ArticleComponent } from './components/article/article.component';
     HeadingTreeComponent,
     HeadingTreeNodeComponent,
     ArticleComponent,
+    ArticleEditorComponent
   ],
   imports: [
     BrowserModule,
