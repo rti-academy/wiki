@@ -1,0 +1,13 @@
+.text-field {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.btn-contols {
+}
+
+.save {
+  background-color: #525252;
+  color: #ffffff;
+}
