@@ -1,1 +1,15 @@
-<p>comments works!</p>
+<div *ngIf="comments.length > 0">
+    <p class="caption">{{ comments.length + ' ' + getCommentCaption() }}</p>
+    <div class="comment" *ngFor="let comment of comments;">
+        <p class="comment-date">{{ comment.publishDate | date:'d.MM.yyyy HH:mm' }}</p>
+        <p class="comment-text">{{ comment.text }}</p>
+    </div>
+</div>
+<mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Написать комментарий" 
+        [(ngModel)]="commentText" 
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="5"></textarea>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="addComment()" class="button">Отправить</button>
