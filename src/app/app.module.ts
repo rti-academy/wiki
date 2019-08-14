@@ -10,12 +10,16 @@ import { CommentsService } from './services/comments.service';
 import { CommentsComponent } from './components/comments/comments.component';
 import { FormsModule } from '@angular/forms';
 import { ArticleService } from './services/article.service';
+import { HeadingTreeComponent } from './components/heading-tree/heading-tree.component';
+import { HeadingTreeNodeComponent } from './components/heading-tree-node/heading-tree-node.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CommentsComponent,
+    HeadingTreeComponent,
+    HeadingTreeNodeComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,7 @@ import { ArticleService } from './services/article.service';
   ],
   providers: [
     CommentsService,
-    ArticleService
+    ArticleService,
   ],
   bootstrap: [AppComponent]
 })
