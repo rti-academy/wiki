@@ -1,8 +1,7 @@
 import { Component, OnInit, Testability } from '@angular/core';
-import { ArticleService } from '../../services/article.service';
-import { ArticlesTree, ArticleTreeNode } from '../../models/articles-tree';
-import { Article } from '../../models/article';
-import { runInThisContext } from 'vm';
+import { ArticleService } from '@app/services/article.service';
+import { ArticlesTree } from '@app/models/articles-tree';
+import { Article } from '@app/models/article';
 
 @Component({
   selector: 'app-heading-tree',
