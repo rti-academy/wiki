@@ -1,11 +1,10 @@
-<mat-form-field class="tag-list">
+<mat-form-field class="tag-list tags-field">
  <mat-chip-list #chipList aria-label="Tag selection">
     <mat-chip
       *ngFor="let tag of articleTags"
       [removable]="removable"
       (removed)="remove(tag)">
-      {{tag.value}}
-      
+      {{ tag.value }}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
     <input
@@ -22,7 +21,5 @@
       {{ tag.value }}
     </mat-option>
   </mat-autocomplete>
-
-
 </mat-form-field>
 <br>

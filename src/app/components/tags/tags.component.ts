@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input, OnChanges } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -8,6 +8,7 @@ import { map, startWith } from 'rxjs/operators';
 
 import { Tag } from '../../models/tag';
 import { TagService } from '../../services/tag.service';
+import { ArticleService } from '@app/services/article.service';
 
 
 @Component({
@@ -16,9 +17,12 @@ import { TagService } from '../../services/tag.service';
   styleUrls: ['./tags.component.css']
 
 })
-export class TagsComponent implements OnInit {
+export class TagsComponent implements OnInit, OnChanges {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  @Input()
+  public articleId: number;
 
   allTags: Tag[];
   articleTags: Tag[] = [];
@@ -32,60 +36,55 @@ export class TagsComponent implements OnInit {
   @ViewChild('tagInput', { static: false })
   tagInput: ElementRef<HTMLInputElement>;
 
-  constructor(private tagService: TagService) {
+  constructor(private tagService: TagService, private articleService: ArticleService) {
     this.allTags = tagService.getAll();
   }
 
   add(event: MatChipInputEvent): void {
-    // Add tag only when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
-    const input = event.input;
-    const value = event.value;
+    let value = event.value;
+    value = value.trim();
 
-    // if (!this.matAutocomplete.isOpen && !this.isContainTag(value)) {
-    if (!this.isContainTag(value)) {
-
-      // Add our tag
-      if ((value || '').trim()) {
-        this.allTags = this.tagService.add(value);
-        const lastInsertedTag = this.allTags[this.allTags.length - 1];
-        this.articleTags.push(lastInsertedTag);
-      }
-
-      // Reset the input value
-      if (input) {
-        input.value = '';
-        this.tagCtrl.setValue('');
-      }
+    if ((value || '') && !this.isContainTag(value)) {
+      this.addTag(value);
+      this.tagInputReset();
     }
   }
 
   remove(tag: Tag): void {
-    this.allTags = this.tagService.remove(tag); // удалять только из статьи
-    const index = this.articleTags.findIndex(t => t === tag);
-    this.articleTags.splice(index, 1);
+    this.articleService.deleteTagFromArticle(this.articleId, tag.id);
+    this.articleTags = this.getArticleTags(this.articleId);
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    if (!this.isContainTag(event.option.viewValue)) {
-      this.articleTags.push({ id: 0, value: event.option.viewValue });
-      this.tagInput.nativeElement.value = '';
-      this.tagCtrl.setValue('');
+    const value = event.option.viewValue;
+    if (!this.isContainTag(value)) {
+      this.addTag(value);
+      this.tagInputReset();
     }
   }
 
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.filteredTags = this.tagCtrl.valueChanges
       .pipe(
         map(value => {
           return this._filter(value);
         })
       );
+    this.articleTags = this.getArticleTags(this.articleId);
+  }
+
+  ngOnChanges(): void {
+    this.articleTags = this.getArticleTags(this.articleId);
+  }
+
+  private addTag(value: string) {
+    this.tagService.add(value);
+    const tag = this.tagService.getByTagValueIgnoreCase(value);
+    this.articleService.addTagToArticle(this.articleId, tag.id);
+    this.articleTags = this.getArticleTags(this.articleId);
   }
 
   private isContainTag(tagValue: string) {
-    // TODO
     const index = this.articleTags.findIndex(t => t.value.toLowerCase() === tagValue.toLowerCase());
     return index >= 0;
   }
@@ -97,4 +96,13 @@ export class TagsComponent implements OnInit {
       : [];
   }
 
+  private getArticleTags(articleId: number): Tag[] {
+    const article = this.articleService.get(articleId);
+    return article.tags.map(tagId => this.tagService.getById(tagId));
+  }
+
+  private tagInputReset() {
+    this.tagInput.nativeElement.value = '';
+    this.tagCtrl.setValue('');
+  }
 }
