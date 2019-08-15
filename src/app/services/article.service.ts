@@ -61,6 +61,7 @@ const mockArticles: Article[] = [
     id: 4,
     title: 'Подраздел 3',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -76,6 +77,7 @@ const mockArticles: Article[] = [
     id: 5,
     title: 'Подраздел 1.1',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -91,6 +93,7 @@ const mockArticles: Article[] = [
     id: 6,
     title: 'Подраздел 1.2',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -106,6 +109,7 @@ const mockArticles: Article[] = [
     id: 7,
     title: 'Подраздел 1.1.1',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -121,6 +125,7 @@ const mockArticles: Article[] = [
     id: 8,
     title: 'Подраздел 1.1.2',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
