@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { TagsComponent } from '../components/tags/tags.component';
 import { Tag } from '../models/tag';
 
 const tagsMock = [
@@ -13,13 +12,15 @@ const tagsMock = [
 })
 export class TagService {
   public tags: Tag[] = tagsMock;
-  public idCount = 0;
+  public idCount = 3;
 
   constructor() { }
 
   public add(value: string): Tag[] {
-    this.idCount++;
-    this.tags.push({ id: this.idCount, value });
+    if (!this.exists(value)) {
+      this.idCount++;
+      this.tags.push({ id: this.idCount, value });
+    }
     return this.tags;
   }
 
@@ -38,5 +39,14 @@ export class TagService {
 
   public getById(id: number): Tag {
     return this.tags.find(element => (element.id === id));
+  }
+
+  public getByTagValueIgnoreCase(value: string): Tag {
+    return this.tags.find(tag => tag.value.toLowerCase() === value.toLowerCase());
+  }
+
+  public exists(tagValue: string): boolean {
+    const index = this.tags.findIndex(t => t.value.toLowerCase() === tagValue.toLowerCase());
+    return index >= 0;
   }
 }
