@@ -11,7 +11,7 @@ import { Article } from '@app/models/article';
 export class HeadingTreeComponent implements OnInit {
   public articleTree: ArticlesTree;
   public articles: Article[];
-  
+
   constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
