@@ -31,10 +31,11 @@
     </mat-menu>
 
   </div>
+
+  <app-comments [articleId]="article.id"></app-comments>
+
 </div>
 
 <ng-template #elseBlock>
   Не выбрана статья
 </ng-template>
-
-<app-comments [articleId]="article.id"></app-comments>
