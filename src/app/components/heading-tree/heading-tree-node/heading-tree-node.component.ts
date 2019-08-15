@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ArticleTreeNode } from '@app/models/articles-tree';
+import { ArticleTreeNode } from '../../../models/articles-tree';
 
 @Component({
   selector: 'app-heading-tree-node',
@@ -14,6 +14,7 @@ export class HeadingTreeNodeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
