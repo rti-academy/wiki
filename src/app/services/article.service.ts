@@ -2,7 +2,7 @@ import { Article } from '../models/article';
 import { EventEmitter } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 
-interface AddParams {
+export interface AddParams {
   title: string;
   content: string;
   parentId: number;
@@ -148,13 +148,12 @@ export class ArticleService {
     this.update.emit();
   }
 
-  public edit(id: number, { title, content }: AddParams): void {
-    this.articles.forEach(article => {
+  public edit(id: number, params: Partial<AddParams>): void {
+    this.articles.forEach((article, index) => {
       if (article.id === id) {
-        article.title = title;
-        article.content = content;
-        article.version++;
-        article.updateTime = new Date();
+        const version = article.version + 1;
+        const updateTime = new Date();
+        this.articles[index] = { ...article, ...params, version, updateTime };
       }
     });
     this.update.emit();
