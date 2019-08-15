@@ -139,8 +139,9 @@ export class ArticleService {
   public add({ title, content, parentId }: AddParams): void {
     const id = ++this.counter;
     const creationTime = new Date();
+    const updateTime = creationTime;
     const version = 1;
-    this.articles.push({ id, title, content, parentId, creationTime, version });
+    this.articles.push({ id, title, content, parentId, creationTime, updateTime, version });
     this.update.emit();
   }
 
@@ -149,6 +150,8 @@ export class ArticleService {
       if (article.id === id) {
         article.title = title;
         article.content = content;
+        article.version++;
+        article.updateTime = new Date();
       }
     });
     this.update.emit();
