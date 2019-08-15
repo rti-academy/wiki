@@ -8,6 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
@@ -34,6 +35,7 @@ import { ArticleEditorComponent } from './components/article-editor/article-edit
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    MatMenuModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: ArticleComponent },
