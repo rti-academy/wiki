@@ -13,6 +13,7 @@ const mockArticles: Article[] = [
     id: 1,
     title: 'Корневой раздел',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -28,6 +29,7 @@ const mockArticles: Article[] = [
     id: 2,
     title: 'Подраздел 1',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -43,6 +45,7 @@ const mockArticles: Article[] = [
     id: 3,
     title: 'Подраздел 2',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
