@@ -1,15 +1,16 @@
 <mat-form-field class="example-full-width text-field">
-  <input [(ngModel)]="article.title" matInput placeholder="Заголовок">
+  <input [(ngModel)]="title" matInput placeholder="Заголовок">
 </mat-form-field>
 
 <mat-form-field class="example-full-width text-field">
-  <textarea matInput placeholder=""></textarea>
+  <textarea [(ngModel)]="content" matInput class="textarea"></textarea>
 </mat-form-field>
+
 <div class="btn-contols">
-  <button (click)="saveChange();" [routerLink]="['/articles', article.id]" mat-flat-button class="save">
+  <button (click)="saveChange();" [routerLink]="['/articles', id]" mat-flat-button class="save">
     Сохранить
   </button>
-  <button mat-stroked-button>
+  <button [routerLink]="['/articles', id]" mat-stroked-button>
     Отменить
   </button>
 </div>

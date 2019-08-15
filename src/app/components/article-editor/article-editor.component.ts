@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '@app/services/article.service';
+import { ArticleService, AddParams } from '@app/services/article.service';
 import { Article } from '@app/models/article';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,7 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ArticleEditorComponent implements OnInit {
 
-  private article: Article;
+  private id: number;
+  private title: string;
+  private content: string;
 
   constructor(
     private articleService: ArticleService,
@@ -19,12 +21,19 @@ export class ArticleEditorComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.article = this.articleService.articles[+params.get('id') - 1];
+      const article = this.articleService.articles[+params.get('id') - 1];
+      this.id = article.id;
+      this.title = article.title;
+      this.content = article.content;
     });
   }
 
   private saveChange() {
-    this.articleService.edit(this.article.id, this.article);
+    this.articleService.edit(
+      this.id, {
+        title: this.title,
+        content: this.content
+      });
   };
 
 }
