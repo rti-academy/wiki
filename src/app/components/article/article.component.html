@@ -20,9 +20,16 @@
       <mat-icon>create</mat-icon>
     </button>
 
-    <button mat-icon-button>
+    <button mat-icon-button mat-button [matMenuTriggerFor]="beforeMenu">
       <mat-icon>more_horiz</mat-icon>
     </button>
+
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+      <button mat-menu-item>Удалить</button>
+      <button mat-menu-item>Переместить</button>
+      <button mat-menu-item>Добавить дочернюю страницу</button>
+    </mat-menu>
+
   </div>
 </div>
 
