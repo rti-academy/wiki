@@ -6,4 +6,5 @@ export class Article {
   version: number;
   content: string;
   parentId: number;
+  tags: number[];
 }

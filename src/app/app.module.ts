@@ -9,6 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
@@ -17,6 +21,7 @@ import { ArticleService } from './services/article.service';
 import { HeadingTreeComponent } from './components/heading-tree/heading-tree.component';
 import { HeadingTreeNodeComponent } from './components/heading-tree/heading-tree-node/heading-tree-node.component';
 import { ArticleComponent } from './components/article/article.component';
+import { TagsComponent } from './components/tags/tags.component';
 import { ArticleEditorComponent } from './components/article-editor/article-editor.component';
 
 @NgModule({
@@ -26,6 +31,7 @@ import { ArticleEditorComponent } from './components/article-editor/article-edit
     HeadingTreeComponent,
     HeadingTreeNodeComponent,
     ArticleComponent,
+    TagsComponent,
     ArticleEditorComponent
   ],
   imports: [
@@ -37,6 +43,11 @@ import { ArticleEditorComponent } from './components/article-editor/article-edit
     MatIconModule,
     MatMenuModule,
     FormsModule,
+    MatChipsModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: ArticleComponent },
       { path: 'articles/:id', component: ArticleComponent },
