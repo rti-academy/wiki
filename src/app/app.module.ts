@@ -18,9 +18,10 @@ import { CommentsService } from './services/comments.service';
 import { CommentsComponent } from './components/comments/comments.component';
 import { ArticleService } from './services/article.service';
 import { HeadingTreeComponent } from './components/heading-tree/heading-tree.component';
-import { HeadingTreeNodeComponent } from './components/heading-tree-node/heading-tree-node.component';
+import { HeadingTreeNodeComponent } from './components/heading-tree/heading-tree-node/heading-tree-node.component';
 import { ArticleComponent } from './components/article/article.component';
 import { TagsComponent } from './components/tags/tags.component';
+import { ArticleEditorComponent } from './components/article-editor/article-editor.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TagsComponent } from './components/tags/tags.component';
     HeadingTreeComponent,
     HeadingTreeNodeComponent,
     ArticleComponent,
-    TagsComponent
+    TagsComponent,
+    ArticleEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,7 @@ import { TagsComponent } from './components/tags/tags.component';
     RouterModule.forRoot([
       { path: '', component: ArticleComponent },
       { path: 'articles/:id', component: ArticleComponent },
-      { path: 'articles/:id/edit', component: AppComponent },
+      { path: 'articles/:id/edit', component: ArticleEditorComponent },
     ]),
   ],
   providers: [

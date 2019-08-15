@@ -1,6 +1,8 @@
 import { Article } from '../models/article';
+import { EventEmitter } from '@angular/core';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 
-interface AddParams {
+export interface AddParams {
   title: string;
   content: string;
   parentId: number;
@@ -11,6 +13,7 @@ const mockArticles: Article[] = [
     id: 1,
     title: 'Корневой раздел',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -26,6 +29,7 @@ const mockArticles: Article[] = [
     id: 2,
     title: 'Подраздел 1',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -41,6 +45,7 @@ const mockArticles: Article[] = [
     id: 3,
     title: 'Подраздел 2',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -56,6 +61,7 @@ const mockArticles: Article[] = [
     id: 4,
     title: 'Подраздел 3',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -71,6 +77,7 @@ const mockArticles: Article[] = [
     id: 5,
     title: 'Подраздел 1.1',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -86,6 +93,7 @@ const mockArticles: Article[] = [
     id: 6,
     title: 'Подраздел 1.2',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -101,6 +109,7 @@ const mockArticles: Article[] = [
     id: 7,
     title: 'Подраздел 1.1.1',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -116,6 +125,7 @@ const mockArticles: Article[] = [
     id: 8,
     title: 'Подраздел 1.1.2',
     creationTime: new Date('2019-08-13'),
+    updateTime: new Date('2019-08-13'),
     version: 1,
     content: `Подзаголовок 1
     Много текста, который описывает что-то важное
@@ -130,23 +140,28 @@ const mockArticles: Article[] = [
 ];
 
 export class ArticleService {
-  private counter = 0;
+  private counter = 8;
   public articles: Article[] = mockArticles;
+  public update: EventEmitter<any> = new EventEmitter();
 
   public add({ title, content, parentId }: AddParams): void {
     const id = ++this.counter;
     const creationTime = new Date();
+    const updateTime = creationTime;
     const version = 1;
-    this.articles.push({ id, title, content, parentId, creationTime, version });
+    this.articles.push({ id, title, content, parentId, creationTime, updateTime, version });
+    this.update.emit();
   }
 
-  public edit(id: number, { title, content }: AddParams): void {
-    this.articles.forEach(article => {
+  public edit(id: number, params: Partial<AddParams>): void {
+    this.articles.forEach((article, index) => {
       if (article.id === id) {
-        article.title = title;
-        article.content = content;
+        const version = article.version + 1;
+        const updateTime = new Date();
+        this.articles[index] = { ...article, ...params, version, updateTime };
       }
     });
+    this.update.emit();
   }
 
   public get(id: number): Article {
@@ -163,6 +178,7 @@ export class ArticleService {
         this.articles.splice(index, 1);
       }
     });
+    this.update.emit();
   }
 
   public search(title): Article[] {
