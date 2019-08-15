@@ -1,4 +1,6 @@
 import { Article } from '../models/article';
+import { EventEmitter } from '@angular/core';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 
 interface AddParams {
   title: string;
@@ -130,14 +132,16 @@ const mockArticles: Article[] = [
 ];
 
 export class ArticleService {
-  private counter = 0;
+  private counter = 8;
   public articles: Article[] = mockArticles;
+  public update: EventEmitter<any> = new EventEmitter();
 
   public add({ title, content, parentId }: AddParams): void {
     const id = ++this.counter;
     const creationTime = new Date();
     const version = 1;
     this.articles.push({ id, title, content, parentId, creationTime, version });
+    this.update.emit();
   }
 
   public edit(id: number, { title, content }: AddParams): void {
@@ -147,6 +151,7 @@ export class ArticleService {
         article.content = content;
       }
     });
+    this.update.emit();
   }
 
   public get(id: number): Article {
@@ -163,6 +168,7 @@ export class ArticleService {
         this.articles.splice(index, 1);
       }
     });
+    this.update.emit();
   }
 
   public search(title): Article[] {

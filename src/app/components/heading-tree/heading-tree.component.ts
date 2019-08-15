@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '@app/services/article.service';
-import { ArticlesTree } from '@app/models/articles-tree';
+import { Component, OnInit, Testability } from '@angular/core';
+import { ArticleService } from '../../services/article.service';
+import { ArticlesTree, ArticleTreeNode } from '../../models/articles-tree';
+import { Article } from '../../models/article';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-heading-tree',
@@ -9,11 +11,15 @@ import { ArticlesTree } from '@app/models/articles-tree';
 })
 export class HeadingTreeComponent implements OnInit {
   public articleTree: ArticlesTree;
-  constructor(private articleService: ArticleService) {
-    this.articleTree = new ArticlesTree(articleService.getAll());
-  }
+  public articles: Article[];
+  
+  constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
+    this.articleTree = new ArticlesTree(this.articleService.getAll());
+    this.articleService.update.subscribe(
+      () => this.articleTree = new ArticlesTree(this.articleService.getAll())
+    );
   }
 
 }

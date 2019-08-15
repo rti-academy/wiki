@@ -14,7 +14,7 @@ import { CommentsService } from './services/comments.service';
 import { CommentsComponent } from './components/comments/comments.component';
 import { ArticleService } from './services/article.service';
 import { HeadingTreeComponent } from './components/heading-tree/heading-tree.component';
-import { HeadingTreeNodeComponent } from './components/heading-tree-node/heading-tree-node.component';
+import { HeadingTreeNodeComponent } from './components/heading-tree/heading-tree-node/heading-tree-node.component';
 import { ArticleComponent } from './components/article/article.component';
 
 @NgModule({
