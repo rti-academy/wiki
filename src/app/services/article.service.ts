@@ -1,6 +1,8 @@
 import { Article } from '../models/article';
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Tag } from '@app/models/tag';
+import { TagService } from './tag.service';
 
 export interface AddParams {
   title: string;
@@ -105,7 +107,7 @@ const mockArticles: Article[] = [
     creationTime: new Date('2019-08-13'),
     updateTime: new Date('2019-08-13'),
     version: 1,
-     content: `
+    content: `
 # Подзаголовок 1
 Много текста, который описывает что-то важное
 ## Подзаголовок 1.1
@@ -155,10 +157,14 @@ const mockArticles: Article[] = [
   },
 ];
 
+@Injectable()
 export class ArticleService {
   private counter = 8;
   public articles: Article[] = mockArticles;
   public update: EventEmitter<any> = new EventEmitter();
+
+  constructor(private tagService: TagService) {
+  }
 
   public add({ title, content, parentId }: AddParams) {
     const id = ++this.counter;
@@ -199,10 +205,14 @@ export class ArticleService {
     this.update.emit();
   }
 
-  public search(title: string): Article[] {
-    title = title.toLowerCase();
-    return title ? this.articles.filter(article => article.title.toLowerCase().includes(title))
-     : [];
+  public search(searchString: string): Article[] {
+    searchString = searchString.toLowerCase();
+    return searchString ? this.articles.filter(article => {
+      return article.title.toLowerCase().includes(searchString) ||
+        article.content.toLowerCase().includes(searchString) ||
+        this.getArticleTags(article).findIndex(tag => tag.value.toLowerCase() === searchString) >= 0;
+    })
+      : [];
   }
 
   public deleteTagFromArticle(articleId, tagId) {
@@ -214,5 +224,15 @@ export class ArticleService {
   public addTagToArticle(articleId: number, tagId: number) {
     const article = this.get(articleId);
     article.tags.push(tagId);
+  }
+
+  private getArticleTags(article: Article): Tag[] {
+    const result: Tag[] = [];
+
+    for (const tagId of article.tags) {
+      result.push(this.tagService.getById(tagId));
+    }
+
+    return result;
   }
 }
