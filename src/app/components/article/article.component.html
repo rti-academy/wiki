@@ -10,8 +10,7 @@
       {{ article.updateTime | date: "dd.MM.yyyy hh:mm" }}
       <span class="version">версия: {{ article.version }}</span>
     </div>
-    <div class="content">
-      {{ article.content }}
+    <div class="content" markdown [data] = 'article.content'>
     </div>
   </div>
 

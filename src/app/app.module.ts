@@ -23,7 +23,7 @@ import { HeadingTreeNodeComponent } from './components/heading-tree/heading-tree
 import { ArticleComponent } from './components/article/article.component';
 import { TagsComponent } from './components/tags/tags.component';
 import { ArticleEditorComponent } from './components/article-editor/article-editor.component';
-
+import { MarkdownModule } from 'ngx-markdown';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +53,7 @@ import { ArticleEditorComponent } from './components/article-editor/article-edit
       { path: 'articles/:id', component: ArticleComponent },
       { path: 'articles/:id/edit', component: ArticleEditorComponent },
     ]),
+    MarkdownModule.forRoot(),
   ],
   providers: [
     CommentsService,
