@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService, AddParams } from '@app/services/article.service';
-import { Article } from '@app/models/article';
-import { ActivatedRoute } from '@angular/router';
+import { ArticleService } from '@app/services/article.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-editor',
@@ -11,20 +10,26 @@ import { ActivatedRoute } from '@angular/router';
 export class ArticleEditorComponent implements OnInit {
 
   private id: number;
-  private title: string;
-  private content: string;
+  private title= '';
+  private content = '';
+  private action: string;
 
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      const article = this.articleService.articles[+params.get('id') - 1];
-      this.id = article.id;
-      this.title = article.title;
-      this.content = article.content;
+      this.action = params.get('action');
+      this.id = +params.get('id');
+      const article = this.articleService.get(this.id);
+
+      if (this.action === 'edit') {
+        this.title = article.title;
+        this.content = article.content;
+      }
     });
   }
 
@@ -32,8 +37,28 @@ export class ArticleEditorComponent implements OnInit {
     this.articleService.edit(
       this.id, {
         title: this.title,
-        content: this.content
+        content: this.content,
       });
   };
 
+  private addChildArticle() {
+    this.id = this.articleService.add({
+      title: '',
+      content: '',
+      parentId: this.id,
+    });
+  }
+
+  private save() {
+    if (this.action === 'add') {
+      this.addChildArticle();
+    }
+    this.saveChange();
+    this.router.navigate([`/articles/${this.id}`]);
+  }
+
 }
+
+// const article = this.articleService.get(this.id);
+// this.articleService.delete(this.id);
+// this.id = article.parentId;
