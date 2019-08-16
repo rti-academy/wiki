@@ -199,10 +199,10 @@ export class ArticleService {
     this.update.emit();
   }
 
-  public search(title): Article[] {
-    return this.articles.filter(article => {
-      return article.title.includes(title);
-    });
+  public search(title: string): Article[] {
+    title = title.toLowerCase();
+    return title ? this.articles.filter(article => article.title.toLowerCase().includes(title))
+     : [];
   }
 
   public deleteTagFromArticle(articleId, tagId) {
