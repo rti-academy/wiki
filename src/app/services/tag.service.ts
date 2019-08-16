@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Tag } from '../models/tag';
 
 const tagsMock = [
-  { id: 1, value: 'Home' },
-  { id: 2, value: 'Sun' },
-  { id: 3, value: 'Ball' }
+  { id: 1, value: 'Базовые знания' },
+  { id: 2, value: 'Продвинутые знания' },
 ];
 
 @Injectable({

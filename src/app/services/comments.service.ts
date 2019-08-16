@@ -43,20 +43,20 @@ export class CommentsService {
                 id: this.incrementCounter(),
                 articleId: 1,
                 publishDate: new Date(),
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' +
-                ' Ut egestas justo vel orci tempor, sit amet ornare tortor mattis.',
+                text: 'Подскажите, пожалуйста, автора статьи',
             },
             {
                 id: this.incrementCounter(),
                 articleId: 1,
                 publishDate: new Date(),
-                text: 'Sed lectus lectus, tincidunt non odio at, sollicitudin dapibus ligula.',
+                text: 'Начало координат однородно отображает тригонометрический интеграл Дирихле, что несомненно приведет нас к истине.',
             },
             {
                 id: this.incrementCounter(),
                 articleId: 1,
                 publishDate: new Date(),
-                text: 'Integer scelerisque pharetra sem in scelerisque. Donec luctus eu erat a consequat.',
+                // tslint:disable-next-line:max-line-length
+                text: 'Дистинкция творит данный бабувизм. Искусство, конечно, рефлектирует напряженный конфликт. Закон исключённого третьего, как следует из вышесказанного, нетривиален. Акциденция порождена временем. Свобода, конечно, представляет собой бабувизм, хотя в официозе принято обратное. Аналогия транспонирует интеллект.',
             },
         ];
     }
