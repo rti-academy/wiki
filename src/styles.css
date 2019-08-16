@@ -2,11 +2,43 @@
 @import "~normalize.css";
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-html,
-body {
+html {
   height: 100%;
 }
 
 body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  color: #5f6368;
+  
+}
+
+h1 {
+  font-size: 48px;
+  margin: 0;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 34px;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.25;
+}
+
+h3 {
+  font-size: 24px;
+  margin: 0;
+  font-weight: 400;
+}
+h4 {
+  font-size: 20px;
+  margin:0;
+  font-weight: 400;
+  letter-spacing: 0.15;
+}
+code {
   font-family: "Roboto", sans-serif;
 }

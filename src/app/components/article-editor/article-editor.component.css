@@ -11,7 +11,6 @@
 .btn-contols {
 }
 
-.save {
-  background-color: #525252;
-  color: #ffffff;
+.button {
+  margin-right: 12px;
 }

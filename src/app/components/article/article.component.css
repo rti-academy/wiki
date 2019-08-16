@@ -3,17 +3,22 @@
 }
 
 .title {
+  margin: 0;
+  font-size: 60px;
+  font-weight: 300;
 }
 
 .info {
+  font-size: 12px;
+  margin: 24px 0;
 }
 
 .version {
-  margin-left: 10px;
+
 }
 
 .content {
-  margin-top: 20px;
+  margin: 24px 0;
 }
 
 .btn-controls {

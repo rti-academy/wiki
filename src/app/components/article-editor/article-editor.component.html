@@ -7,10 +7,10 @@
 </mat-form-field>
 
 <div class="btn-contols">
-  <button (click)="save();" mat-flat-button class="save">
+  <button (click)="save();" mat-raised-button color="primary" class="button">
     Сохранить
   </button>
-  <button [routerLink]="['/articles', id]" mat-stroked-button>
+  <button [routerLink]="['/articles', id]" mat-raised-button class="button">
     Отменить
   </button>
 </div>

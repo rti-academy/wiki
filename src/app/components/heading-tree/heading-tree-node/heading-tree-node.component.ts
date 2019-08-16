@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, Input } from '@angular/core';
 import { ArticleTreeNode } from '@app/models/articles-tree';
+import { ArticleService, AddParams } from '@app/services/article.service';
 
 @Component({
   selector: 'app-heading-tree-node',
@@ -10,6 +11,8 @@ export class HeadingTreeNodeComponent implements OnInit {
 
   @Input()
   public articleTreeNode: ArticleTreeNode;
+  @Input()
+  public id: number;
 
   constructor() { }
 

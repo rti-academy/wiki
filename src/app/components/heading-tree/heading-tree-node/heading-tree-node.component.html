@@ -1,6 +1,6 @@
-<a class="heading-link" [routerLink]="['articles', articleTreeNode.article.id]">{{ articleTreeNode.article.title }}</a>
+<a class="heading-link" [routerLink]="['articles', articleTreeNode.article.id]" [class.selected]="articleTreeNode.article.id === id">{{ articleTreeNode.article.title }}</a>
 <ul class="heading-list" *ngIf="articleTreeNode.childNodes.length > 0">
     <li class="heading-tree-item" *ngFor="let childNode of articleTreeNode.childNodes;">
-        <app-heading-tree-node [articleTreeNode]="childNode"></app-heading-tree-node>
+        <app-heading-tree-node [articleTreeNode]="childNode" [id]="id"></app-heading-tree-node>
     </li>
 </ul>

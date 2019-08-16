@@ -7,8 +7,11 @@
 .heading-link {
     color: #222;
     text-decoration: none;
-    padding: 8px 0;
+    padding: 12px 24px;
     display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    
 }
 
 .heading-link:hover {
@@ -16,5 +19,8 @@
 }
 
 .heading-tree-item {
-    padding: 0 16px;
+    padding: 0 0 0 12px;
+}
+.selected {
+    font-weight: bold;
 }

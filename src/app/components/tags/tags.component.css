@@ -1,3 +1,7 @@
+:host {
+    display: block;
+    margin-bottom: 4px;
+}
 .tags-field {
     width: 100%;
 }

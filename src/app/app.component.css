@@ -3,11 +3,11 @@ mat-sidenav-container {
 }
 
 mat-sidenav {
-    padding: 24px;
-
-    background: #C4C4C4;
+    padding: 40px 0;
+    width: 280px;
 }
 
 mat-sidenav-content {
-    padding: 24px;
+    padding: 40px;
+    background: #ffffff;
 }
