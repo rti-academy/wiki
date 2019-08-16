@@ -10,4 +10,5 @@ mat-sidenav {
 mat-sidenav-content {
     padding: 40px;
     background: #ffffff;
+    box-sizing: border-box;
 }
