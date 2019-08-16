@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
-  article: Article;
+  private article: Article;
 
   constructor(
     private articleService: ArticleService,
@@ -19,6 +19,14 @@ export class ArticleComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.article = this.articleService.articles[+params.get('id') - 1];
+    });
+  }
+
+  private addChildArticle() {
+    this.articleService.add({
+      title: '',
+      content: '',
+      parentId: this.article.id,
     });
   }
 }
