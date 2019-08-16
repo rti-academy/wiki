@@ -72,6 +72,9 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     MatTooltipModule,
     HttpClientModule,
   ],
+  entryComponents: [
+    DeleteDialogComponent,
+  ],
   providers: [
     CommentsService,
     ArticleService,

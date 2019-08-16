@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '@app/services/article.service';
 import { Article } from '@app/models/article';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-article',
@@ -46,5 +47,5 @@ export class ArticleComponent implements OnInit {
       }
     });
   }
-  
+
 }
