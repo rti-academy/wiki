@@ -23,6 +23,8 @@ import { ArticleComponent } from './components/article/article.component';
 import { TagsComponent } from './components/tags/tags.component';
 import { ArticleEditorComponent } from './components/article-editor/article-editor.component';
 import { MarkdownModule } from 'ngx-markdown';
+import { ArticleSearchComponent } from './components/article-search/article-search.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { MarkdownModule } from 'ngx-markdown';
     HeadingTreeNodeComponent,
     ArticleComponent,
     TagsComponent,
-    ArticleEditorComponent
+    ArticleEditorComponent,
+    ArticleSearchComponent,
   ],
   imports: [
     BrowserModule,
