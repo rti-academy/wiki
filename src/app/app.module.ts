@@ -51,7 +51,7 @@ import { MarkdownModule } from 'ngx-markdown';
     RouterModule.forRoot([
       { path: '', component: ArticleComponent },
       { path: 'articles/:id', component: ArticleComponent },
-      { path: 'articles/:id/edit', component: ArticleEditorComponent },
+      { path: 'articles/:id/:action', component: ArticleEditorComponent },
     ]),
     MarkdownModule.forRoot(),
   ],
