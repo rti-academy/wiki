@@ -31,6 +31,7 @@ import { ArticleSearchComponent } from './components/article-search/article-sear
 import { RubricComponent } from './components/rubric/rubric.component';
 import { CommentComponent } from './components/comments/comment/comment.component';
 
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import { CommentComponent } from './components/comments/comment/comment.componen
     ArticleSearchComponent,
     RubricComponent,
     CommentComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,

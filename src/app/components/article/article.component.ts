@@ -28,4 +28,23 @@ export class ArticleComponent implements OnInit {
     });
   }
 
+  private openDeleteDialog(): void {
+    const dialogRef = this.dialog.open(
+      DeleteDialogComponent,
+      {width: '400px'},
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.articleService.delete(this.article.id)
+          .subscribe(() => {
+            this.router.navigate([``])
+              .then(() => {
+                window.location.reload(); // Временный костыль
+              });
+          });
+      }
+    });
+  }
+  
 }
