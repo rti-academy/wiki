@@ -15,4 +15,8 @@ export class DeleteDialogComponent {
   ngOnInit() {
   }
 
+  private onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }
