@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '@app/services/article.service';
-import { Article } from '../../models/article';
+import { Article } from '@app/models/article';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-article',
@@ -13,7 +14,8 @@ export class ArticleComponent implements OnInit {
 
   constructor(
     private articleService: ArticleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {

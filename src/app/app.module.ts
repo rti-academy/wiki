@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
@@ -58,6 +59,7 @@ import { CommentComponent } from './components/comments/comment/comment.componen
     MatIconModule,
     MatFormFieldModule,
     MatAutocompleteModule,
+    MatDialogModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: ArticleComponent },
