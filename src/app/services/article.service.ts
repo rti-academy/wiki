@@ -23,7 +23,8 @@ const mockArticles: Article[] = [
     Много текста, который описывает что-то важное
     Подзаголовок 2
     Много текста, который описывает что-то важное`,
-    parentId: 0
+    parentId: 0,
+    tags: [1, 2],
   },
   {
     id: 2,
@@ -39,7 +40,8 @@ const mockArticles: Article[] = [
     Много текста, который описывает что-то важное
     Подзаголовок 2
     Много текста, который описывает что-то важное`,
-    parentId: 1
+    parentId: 1,
+    tags: [],
   },
   {
     id: 3,
@@ -55,7 +57,8 @@ const mockArticles: Article[] = [
     Много текста, который описывает что-то важное
     Подзаголовок 2
     Много текста, который описывает что-то важное`,
-    parentId: 1
+    parentId: 1,
+    tags: [],
   },
   {
     id: 4,
@@ -71,7 +74,8 @@ const mockArticles: Article[] = [
     Много текста, который описывает что-то важное
     Подзаголовок 2
     Много текста, который описывает что-то важное`,
-    parentId: 1
+    parentId: 1,
+    tags: [],
   },
   {
     id: 5,
@@ -87,7 +91,8 @@ const mockArticles: Article[] = [
     Много текста, который описывает что-то важное
     Подзаголовок 2
     Много текста, который описывает что-то важное`,
-    parentId: 2
+    parentId: 2,
+    tags: [],
   },
   {
     id: 6,
@@ -103,7 +108,8 @@ const mockArticles: Article[] = [
     Много текста, который описывает что-то важное
     Подзаголовок 2
     Много текста, который описывает что-то важное`,
-    parentId: 2
+    parentId: 2,
+    tags: [],
   },
   {
     id: 7,
@@ -119,7 +125,8 @@ const mockArticles: Article[] = [
     Много текста, который описывает что-то важное
     Подзаголовок 2
     Много текста, который описывает что-то важное`,
-    parentId: 5
+    parentId: 5,
+    tags: [],
   },
   {
     id: 8,
@@ -135,7 +142,8 @@ const mockArticles: Article[] = [
     Много текста, который описывает что-то важное
     Подзаголовок 2
     Много текста, который описывает что-то важное`,
-    parentId: 5
+    parentId: 5,
+    tags: [],
   },
 ];
 
@@ -149,7 +157,8 @@ export class ArticleService {
     const creationTime = new Date();
     const updateTime = creationTime;
     const version = 1;
-    this.articles.push({ id, title, content, parentId, creationTime, updateTime, version });
+    const tags: number[] = [];
+    this.articles.push({ id, title, content, parentId, creationTime, updateTime, version, tags });
     this.update.emit();
   }
 
@@ -185,5 +194,16 @@ export class ArticleService {
     return this.articles.filter(article => {
       return article.title.includes(title);
     });
+  }
+
+  public deleteTagFromArticle(articleId, tagId) {
+    const article = this.get(articleId);
+    const tagIndex = article.tags.findIndex(t => t === tagId);
+    article.tags.splice(tagIndex, 1);
+  }
+
+  public addTagToArticle(articleId: number, tagId: number) {
+    const article = this.get(articleId);
+    article.tags.push(tagId);
   }
 }

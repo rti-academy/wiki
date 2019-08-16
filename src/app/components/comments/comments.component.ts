@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { CommentsService } from '@app/services/comments.service';
 import { Comment } from '@app/models/comment';
 
@@ -7,7 +7,8 @@ import { Comment } from '@app/models/comment';
     templateUrl: './comments.component.html',
     styleUrls: ['./comments.component.css']
 })
-export class CommentsComponent implements OnInit {
+export class CommentsComponent implements OnInit, OnChanges {
+
     public comments: Comment[];
 
     public commentText = '';
@@ -19,6 +20,10 @@ export class CommentsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.comments = this.commentService.getCommentsByArticleId(this.articleId);
+    }
+
+    ngOnChanges(): void {
         this.comments = this.commentService.getCommentsByArticleId(this.articleId);
     }
 
