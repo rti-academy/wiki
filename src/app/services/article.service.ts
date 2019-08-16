@@ -152,7 +152,7 @@ export class ArticleService {
   public articles: Article[] = mockArticles;
   public update: EventEmitter<any> = new EventEmitter();
 
-  public add({ title, content, parentId }: AddParams): void {
+  public add({ title, content, parentId }: AddParams) {
     const id = ++this.counter;
     const creationTime = new Date();
     const updateTime = creationTime;
@@ -160,6 +160,7 @@ export class ArticleService {
     const tags: number[] = [];
     this.articles.push({ id, title, content, parentId, creationTime, updateTime, version, tags });
     this.update.emit();
+    return id;
   }
 
   public edit(id: number, params: Partial<AddParams>): void {
