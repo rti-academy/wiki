@@ -21,12 +21,5 @@ export class ArticleComponent implements OnInit {
       this.article = this.articleService.articles[+params.get('id') - 1];
     });
   }
-
-  private addChildArticle() {
-    this.articleService.add({
-      title: '',
-      content: '',
-      parentId: this.article.id,
-    });
-  }
+  
 }
