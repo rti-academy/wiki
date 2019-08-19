@@ -2,9 +2,11 @@
   <input [(ngModel)]="title" matInput placeholder="Заголовок">
 </mat-form-field>
 
-<mat-form-field class="example-full-width text-field">
+<!-- <mat-form-field class="example-full-width text-field">
   <textarea [(ngModel)]="content" matInput class="textarea"></textarea>
-</mat-form-field>
+</mat-form-field> -->
+
+<quill-editor [(ngModel)]="content"></quill-editor>
 
 <div class="btn-contols">
   <button (click)="save();" mat-raised-button color="primary" class="button">

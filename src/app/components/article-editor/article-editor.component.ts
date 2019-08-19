@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ArticleEditorComponent implements OnInit {
 
   private id: number;
-  private title= '';
+  private title = '';
   private content = '';
   private action: string;
 
@@ -39,7 +39,7 @@ export class ArticleEditorComponent implements OnInit {
         title: this.title,
         content: this.content,
       });
-  };
+  }
 
   private addChildArticle() {
     this.id = this.articleService.add({
@@ -58,7 +58,3 @@ export class ArticleEditorComponent implements OnInit {
   }
 
 }
-
-// const article = this.articleService.get(this.id);
-// this.articleService.delete(this.id);
-// this.id = article.parentId;
