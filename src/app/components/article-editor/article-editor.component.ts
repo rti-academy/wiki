@@ -14,6 +14,13 @@ export class ArticleEditorComponent implements OnInit {
   private content = '';
   private action: string;
 
+  private quillConfig = {
+    toolbar: [
+      ['bold', 'italic', 'underline'],
+      [{'align': []}],
+    ]
+  };
+
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
