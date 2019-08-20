@@ -17,7 +17,13 @@ export class ArticleEditorComponent implements OnInit {
   private quillConfig = {
     toolbar: [
       ['bold', 'italic', 'underline'],
-      [{'align': []}],
+      ['blockquote'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'align': [] }],
+      [{ 'size': ['small', 'large', 'huge'] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6] }],
+      [{ 'font': [] }],
+      ['link', 'image'],
     ]
   };
 

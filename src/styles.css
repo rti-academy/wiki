@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~normalize.css";
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+/* @import "../node_modules/quill/dist/quill.core.css"; */
+@import "../node_modules/quill/dist/quill.snow.css";
 
 html {
   height: 100%;
@@ -42,4 +44,16 @@ h4 {
 }
 code {
   font-family: "Roboto", sans-serif;
+}
+
+.ql-align-justify {
+  text-align: justify;
+}
+
+.ql-align-right {
+  text-align: right;
+}
+
+.ql-align-center {
+  text-align: center;
 }
