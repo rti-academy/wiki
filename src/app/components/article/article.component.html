@@ -11,8 +11,8 @@
       <br>
       Последнее обновление: {{ article.updateTime | date: "dd.MM.yyyy HH:mm" }}      
     </div>
-    <div class="content" markdown>
-      {{ article.content }}
+    <div class="content" markdown [data]="article.content ">
+      
     </div>
   </div>
 
