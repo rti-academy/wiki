@@ -47,20 +47,6 @@ import { ArticleSearchComponent } from './components/article-search/article-sear
     MatMenuModule,
     FormsModule,
     QuillModule.forRoot(),
-    // QuillModule.forRoot({
-    //   modules: {
-    //     placeholder: 'none',
-    //     toolbar: [
-    //       ['bold', 'italic', 'underline'],
-    //       [
-    //         {'align': ''},
-    //         {'align': 'center'},
-    //         {'align': 'right'},
-    //       ],
-    //       [{'header': [1, 2, 3, 4, 5, 6, false]}],
-    //     ],
-    //   }
-    // }),
     MatChipsModule,
     MatIconModule,
     MatFormFieldModule,

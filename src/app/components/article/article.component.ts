@@ -21,5 +21,5 @@ export class ArticleComponent implements OnInit {
       this.article = this.articleService.articles[+params.get('id') - 1];
     });
   }
-  
+
 }
