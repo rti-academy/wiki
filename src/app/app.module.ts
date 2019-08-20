@@ -13,6 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatTreeModule} from '@angular/material/tree';
 
 import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
@@ -25,6 +26,7 @@ import { TagsComponent } from './components/tags/tags.component';
 import { ArticleEditorComponent } from './components/article-editor/article-editor.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { ArticleSearchComponent } from './components/article-search/article-search.component';
+import { RubricComponent } from './components/rubric/rubric.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { ArticleSearchComponent } from './components/article-search/article-sear
     TagsComponent,
     ArticleEditorComponent,
     ArticleSearchComponent,
+    RubricComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { ArticleSearchComponent } from './components/article-search/article-sear
       { path: 'articles/:id/:action', component: ArticleEditorComponent },
     ]),
     MarkdownModule.forRoot(),
+    MatTreeModule,
   ],
   providers: [
     CommentsService,
