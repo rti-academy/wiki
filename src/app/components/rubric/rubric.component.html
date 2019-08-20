@@ -4,6 +4,8 @@
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
     <li class="mat-tree-node">
       <a class="heading-link"
+      [matTooltip]="node.title"
+      matTooltipPosition="after"
       [routerLink]="['articles', node.id]"
       routerLinkActive="selected">
       {{ node.title }}

@@ -14,6 +14,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
@@ -39,6 +40,7 @@ import { RubricComponent } from './components/rubric/rubric.component';
     ArticleEditorComponent,
     ArticleSearchComponent,
     RubricComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -62,6 +64,7 @@ import { RubricComponent } from './components/rubric/rubric.component';
     ]),
     MarkdownModule.forRoot(),
     MatTreeModule,
+    MatTooltipModule,
   ],
   providers: [
     CommentsService,
