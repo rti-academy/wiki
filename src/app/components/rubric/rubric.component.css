@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  padding: 0 24px;
+}
+.tree-invisible {
+  display: none;
+}
+
+.tree ul{
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  
+}
+.tree li {
+  list-style: none;
+  padding: 0 0 0 12px;
+  
+}
+
+.heading-link {
+  color: #222;
+  text-decoration: none;
+  padding: 12px 24px;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+
+.heading-link:hover {
+  text-decoration: underline;
+}
+.selected {
+  font-weight: bold;
+}
