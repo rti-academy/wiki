@@ -4,7 +4,6 @@
       {{ article.title }}
     </h1>
   </div>
-
   
   <div>
     <div class="info">
@@ -12,7 +11,8 @@
       <br>
       Последнее обновление: {{ article.updateTime | date: "dd.MM.yyyy HH:mm" }}      
     </div>
-    <div class="content" markdown [data] = 'article.content'>
+    <div class="content" markdown>
+      {{ article.content }}
     </div>
   </div>
 

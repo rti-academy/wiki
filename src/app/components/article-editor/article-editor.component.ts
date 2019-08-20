@@ -10,9 +10,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ArticleEditorComponent implements OnInit {
 
   private id: number;
-  private title= '';
+  private title = '';
   private content = '';
   private action: string;
+
+  private quillConfig = {
+    toolbar: [
+      ['bold', 'italic', 'underline'],
+      ['blockquote'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'align': [] }],
+      [{ 'size': ['small', 'large', 'huge'] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6] }],
+      [{ 'font': [] }],
+      ['link', 'image'],
+    ]
+  };
 
   constructor(
     private articleService: ArticleService,
@@ -39,7 +52,7 @@ export class ArticleEditorComponent implements OnInit {
         title: this.title,
         content: this.content,
       });
-  };
+  }
 
   private addChildArticle() {
     this.id = this.articleService.add({
@@ -58,7 +71,3 @@ export class ArticleEditorComponent implements OnInit {
   }
 
 }
-
-// const article = this.articleService.get(this.id);
-// this.articleService.delete(this.id);
-// this.id = article.parentId;

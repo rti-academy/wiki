@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
@@ -45,6 +46,21 @@ import { ArticleSearchComponent } from './components/article-search/article-sear
     MatIconModule,
     MatMenuModule,
     FormsModule,
+    QuillModule.forRoot(),
+    // QuillModule.forRoot({
+    //   modules: {
+    //     placeholder: 'none',
+    //     toolbar: [
+    //       ['bold', 'italic', 'underline'],
+    //       [
+    //         {'align': ''},
+    //         {'align': 'center'},
+    //         {'align': 'right'},
+    //       ],
+    //       [{'header': [1, 2, 3, 4, 5, 6, false]}],
+    //     ],
+    //   }
+    // }),
     MatChipsModule,
     MatIconModule,
     MatFormFieldModule,
