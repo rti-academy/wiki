@@ -46,14 +46,10 @@ code {
   font-family: "Roboto", sans-serif;
 }
 
-.ql-align-justify {
-  text-align: justify;
+quill-view .ql-editor {
+  padding: 0;
 }
 
-.ql-align-right {
-  text-align: right;
-}
-
-.ql-align-center {
-  text-align: center;
+quill-editor .ql-container {
+  height: 650px;
 }
