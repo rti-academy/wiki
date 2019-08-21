@@ -37,12 +37,12 @@ export class ArticleEditorComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.action = params.get('action');
       this.id = +params.get('id');
-      const article = this.articleService.get(this.id);
+      const article = this.articleService.getById(this.id);
 
-      if (this.action === 'edit') {
-        this.title = article.title;
-        this.content = article.content;
-      }
+      // if (this.action === 'edit') {
+      //   this.title = article.title;
+      //   this.content = article.content;
+      // }
     });
   }
 

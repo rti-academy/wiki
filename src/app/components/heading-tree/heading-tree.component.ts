@@ -23,15 +23,15 @@ export class HeadingTreeComponent implements OnInit {
   constructor(private articleService: ArticleService, private router: Router) { }
 
   ngOnInit() {
-    this.articleTree = new ArticlesTree(this.articleService.getAll());
-    this.articleService.update.subscribe(
-      () => this.articleTree = new ArticlesTree(this.articleService.getAll())
-    );
-    this.id = this.getIdFromUrl()
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {this.id = this.getIdFromUrl();
-        console.log(this.id);});
+    // this.articleTree = new ArticlesTree(this.articleService.getAll());
+    // this.articleService.update.subscribe(
+    //   () => this.articleTree = new ArticlesTree(this.articleService.getAll())
+    // );
+    // this.id = this.getIdFromUrl()
+    // this.router.events
+    //   .pipe(filter(event => event instanceof NavigationEnd))
+    //   .subscribe(() => {this.id = this.getIdFromUrl();
+    //     console.log(this.id);});
       
   }
 

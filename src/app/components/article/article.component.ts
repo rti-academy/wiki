@@ -21,7 +21,8 @@ export class ArticleComponent implements OnInit {
       this.articleService.getById(+params.get('id'))
         .subscribe((response: any) => {
           this.article = response.article;
-          this.article.creationTime = new Date(response.creationTime);
+          this.article.creationTime = new Date(this.article.creationTime);
+          this.article.updateTime = this.article.creationTime;
         });
     });
   }
