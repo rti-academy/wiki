@@ -3,6 +3,7 @@ upstream node_backend_app {
 }
 
 server {
+
     listen 80 default_server;
     listen [::]:80 default_server;
 
