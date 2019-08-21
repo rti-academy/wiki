@@ -1,0 +1,37 @@
+upstream node_backend_app {
+    server 127.0.0.1:3000;
+}
+
+server {
+
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /home/gorod/wiki/dist/wiki;
+
+    index index.html;
+
+    server_name _;
+
+    access_log                  /var/log/nginx/wiki.access.log combined;
+    error_log                   /var/log/nginx/wiki.error.log warn;
+
+    charset                     utf-8;
+    client_max_body_size        100M;
+    client_body_buffer_size     100M;
+
+    location /api/ {
+        proxy_set_header        X-Real-IP $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        Host $http_host;
+        proxy_set_header        X-NginX-Proxy true;
+
+        proxy_pass              http://node_backend_app;
+        proxy_redirect          off;
+    }
+
+    location / {
+            try_files $uri $uri/ /index.html;
+    }
+
+}
