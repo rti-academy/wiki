@@ -17,32 +17,34 @@ body {
   color: #5f6368;
   
 }
-
-h1 {
+.ql-container {
+  font-size: 16px;
+}
+.ql-snow .ql-editor h1 {
   font-size: 48px;
   margin: 0;
   font-weight: 400;
 }
 
-h2 {
+.ql-snow .ql-editor h2 {
   font-size: 34px;
   margin: 0;
   font-weight: 400;
   letter-spacing: 0.25;
 }
 
-h3 {
+.ql-snow .ql-editor h3 {
   font-size: 24px;
   margin: 0;
   font-weight: 400;
 }
-h4 {
+.ql-snow .ql-editor h4 {
   font-size: 20px;
   margin:0;
   font-weight: 400;
   letter-spacing: 0.15;
 }
-code {
+.ql-snow .ql-editor p {
   font-family: "Roboto", sans-serif;
 }
 
