@@ -1,0 +1,13 @@
+<div class="comment">
+    <div class="comment-controls">
+        <button mat-icon-button mat-button [matMenuTriggerFor]="beforeMenu">
+            <mat-icon>more_horiz</mat-icon>
+        </button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item disabled>Редактировать</button>
+            <button mat-menu-item disabled>Удалить</button>
+        </mat-menu>
+    </div>
+    <p class="comment-date">{{ comment.publishDate | date:'d.MM.yyyy HH:mm' }}</p>
+    <p class="comment-text">{{ comment.text }}</p>
+</div>
