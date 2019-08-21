@@ -117,26 +117,27 @@ export class ArticleService {
   }
 
   public edit(id: number, params: Partial<AddParams>): void {
-    this.articles.forEach((article, index) => {
-      if (article.id === id) {
-        const version = article.version + 1;
-        const updateTime = new Date();
-        this.articles[index] = { ...article, ...params, version, updateTime };
-      }
-    });
-    this.update.emit();
+    // this.articles.forEach((article, index) => {
+    //   if (article.id === id) {
+    //     const version = article.version + 1;
+    //     const updateTime = new Date();
+    //     this.articles[index] = { ...article, ...params, version, updateTime };
+    //   }
+    // });
+    // this.update.emit();
+    console.log(id);
+    this.http.put(
+      `/api/article/${id}`,
+      {article: {title: 'new test'}},
+    ).subscribe();
   }
-
-  // public get(id: number): Article {
-  //   return this.articles.find(article => article.id === id);
-  // }
 
   public getById(id: number) {
     return this.http.get(`/api/article/${id}`);
   }
 
   public getAll() {
-    // return this.articles;
+    return this.http.get('/api/article');
   }
 
   public delete(id: number): void {
@@ -153,16 +154,16 @@ export class ArticleService {
       : [];
   }
 
-  public deleteTagFromArticle(articleId, tagId) {
-    const article = this.get(articleId);
-    const tagIndex = article.tags.findIndex(t => t === tagId);
-    article.tags.splice(tagIndex, 1);
-  }
+  // public deleteTagFromArticle(articleId, tagId) {
+  //   const article = this.get(articleId);
+  //   const tagIndex = article.tags.findIndex(t => t === tagId);
+  //   article.tags.splice(tagIndex, 1);
+  // }
 
-  public addTagToArticle(articleId: number, tagId: number) {
-    const article = this.get(articleId);
-    article.tags.push(tagId);
-  }
+  // public addTagToArticle(articleId: number, tagId: number) {
+  //   const article = this.get(articleId);
+  //   article.tags.push(tagId);
+  // }
 
   private getArticleTags(article: Article): Tag[] {
     const result: Tag[] = [];
