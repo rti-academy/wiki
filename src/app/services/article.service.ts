@@ -2,6 +2,7 @@ import { Article } from '../models/article';
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Tag } from '@app/models/tag';
 import { TagService } from './tag.service';
 
@@ -133,7 +134,10 @@ export class ArticleService {
   }
 
   public getById(id: number) {
-    return this.http.get(`/api/article/${id}`);
+    return this.http.get(`/api/article/${id}`)
+      .pipe(catchError((error): any => {
+        window.alert(`Не существует статьи по адресу ${error.url}. Ошибка ${error.status}`);
+      }));
   }
 
   public getAll() {
