@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ArticleService } from '@app/services/article.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -31,19 +32,25 @@ export class ArticleEditorComponent implements OnInit {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
+    private location: Location,
   ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.action = params.get('action');
       this.id = +params.get('id');
-      const article = this.articleService.get(this.id);
-
-      if (this.action === 'edit') {
-        this.title = article.title;
-        this.content = article.content;
-      }
+      this.articleService.getById(this.id)
+        .subscribe((response: any) => {
+          if (this.action === 'edit') {
+            this.title = response.article.title;
+            this.content = response.article.content;
+          }
+        });
     });
+  }
+
+  private goBack(): void {
+    this.location.back();
   }
 
   private saveChange() {
@@ -51,23 +58,22 @@ export class ArticleEditorComponent implements OnInit {
       this.id, {
         title: this.title,
         content: this.content,
-      });
+      }).subscribe(() => this.goBack());
   }
 
-  private addChildArticle() {
-    this.id = this.articleService.add({
-      title: '',
-      content: '',
-      parentId: this.id,
-    });
-  }
+  // private addArticle() {
+  //   this.id = this.articleService.add({
+  //     title: '',
+  //     content: '',
+  //     parentId: this.id,
+  //   });
+  // }
 
   private save() {
-    if (this.action === 'add') {
-      this.addChildArticle();
+    if (this.action === 'edit') {
+      this.saveChange();
     }
-    this.saveChange();
-    this.router.navigate([`/articles/${this.id}`]);
+    // this.router.navigate([`/articles/${this.id}`]);
   }
 
 }

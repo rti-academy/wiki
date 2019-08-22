@@ -21,6 +21,6 @@ export class RubricService {
   }
 
   public getChildren(id: number) {
-    return this.articleService.getAll().filter(article => article.parentId === id);
+    // return this.articleService.getAll().filter(article => article.parentId === id);
   }
 }

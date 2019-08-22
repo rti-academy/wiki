@@ -18,7 +18,11 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.article = this.articleService.articles[+params.get('id') - 1];
+      this.articleService.getById(+params.get('id'))
+        .subscribe((response: any) => {
+          this.article = response.article;
+          this.article.updateTime = new Date(this.article.updateTime);
+        });
     });
   }
 

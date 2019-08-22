@@ -25,13 +25,13 @@ export class ArticleSearchComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.filteredArticles = this.searchControl.valueChanges
-            .pipe(
-                map(value => typeof value === 'string' ? value : value.title),
-                map(value => {
-                    return this.articleService.search(value);
-                })
-            );
+        // this.filteredArticles = this.searchControl.valueChanges
+        //     .pipe(
+        //         map(value => typeof value === 'string' ? value : value.title),
+        //         map(value => {
+        //             return this.articleService.search(value);
+        //         })
+        //     );
     }
 
     selected(event: MatAutocompleteSelectedEvent): void {

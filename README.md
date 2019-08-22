@@ -1,27 +1,34 @@
 # Wiki
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.1.
+## Необходимое ПО
 
-## Development server
+- nginx 1.10.x
+- node 10.x
+- npm 6.x
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Разработка
 
-## Code scaffolding
+### Запуск сервера
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Запусить `ng serve`, открыть `http://localhost:4200/` в браузере
 
-## Build
+## Деплой
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- Собрать проект
+- Раздать статику из директории `dist/` при помощи `nginx`
 
-## Running unit tests
+### Установка зависимостей
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+npm install
+```
 
-## Running end-to-end tests
+### Сборка
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Для сборки проекта запустить `npm run build`. Результаты сборки появятся в директории `dist/`
 
-## Further help
+<!-- Для продакшен-сборки запустить `ng build --prod` -->
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Настройка nginx
+
+Образец конфига nginx лежит в директории `environment/nginx/`
