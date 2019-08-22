@@ -1,0 +1,29 @@
+<div class="comment" (mouseenter)="commentHover=true" (mouseleave)="commentHover=false">
+    <div class="comment-controls">
+        <button mat-icon-button mat-button [matMenuTriggerFor]="beforeMenu" [class.hidden]="!((commentHover||menuUp)&&!editing)"
+        (menuOpened)="menuUp=true"
+        (menuClosed)="menuUp=false">
+            <mat-icon>more_horiz</mat-icon>
+        </button>
+        <mat-menu 
+            #beforeMenu="matMenu"
+            xPosition="before">
+            <button mat-menu-item (click)="edit()">Редактировать</button>
+            <button mat-menu-item (click)="delete()">Удалить</button>
+        </mat-menu>
+    </div>
+    <p class="comment-date">{{ comment.publishDate | date:'d.MM.yyyy HH:mm' }}</p>
+    <ng-container *ngIf="editing; else commentText">
+        <form >
+            <mat-form-field class="comment-field">
+                <textarea matInput placeholder="Отредактировать комментарий" [formControl]="commentTextField" cdkTextareaAutosize></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="button" (click)="save()">Сохранить</button>
+            <button mat-raised-button class="button" (click)="editing=false">Отмена</button>
+        </form>
+    </ng-container>
+</div>
+
+<ng-template #commentText>
+    <p class="comment-text">{{ comment.text }}</p>
+</ng-template>

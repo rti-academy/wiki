@@ -1,67 +1,47 @@
 import { Comment } from '@app/models/comment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 export interface AddParams {
     articleId: number;
     text: string;
 }
 
+interface EditParams {
+    id: number;
+    text: string;
+}
+
+interface AddResponse { id: number; }
+
+const BASE_COMMENT_URL = '/api/comment';
+
 export class CommentsService {
-    private comments: Comment[];
-    private counter = 0;
 
-    constructor() {
-        this.comments = this.getMockComments();
+    constructor(
+        private httpClient: HttpClient,
+    ) {
     }
 
-    public add(params: AddParams): void {
-        const id = this.incrementCounter();
-        const publishDate = new Date();
-        this.comments.push({ id, publishDate, ...params });
+    public add(params: AddParams): Observable<AddResponse> {
+        return this.httpClient.post<AddResponse>(BASE_COMMENT_URL, { comment: params });
     }
 
-    public delete(commentId: number): void {
-        const index = this.comments.findIndex(c => c.id === commentId);
-        this.comments.splice(index, 1);
+    public delete(commentId: number): Observable<unknown> {
+        return this.httpClient.delete(`${BASE_COMMENT_URL}/${commentId}`);
     }
 
-    public getComments(): Comment[] {
-        return this.comments;
+    public getCommentsByArticleId(articleId: number): Observable<Comment[]>  {
+        return this.httpClient.get(BASE_COMMENT_URL, {
+            params: new HttpParams()
+                .set('articleId', articleId.toString())
+        }).pipe(
+            map((response: any) => response.comments)
+        );
     }
 
-    public getCommentsByArticleId(articleId: number): Comment[] {
-        return this.comments.filter(c => c.articleId === articleId);
-    }
-
-    public edit(comment: Comment): void {
-        const index = this.comments.findIndex(c => c.id === comment.id);
-        this.comments[index] = comment;
-    }
-
-    private getMockComments(): Comment[] {
-        return [
-            {
-                id: this.incrementCounter(),
-                articleId: 1,
-                publishDate: new Date(),
-                text: 'Подскажите, пожалуйста, автора статьи',
-            },
-            {
-                id: this.incrementCounter(),
-                articleId: 1,
-                publishDate: new Date(),
-                text: 'Начало координат однородно отображает тригонометрический интеграл Дирихле, что несомненно приведет нас к истине.',
-            },
-            {
-                id: this.incrementCounter(),
-                articleId: 1,
-                publishDate: new Date(),
-                // tslint:disable-next-line:max-line-length
-                text: 'Дистинкция творит данный бабувизм. Искусство, конечно, рефлектирует напряженный конфликт. Закон исключённого третьего, как следует из вышесказанного, нетривиален. Акциденция порождена временем. Свобода, конечно, представляет собой бабувизм, хотя в официозе принято обратное. Аналогия транспонирует интеллект.',
-            },
-        ];
-    }
-
-    private incrementCounter(): number {
-        return ++this.counter;
+    public edit(params: EditParams): Observable<unknown> {
+        return this.httpClient.put(`${BASE_COMMENT_URL}/${params.id}`, { comment: { text: params.text } });
     }
 }
