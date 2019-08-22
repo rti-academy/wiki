@@ -11,7 +11,7 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
-  private article: Article;
+  public article: Article;
 
   constructor(
     private router: Router,
@@ -20,7 +20,7 @@ export class ArticleComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
       if (id) {
@@ -33,7 +33,7 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-  private openDeleteDialog(): void {
+  public openDeleteDialog(): void {
     const dialogRef = this.dialog.open(
       DeleteDialogComponent,
       {width: '400px'},
