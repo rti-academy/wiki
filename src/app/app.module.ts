@@ -28,6 +28,7 @@ import { TagsComponent } from './components/tags/tags.component';
 import { ArticleEditorComponent } from './components/article-editor/article-editor.component';
 import { ArticleSearchComponent } from './components/article-search/article-search.component';
 import { RubricComponent } from './components/rubric/rubric.component';
+import { CommentComponent } from './components/comments/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { RubricComponent } from './components/rubric/rubric.component';
     ArticleEditorComponent,
     ArticleSearchComponent,
     RubricComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,

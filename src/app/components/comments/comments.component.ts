@@ -7,9 +7,9 @@ import { Comment } from '@app/models/comment';
     templateUrl: './comments.component.html',
     styleUrls: ['./comments.component.css']
 })
-export class CommentsComponent implements OnInit, OnChanges {
+export class CommentsComponent implements OnChanges {
 
-    public comments: Comment[];
+    public comments: Comment[] = [];
 
     public commentText = '';
 
@@ -19,31 +19,23 @@ export class CommentsComponent implements OnInit, OnChanges {
     constructor(private commentService: CommentsService) {
     }
 
-    ngOnInit() {
-        this.comments = this.commentService.getCommentsByArticleId(this.articleId);
-    }
-
     ngOnChanges(): void {
-        this.comments = this.commentService.getCommentsByArticleId(this.articleId);
+        this.comments = [];
+        this.updateComments();
     }
 
-    addComment() {
+    public addComment() {
+        if (this.commentText) {
+            this.commentService.add({
+                articleId: this.articleId,
+                text: this.commentText
+            }).subscribe(this.updateComments);
 
-        this.commentService.add({
-            articleId: this.articleId,
-            text: this.commentText
-        });
-
-        this.comments = this.commentService.getCommentsByArticleId(this.articleId);
-
-        this.resetCommentField();
+            this.resetCommentField();
+        }
     }
 
-    private resetCommentField() {
-        this.commentText = '';
-    }
-
-    public getCommentCaption() {
+    public getCommentCaption(): string {
         const variants: string[] = ['комментарий', 'комментария', 'комментариев'];
         const lastTenDigits = Math.abs(this.comments.length) % 100;
         const lastDigit = lastTenDigits % 10;
@@ -51,5 +43,19 @@ export class CommentsComponent implements OnInit, OnChanges {
         if (lastDigit > 1 && lastDigit < 5) { return variants[1]; }
         if (lastDigit === 1) { return variants[0]; }
         return variants[2];
+    }
+
+    public handleCommentDelete(deletedComment: Comment) {
+        const index = this.comments.findIndex(c => c.id === deletedComment.id);
+        this.comments.splice(index, 1);
+    }
+
+    private updateComments = () => {
+        this.commentService.getCommentsByArticleId(this.articleId)
+            .subscribe(comments => this.comments = comments);
+    }
+
+    private resetCommentField() {
+        this.commentText = '';
     }
 }
