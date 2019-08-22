@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Comment } from '@app/models/comment';
 import { FormControl } from '@angular/forms';
+import { CommentsService } from '@app/services/comments.service';
 
 @Component({
   selector: 'app-comment',
@@ -17,14 +18,20 @@ export class CommentComponent implements OnInit {
   @Input()
   public comment: Comment;
 
-  constructor() {
+  @Output()
+  public commentDelete = new EventEmitter();
+
+  constructor(
+    private commentService: CommentsService
+  ) {
   }
 
   ngOnInit() {
   }
 
   public delete() {
-    console.log(`delete ${this.comment.id}`);
+    this.commentService.delete(this.comment.id)
+      .subscribe(() => this.commentDelete.emit(this.comment));
   }
 
   public edit() {
@@ -34,6 +41,8 @@ export class CommentComponent implements OnInit {
 
   public save() {
     this.editing = false;
-    this.comment.text = this.commentTextField.value; // TODO: Send to backend
+    this.comment.text = this.commentTextField.value;
+    this.commentService.edit(this.comment)
+      .subscribe(() => {});
   }
 }

@@ -1,6 +1,6 @@
 <div *ngIf="comments.length > 0">
     <p class="caption">{{ comments.length + ' ' + getCommentCaption() }}</p>
-    <app-comment *ngFor="let comment of comments;" [comment]="comment"></app-comment>
+    <app-comment *ngFor="let comment of comments;" [comment]="comment" (commentDelete)="handleCommentDelete($event)"></app-comment>
 </div>
 <mat-form-field class="comment-field">
     <textarea matInput placeholder="Написать комментарий" [(ngModel)]="commentText" cdkTextareaAutosize
