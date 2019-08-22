@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ArticleService } from '@app/services/article.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-editor',
@@ -33,6 +33,7 @@ export class ArticleEditorComponent implements OnInit {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private location: Location,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -64,10 +65,28 @@ export class ArticleEditorComponent implements OnInit {
       }).subscribe(() => this.goBack());
   }
 
+  private createArticle() {
+    this.articleService.add({
+      title: this.title,
+      content: this.content,
+      parentId: this.parentId,
+      type: 'note',
+    }).subscribe((response: any) => {
+      console.log(response.id);
+      this.router.navigateByUrl(`/articles/${response.id}`)
+        .then(() => {
+          window.location.reload(); // Временный костыль
+        });
+    });
+  }
 
   private save() {
     if (this.action === 'edit') {
       this.saveChange();
+    }
+
+    if (this.action === 'add') {
+      this.createArticle();
     }
   }
 
