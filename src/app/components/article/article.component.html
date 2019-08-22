@@ -1,8 +1,28 @@
 <div class="article" *ngIf="article; else elseBlock">
-  <div>
+  <div class = header-container>
     <h1 class="title">
       {{ article.title }}
     </h1>
+  <div class="btn-controls">    
+      <button mat-icon-button mat-button [matMenuTriggerFor]="beforeMenu">
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+  
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button mat-menu-item [routerLink]="['/articles', article.id, 'edit']">
+          <mat-icon>create</mat-icon>
+          Редактировать
+        </button>
+        <button mat-menu-item>
+          <mat-icon>subdirectory_arrow_right</mat-icon>
+          Переместить
+        </button>
+        <button mat-menu-item (click)="openDeleteDialog()">
+          <mat-icon>delete</mat-icon>
+          Удалить
+        </button>
+      </mat-menu>  
+    </div>
   </div>
   
   <div class="content">
@@ -15,28 +35,7 @@
 
   </div>
 
-  <div class="btn-controls">
-    
-    <button mat-icon-button mat-button [matMenuTriggerFor]="beforeMenu">
-      <mat-icon>more_horiz</mat-icon>
-    </button>
 
-    <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <button mat-menu-item [routerLink]="['/articles', article.id, 'edit']">
-        <mat-icon>create</mat-icon>
-        Редактировать
-      </button>
-      <button mat-menu-item>
-        <mat-icon>subdirectory_arrow_right</mat-icon>
-        Переместить
-      </button>
-      <button mat-menu-item (click)="openDeleteDialog()">
-        <mat-icon>delete</mat-icon>
-        Удалить
-      </button>
-    </mat-menu>
-
-  </div>
 
   <app-tags [articleId]="article.id"></app-tags>
 
