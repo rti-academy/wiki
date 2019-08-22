@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ArticleService } from '@app/services/article.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-editor',
@@ -11,8 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 export class ArticleEditorComponent implements OnInit {
 
   private id: number;
-  private title = '';
-  private content = '';
+  private parentId: number;
+  private title: string;
+  private content: string;
   private action: string;
 
   private quillConfig = {
@@ -32,19 +33,25 @@ export class ArticleEditorComponent implements OnInit {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private location: Location,
+    private router: Router,
   ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.action = params.get('action');
-      this.id = +params.get('id');
-      this.articleService.getById(this.id)
-        .subscribe((response: any) => {
-          if (this.action === 'edit') {
+      if (this.action === 'edit') {
+        this.id = +params.get('id');
+        this.articleService.getById(this.id)
+          .subscribe((response: any) => {
             this.title = response.article.title;
             this.content = response.article.content;
-          }
-        });
+          });
+      }
+      if (this.action === 'add') {
+        this.parentId = +params.get('id');
+        this.title = '';
+        this.content = '';
+      }
     });
   }
 
@@ -60,17 +67,28 @@ export class ArticleEditorComponent implements OnInit {
       }).subscribe(() => this.goBack());
   }
 
-  // private addArticle() {
-  //   this.id = this.articleService.add({
-  //     title: '',
-  //     content: '',
-  //     parentId: this.id,
-  //   });
-  // }
+  private createArticle() {
+    this.articleService.add({
+      title: this.title,
+      content: this.content,
+      parentId: this.parentId,
+      type: 'note',
+    }).subscribe((response: any) => {
+      console.log(response.id);
+      this.router.navigateByUrl(`/articles/${response.id}`)
+        .then(() => {
+          window.location.reload(); // Временный костыль
+        });
+    });
+  }
 
   private save() {
     if (this.action === 'edit') {
       this.saveChange();
+    }
+
+    if (this.action === 'add') {
+      this.createArticle();
     }
   }
 
