@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
@@ -30,6 +31,7 @@ import { ArticleSearchComponent } from './components/article-search/article-sear
 import { RubricComponent } from './components/rubric/rubric.component';
 import { CommentComponent } from './components/comments/comment/comment.component';
 
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +44,7 @@ import { CommentComponent } from './components/comments/comment/comment.componen
     ArticleSearchComponent,
     RubricComponent,
     CommentComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { CommentComponent } from './components/comments/comment/comment.componen
     MatIconModule,
     MatFormFieldModule,
     MatAutocompleteModule,
+    MatDialogModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: ArticleComponent },
@@ -67,6 +71,9 @@ import { CommentComponent } from './components/comments/comment/comment.componen
     MatTreeModule,
     MatTooltipModule,
     HttpClientModule,
+  ],
+  entryComponents: [
+    DeleteDialogComponent,
   ],
   providers: [
     CommentsService,

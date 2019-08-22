@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ArticleService } from '@app/services/article.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-article-editor',
@@ -19,11 +19,11 @@ export class ArticleEditorComponent implements OnInit {
     toolbar: [
       ['bold', 'italic', 'underline'],
       ['blockquote'],
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      [{ 'align': [] }],
-      [{ 'size': ['small', 'large', 'huge'] }],
-      [{ 'header': [1, 2, 3, 4, 5, 6] }],
-      [{ 'font': [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ align: [] }],
+      [{ size: ['small', 'large', 'huge'] }],
+      [{ header: [1, 2, 3, 4, 5, 6] }],
+      [{ font: [] }],
       ['link', 'image'],
     ]
   };
@@ -31,7 +31,6 @@ export class ArticleEditorComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
-    private router: Router,
     private location: Location,
   ) { }
 
@@ -73,7 +72,6 @@ export class ArticleEditorComponent implements OnInit {
     if (this.action === 'edit') {
       this.saveChange();
     }
-    // this.router.navigate([`/articles/${this.id}`]);
   }
 
 }
