@@ -25,13 +25,8 @@
     </button>
 
     <mat-menu #beforeMenu="matMenu" xPosition="before">
-<<<<<<< HEAD
-      <button mat-menu-item disabled>Удалить</button>
-      <button mat-menu-item disabled>Переместить</button>
-=======
       <button mat-menu-item (click)="openDeleteDialog()">Удалить</button>
       <button mat-menu-item>Переместить</button>
->>>>>>> 18: Install MatDialogModule in app
       <button mat-menu-item [routerLink]="['/articles', article.id, 'add']">
         Добавить дочернюю страницу
       </button>
