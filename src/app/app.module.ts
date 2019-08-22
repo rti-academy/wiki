@@ -64,6 +64,7 @@ import { RubricComponent } from './components/rubric/rubric.component';
     ]),
     MatTreeModule,
     MatTooltipModule,
+    HttpClientModule,
   ],
   providers: [
     CommentsService,

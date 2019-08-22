@@ -36,15 +36,15 @@ export class ArticleService {
     );
   }
 
+  public getAll() {
+    return this.http.get('api/article?type=note');
+  }
+
   public getById(id: number) {
     return this.http.get(`/api/article/${id}`)
       .pipe(catchError((error): any => {
         window.alert(`Не существует статьи по адресу ${error.url}. Ошибка ${error.status}`);
       }));
-  }
-
-  public getAll() {
-    return this.http.get('/api/article?type=note');
   }
 
   public delete(id: number) {
