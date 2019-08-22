@@ -3,11 +3,15 @@
 }
 
 .title {
+  flex:1;
   margin: 0;
-  font-size: 36px;
+  font-size: 60px;
   font-weight: 300;
 }
 
+.header-container {
+  display: flex;
+}
 .info {
   font-size: 12px;
   margin: 24px 0;
@@ -21,8 +25,6 @@
   margin: 24px 0;
 }
 
-.btn-controls {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
+ .btn-controls {
+  margin-left: 24px;
+} 
