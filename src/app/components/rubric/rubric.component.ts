@@ -56,6 +56,7 @@ export class RubricComponent implements OnInit {
         type: 'rubric',
       });
     });
+    this.expandActive();
   }
 
 
@@ -72,12 +73,12 @@ export class RubricComponent implements OnInit {
       });
   }
   private expandActive() {
-    // this.dataSource.data.forEach(node => {
-    //   if (node.children.filter(childNode => childNode.id === this.id).length !== 0) {
-    //     this.treeControl.expand(node);
-    //   }
-    // }
-    // );
+    this.dataSource.data.forEach(node => {
+      if (node.children.filter(childNode => childNode.id === this.id).length !== 0) {
+        this.treeControl.expand(node);
+      }
+    }
+    );
   }
   getIdFromUrl(): number {
     const parts = location.pathname.split('/');
