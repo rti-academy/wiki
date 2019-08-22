@@ -1,3 +1,7 @@
+.comment-field {
+  display: block;
+}
+
 .comment {
   box-sizing: border-box;
   padding: 6px 20px;
@@ -22,4 +26,12 @@
   position: absolute;
   top: 0;
   right: 20px;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.button {
+  margin-right: 24px;
 }
