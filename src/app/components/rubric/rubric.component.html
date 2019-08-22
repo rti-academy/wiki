@@ -1,8 +1,10 @@
-<p>78: ВОЕННОЕ ДЕЛО</p>
+<p class="hidden">78: ВОЕННОЕ ДЕЛО</p>
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="tree">
   <!-- This is the tree node template for leaf nodes -->
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+    
     <li class="mat-tree-node">
+      <button mat-icon-button disabled></button>
       <a class="heading-link"
       [matTooltip]="node.title"
       matTooltipPosition="after"
