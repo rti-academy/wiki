@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ArticleEditorComponent implements OnInit {
 
   private id: number;
+  private parentId: number;
   private title = '';
   private content = '';
   private action: string;
@@ -37,14 +38,17 @@ export class ArticleEditorComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.action = params.get('action');
-      this.id = +params.get('id');
-      this.articleService.getById(this.id)
-        .subscribe((response: any) => {
-          if (this.action === 'edit') {
+      if (this.action === 'edit') {
+        this.id = +params.get('id');
+        this.articleService.getById(this.id)
+          .subscribe((response: any) => {
             this.title = response.article.title;
             this.content = response.article.content;
-          }
-        });
+          });
+      }
+      if (this.action === 'add') {
+        this.parentId = +params.get('id');
+      }
     });
   }
 
@@ -60,13 +64,6 @@ export class ArticleEditorComponent implements OnInit {
       }).subscribe(() => this.goBack());
   }
 
-  // private addArticle() {
-  //   this.id = this.articleService.add({
-  //     title: '',
-  //     content: '',
-  //     parentId: this.id,
-  //   });
-  // }
 
   private save() {
     if (this.action === 'edit') {
