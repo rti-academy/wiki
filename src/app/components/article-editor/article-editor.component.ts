@@ -12,8 +12,8 @@ export class ArticleEditorComponent implements OnInit {
 
   private id: number;
   private parentId: number;
-  private title = '';
-  private content = '';
+  private title: string;
+  private content: string;
   private action: string;
 
   private quillConfig = {
@@ -49,6 +49,8 @@ export class ArticleEditorComponent implements OnInit {
       }
       if (this.action === 'add') {
         this.parentId = +params.get('id');
+        this.title = '';
+        this.content = '';
       }
     });
   }
