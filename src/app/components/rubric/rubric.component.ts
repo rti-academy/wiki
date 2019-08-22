@@ -33,7 +33,7 @@ export class RubricComponent implements OnInit {
       this.dataSource.data.push({
         id: rubric.id,
         title: rubric.title,
-        children: this.rubricService.getChildren(rubric.id)
+        // children: this.rubricService.getChildren(rubric.id)
       });
     });
     this.router.events
@@ -45,12 +45,12 @@ export class RubricComponent implements OnInit {
   }
 
   private expandActive() {
-    this.dataSource.data.forEach(node => {
-      if (node.children.filter(childNode => childNode.id === this.id).length !== 0) {
-        this.treeControl.expand(node);
-      }
-    }
-    );
+    // this.dataSource.data.forEach(node => {
+    //   if (node.children.filter(childNode => childNode.id === this.id).length !== 0) {
+    //     this.treeControl.expand(node);
+    //   }
+    // }
+    // );
   }
   getIdFromUrl(): number {
     const parts = location.pathname.split('/');

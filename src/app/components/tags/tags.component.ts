@@ -45,44 +45,44 @@ export class TagsComponent implements OnInit, OnChanges {
     value = value.trim();
 
     if ((value || '') && !this.isContainTag(value)) {
-      this.addTag(value);
+      // this.addTag(value);
       this.tagInputReset();
     }
   }
 
-  remove(tag: Tag): void {
-    this.articleService.deleteTagFromArticle(this.articleId, tag.id);
-    this.articleTags = this.getArticleTags(this.articleId);
-  }
+  // remove(tag: Tag): void {
+  //   this.articleService.deleteTagFromArticle(this.articleId, tag.id);
+  //   this.articleTags = this.getArticleTags(this.articleId);
+  // }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     const value = event.option.viewValue;
     if (!this.isContainTag(value)) {
-      this.addTag(value);
+      // this.addTag(value);
       this.tagInputReset();
     }
   }
 
   ngOnInit(): void {
-    this.filteredTags = this.tagCtrl.valueChanges
-      .pipe(
-        map(value => {
-          return this._filter(value);
-        })
-      );
-    this.articleTags = this.getArticleTags(this.articleId);
+    // this.filteredTags = this.tagCtrl.valueChanges
+    //   .pipe(
+    //     map(value => {
+    //       return this._filter(value);
+    //     })
+    //   );
+    // this.articleTags = this.getArticleTags(this.articleId);
   }
 
   ngOnChanges(): void {
-    this.articleTags = this.getArticleTags(this.articleId);
+    // this.articleTags = this.getArticleTags(this.articleId);
   }
 
-  private addTag(value: string) {
-    this.tagService.add(value);
-    const tag = this.tagService.getByTagValueIgnoreCase(value);
-    this.articleService.addTagToArticle(this.articleId, tag.id);
-    this.articleTags = this.getArticleTags(this.articleId);
-  }
+  // private addTag(value: string) {
+  //   this.tagService.add(value);
+  //   const tag = this.tagService.getByTagValueIgnoreCase(value);
+  //   this.articleService.addTagToArticle(this.articleId, tag.id);
+  //   this.articleTags = this.getArticleTags(this.articleId);
+  // }
 
   private isContainTag(tagValue: string) {
     const index = this.articleTags.findIndex(t => t.value.toLowerCase() === tagValue.toLowerCase());
@@ -96,10 +96,10 @@ export class TagsComponent implements OnInit, OnChanges {
       : [];
   }
 
-  private getArticleTags(articleId: number): Tag[] {
-    const article = this.articleService.get(articleId);
-    return article.tags.map(tagId => this.tagService.getById(tagId));
-  }
+  // private getArticleTags(articleId: number): Tag[] {
+  //   const article = this.articleService.get(articleId);
+  //   return article.tags.map(tagId => this.tagService.getById(tagId));
+  // }
 
   private tagInputReset() {
     this.tagInput.nativeElement.value = '';
