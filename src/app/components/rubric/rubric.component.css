@@ -2,9 +2,13 @@
   display: block;
   padding: 0 24px;
 }
+.hidden {
+  display: none;
+}
 .tree-invisible {
   display: none;
 }
+
 
 .tree ul{
   margin: 0;
@@ -14,7 +18,7 @@
 }
 .tree li {
   list-style: none;
-  padding: 0 0 0 12px;
+  padding: 0px;
   
 }
 
