@@ -25,10 +25,17 @@
     </button>
 
     <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <button mat-menu-item (click)="openDeleteDialog()">Удалить</button>
-      <button mat-menu-item>Переместить</button>
-      <button mat-menu-item [routerLink]="['/articles', article.id, 'add']">
-        Добавить дочернюю страницу
+      <button mat-menu-item [routerLink]="['/articles', article.id, 'edit']">
+        <mat-icon>create</mat-icon>
+        Редактировать
+      </button>
+      <button mat-menu-item>
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        Переместить
+      </button>
+      <button mat-menu-item (click)="openDeleteDialog()">
+        <mat-icon>delete</mat-icon>
+        Удалить
       </button>
     </mat-menu>
 
