@@ -25,6 +25,27 @@
           </mat-icon>
         </button>
         {{node.title}}
+        <button class="kebab-button"  mat-icon-button mat-button [matMenuTriggerFor]="beforeMenu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item disabled>
+              <mat-icon>edit</mat-icon>
+              Редактировать рубрику
+            </button>
+            <button mat-menu-item disabled>
+              <mat-icon>delete</mat-icon>
+              Удалить рубрику
+            </button>
+            <button mat-menu-item disabled>
+                <mat-icon>create_new_folder</mat-icon>
+                Добавить рубрику
+              </button>
+              <button mat-menu-item [routerLink]="['/articles', node.id, 'add']">
+                <mat-icon>note_add</mat-icon>
+                Добавить статью
+              </button>
+        </mat-menu>  
       </div>
       <ul [class.tree-invisible]="!treeControl.isExpanded(node)">
         <ng-container matTreeNodeOutlet></ng-container>
