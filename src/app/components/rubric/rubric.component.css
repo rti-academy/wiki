@@ -38,3 +38,11 @@
 .selected {
   font-weight: bold;
 }
+
+.kebab-button {
+  margin-left: auto;
+  visibility: hidden;
+}
+.mat-tree-node:hover .kebab-button, .kebab-button:hover{
+  visibility: visible;
+}
