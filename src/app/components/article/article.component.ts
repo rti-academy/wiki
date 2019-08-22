@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '@app/services/article.service';
 import { Article } from '@app/models/article';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
@@ -14,6 +14,7 @@ export class ArticleComponent implements OnInit {
   private article: Article;
 
   constructor(
+    private router: Router,
     private articleService: ArticleService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -21,11 +22,14 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.articleService.getById(+params.get('id'))
-        .subscribe((response: any) => {
-          this.article = response.article;
-          this.article.updateTime = new Date(this.article.updateTime);
+      const id = Number(params.get('id'));
+      if (id) {
+        this.articleService.getById(id)
+          .subscribe((response: any) => {
+            this.article = response.article;
+            this.article.updateTime = new Date(this.article.updateTime);
         });
+      }
     });
   }
 
