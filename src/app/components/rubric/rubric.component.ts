@@ -34,10 +34,12 @@ export class RubricComponent implements OnInit {
   articles: Article[] = [];
   buttonVisible = false;
 
-  constructor(private rubricService: RubricService,
+  constructor(
+    private rubricService: RubricService,
     private articleService: ArticleService,
     private router: Router,
-    public dialog: MatDialog, ) { }
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
     this.loadTree();
