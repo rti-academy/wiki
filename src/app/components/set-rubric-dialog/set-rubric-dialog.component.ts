@@ -19,12 +19,12 @@ export class SetRubricDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  private setRubric(event: Article): void {
+  public setRubric(event: Article): void {
     this.result = event.id;
     this.disabled = false;
   }
 
-  private onNoClick(): void {
+  public onNoClick(): void {
     this.dialogRef.close();
   }
 
