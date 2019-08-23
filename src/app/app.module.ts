@@ -35,6 +35,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
 import { AddRubricDialogComponent } from './components/rubric/add-rubric-dialog/add-rubric-dialog.component';
 import { SidenavSearchComponent } from './components/sidenav-search/sidenav-search.component';
 import { SetRubricDialogComponent } from './components/set-rubric-dialog/set-rubric-dialog.component';
+import { UpdateRubricDialogComponent } from './components/rubric/update-rubric-dialog/update-rubric-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +52,7 @@ import { SetRubricDialogComponent } from './components/set-rubric-dialog/set-rub
     AddRubricDialogComponent,
     SidenavSearchComponent,
     SetRubricDialogComponent,
+    UpdateRubricDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +84,7 @@ import { SetRubricDialogComponent } from './components/set-rubric-dialog/set-rub
     DeleteDialogComponent,
     AddRubricDialogComponent,
     SetRubricDialogComponent,
+    UpdateRubricDialogComponent
   ],
   providers: [
     CommentsService,
