@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ArticleService } from '@app/services/article.service';
 import { Observable } from 'rxjs';
@@ -15,12 +15,19 @@ import { Router } from '@angular/router';
 export class ArticleSearchComponent implements OnInit {
     public filteredArticles: Article[];
 
+    @Input()
+    public type = 'note';
+
+    @Output()
+    public selected = new EventEmitter();
+
     @ViewChild('searchInput', { static: false })
     public searchInput: ElementRef<HTMLInputElement>;
     public searchControl = new FormControl();
 
-    constructor(private articleService: ArticleService,
-                private router: Router) {
+    constructor(
+        private articleService: ArticleService,
+    ) {
     }
 
     ngOnInit() {
@@ -30,7 +37,7 @@ export class ArticleSearchComponent implements OnInit {
             )
             .subscribe(value => {
                 if (value) {
-                    this.articleService.search(value)
+                    this.articleService.search(value, this.type)
                         .subscribe(articles => {
                             this.filteredArticles = value ? articles : [];
                         });
@@ -38,9 +45,9 @@ export class ArticleSearchComponent implements OnInit {
             });
     }
 
-    public selected(event: MatAutocompleteSelectedEvent): void {
+    public handleselecte(event: MatAutocompleteSelectedEvent): void {
         const article: Article = event.option.value;
-        this.router.navigate(['articles', article.id]);
+        this.selected.emit(article);
         this.filteredArticles = [];
         this.reset();
     }

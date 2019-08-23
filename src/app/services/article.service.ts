@@ -48,9 +48,9 @@ export class ArticleService {
     return this.http.delete(`/api/article/${id}`);
   }
 
-  public search(query?: string): Observable<Article[]> {
+  public search(query?: string, type: string = 'note'): Observable<Article[]> {
     let params = new HttpParams()
-      .set('type', 'note');
+      .set('type', type);
 
     if (query) {
       params = params.set('query', query);
