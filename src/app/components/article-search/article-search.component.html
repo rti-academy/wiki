@@ -1,10 +1,9 @@
-<form class="search-form">
+<form>
     <mat-form-field>
-        <!-- <mat-icon matPrefix inline="true" class="search-icon">search</!-->
         <input #searchInput type="text" placeholder="Поиск..." matInput [formControl]="searchControl"
             [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" [displayWith]="display">
-            <mat-option *ngFor="let article of filteredArticles | async" [value]="article">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="handleselecte($event)" [displayWith]="display">
+            <mat-option *ngFor="let article of filteredArticles" [value]="article">
                 {{ article.title }}
             </mat-option>
         </mat-autocomplete>

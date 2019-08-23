@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ArticleService } from '@app/services/article.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Article } from '@app/models/article';
 import { Router } from '@angular/router';
@@ -13,39 +13,50 @@ import { Router } from '@angular/router';
     styleUrls: ['./article-search.component.css']
 })
 export class ArticleSearchComponent implements OnInit {
-    public filteredArticles: Observable<Article[]>;
+    public filteredArticles: Article[];
 
+    @Input()
+    public type = 'note';
+
+    @Output()
+    public selected = new EventEmitter();
 
     @ViewChild('searchInput', { static: false })
     public searchInput: ElementRef<HTMLInputElement>;
     public searchControl = new FormControl();
 
-    constructor(private articleService: ArticleService,
-                private router: Router) {
+    constructor(
+        private articleService: ArticleService,
+    ) {
     }
 
     ngOnInit() {
-        // this.filteredArticles = this.searchControl.valueChanges
-        //     .pipe(
-        //         map(value => typeof value === 'string' ? value : value.title),
-        //         map(value => {
-        //             return this.articleService.search(value);
-        //         })
-        //     );
+        this.searchControl.valueChanges
+            .pipe(
+                map(value => typeof value === 'string' ? value : value.title),
+            )
+            .subscribe(value => {
+                if (value) {
+                    this.articleService.search(value, this.type)
+                        .subscribe(articles => {
+                            this.filteredArticles = value ? articles : [];
+                        });
+                }
+            });
     }
 
-    selected(event: MatAutocompleteSelectedEvent): void {
+    public handleselecte(event: MatAutocompleteSelectedEvent): void {
         const article: Article = event.option.value;
-        this.router.navigate(['articles', article.id]);
-        this.resetSearchField();
+        this.selected.emit(article);
+        this.filteredArticles = [];
+        this.reset();
     }
 
-    private resetSearchField(): void {
-        this.searchInput.nativeElement.value = '';
+    public reset(): void {
         this.searchControl.setValue('');
     }
 
-    display(article?: Article): string | undefined {
+    public display(article?: Article): string | undefined {
         return article ? article.title : undefined;
     }
 }
