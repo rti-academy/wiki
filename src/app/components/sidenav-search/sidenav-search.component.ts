@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Article } from '@app/models/article';
 import { Router } from '@angular/router';
+import { ArticleSearchComponent } from '../article-search/article-search.component';
 
 @Component({
   selector: 'app-sidenav-search',
@@ -14,11 +15,15 @@ export class SidenavSearchComponent implements OnInit {
   ) {
   }
 
+  @ViewChild('search', { static: false })
+  public search: ArticleSearchComponent;
+
   ngOnInit() {
   }
 
   public handleSelect(article: Article) {
     this.router.navigate(['articles', article.id]);
+    this.search.reset();
   }
 
 }
