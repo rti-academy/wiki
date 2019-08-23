@@ -12,11 +12,13 @@ import { Observable, forkJoin } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { AddRubricDialogComponent } from '@app/components/rubric/add-rubric-dialog/add-rubric-dialog.component';
+import { UpdateRubricDialogComponent } from '@app/components/rubric/update-rubric-dialog/update-rubric-dialog.component';
+
 interface TreeNode {
   id: number;
   title: string;
-  children?: TreeNode[];
-  type?: string;
+  children ?: TreeNode[];
+  type ?: string;
 }
 
 @Component({
@@ -44,7 +46,6 @@ export class RubricComponent implements OnInit {
   ngOnInit() {
     this.loadTree();
     this.activeNodeSubscribe();
-
   }
 
   private loadTree() {
@@ -111,7 +112,7 @@ export class RubricComponent implements OnInit {
 
         const articlesToDelete: Article[] = this.getChildren(this.articles, node.id);
         console.log(articlesToDelete);
-        let deleteRequests: any[] = [];
+        const deleteRequests: any[] = [];
         articlesToDelete.forEach(article => {
           deleteRequests.push(this.articleService.delete(article.id));
         });
@@ -127,17 +128,34 @@ export class RubricComponent implements OnInit {
     });
   }
 
-  public openAddRubricDialog(node): void {
+  public openAddRubricDialog(): void {
     const dialogRef = this.dialog.open(
       AddRubricDialogComponent,
       {
         width: '400px',
       },
     );
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.rubricService.addRubric(result)
+          .subscribe(() => {
+            window.location.reload(); // Временный костыль
+          });
+      }
+    });
+  }
+
+  public openUpdateRubricDialog(node: Rubric): void {
+    const dialogRef = this.dialog.open(
+      UpdateRubricDialogComponent,
+      {
+        width: '400px',
+        data: node.title,
+      },
+    );
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.rubricService.updateRubric({ id: node.id, title: result })
           .subscribe((response) => {
             window.location.reload(); // Временный костыль
           });
