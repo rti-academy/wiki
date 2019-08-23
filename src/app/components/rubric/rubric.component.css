@@ -46,3 +46,12 @@
 .mat-tree-node:hover .kebab-button, .kebab-button:hover{
   visibility: visible;
 }
+.add-rubric-icon {
+  margin-right: 6px;
+}
+.add-rubric-button {
+  /* font-size: 16px; */
+  display: flex;
+  align-content: center;
+  margin-left: 12px;
+}
