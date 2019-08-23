@@ -10,13 +10,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ArticleEditorComponent implements OnInit {
 
-  private id: number;
-  private parentId: number;
-  private title: string;
-  private content: string;
-  private action: string;
+  public id: number;
+  public parentId: number;
+  public title: string;
+  public content: string;
+  public action: string;
 
-  private quillConfig = {
+  public quillConfig = {
     toolbar: [
       ['bold', 'italic', 'underline'],
       ['blockquote'],
@@ -36,7 +36,7 @@ export class ArticleEditorComponent implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.action = params.get('action');
       if (this.action === 'edit') {
@@ -55,8 +55,18 @@ export class ArticleEditorComponent implements OnInit {
     });
   }
 
-  private goBack(): void {
+  public goBack(): void {
     this.location.back();
+  }
+
+  public save() {
+    if (this.action === 'edit') {
+      this.saveChange();
+    }
+
+    if (this.action === 'add') {
+      this.createArticle();
+    }
   }
 
   private saveChange() {
@@ -80,16 +90,6 @@ export class ArticleEditorComponent implements OnInit {
           window.location.reload(); // Временный костыль
         });
     });
-  }
-
-  private save() {
-    if (this.action === 'edit') {
-      this.saveChange();
-    }
-
-    if (this.action === 'add') {
-      this.createArticle();
-    }
   }
 
 }

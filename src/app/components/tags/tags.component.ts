@@ -50,10 +50,10 @@ export class TagsComponent implements OnInit, OnChanges {
     }
   }
 
-  // remove(tag: Tag): void {
+  remove(tag: Tag): void {
   //   this.articleService.deleteTagFromArticle(this.articleId, tag.id);
   //   this.articleTags = this.getArticleTags(this.articleId);
-  // }
+  }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     const value = event.option.viewValue;
