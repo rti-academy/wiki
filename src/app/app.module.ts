@@ -33,6 +33,7 @@ import { CommentComponent } from './components/comments/comment/comment.componen
 
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { AddRubricDialogComponent } from './components/rubric/add-rubric-dialog/add-rubric-dialog.component';
+import { SidenavSearchComponent } from './components/sidenav-search/sidenav-search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { AddRubricDialogComponent } from './components/rubric/add-rubric-dialog/
     RubricComponent,
     CommentComponent,
     DeleteDialogComponent,
-    AddRubricDialogComponent
+    AddRubricDialogComponent,
+    SidenavSearchComponent,
   ],
   imports: [
     BrowserModule,
