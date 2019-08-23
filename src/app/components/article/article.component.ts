@@ -55,7 +55,7 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-  private openSetRubricDialog(): void {
+  public openSetRubricDialog(): void {
     const dialogRef = this.dialog.open(
       SetRubricDialogComponent,
     );

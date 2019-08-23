@@ -8,8 +8,14 @@
         <mat-menu 
             #beforeMenu="matMenu"
             xPosition="before">
-            <button mat-menu-item (click)="edit()">Редактировать</button>
-            <button mat-menu-item (click)="delete()">Удалить</button>
+            <button mat-menu-item (click)="edit()">
+                <mat-icon>create</mat-icon>
+                Редактировать
+            </button>
+            <button mat-menu-item (click)="delete()">
+                <mat-icon>delete</mat-icon>
+                Удалить
+            </button>
         </mat-menu>
     </div>
     <p class="comment-date">{{ comment.publishDate | date:'d.MM.yyyy HH:mm' }}</p>

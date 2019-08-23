@@ -47,7 +47,6 @@ export class ArticleSearchComponent implements OnInit {
         const article: Article = event.option.value;
         this.selected.emit(article);
         this.filteredArticles = [];
-        this.reset();
     }
 
     public reset(): void {
