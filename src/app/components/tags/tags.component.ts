@@ -3,13 +3,9 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
 import { Tag } from '../../models/tag';
 import { TagService } from '../../services/tag.service';
-import { ArticleService } from '@app/services/article.service';
-
 
 @Component({
   selector: 'app-tags',
@@ -24,11 +20,9 @@ export class TagsComponent implements OnInit, OnChanges {
   @Input()
   public articleId: number;
 
-  allTags: Tag[];
-  articleTags: Tag[] = [];
-
-  tagCtrl = new FormControl();
-  filteredTags: Observable<Tag[]>;
+  public articleTags: Tag[] = [];
+  public tagCtrl = new FormControl();
+  public filteredTags: Tag[] = [];
 
   @ViewChild('auto', { static: false })
   matAutocomplete: MatAutocomplete;
@@ -36,8 +30,7 @@ export class TagsComponent implements OnInit, OnChanges {
   @ViewChild('tagInput', { static: false })
   tagInput: ElementRef<HTMLInputElement>;
 
-  constructor(private tagService: TagService, private articleService: ArticleService) {
-    this.allTags = tagService.getAll();
+  constructor(private tagService: TagService) {
   }
 
   add(event: MatChipInputEvent): void {
@@ -45,64 +38,58 @@ export class TagsComponent implements OnInit, OnChanges {
     value = value.trim();
 
     if ((value || '') && !this.isContainTag(value)) {
-      // this.addTag(value);
+      this.addTag(value);
       this.tagInputReset();
     }
   }
 
   remove(tag: Tag): void {
-  //   this.articleService.deleteTagFromArticle(this.articleId, tag.id);
-  //   this.articleTags = this.getArticleTags(this.articleId);
+    const index = this.articleTags.findIndex(t => t.id === tag.id);
+    this.articleTags.splice(index, 1);
+    this.tagService.deleteTagFormArticle(this.articleId, tag.id)
+      .subscribe(() => {});
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     const value = event.option.viewValue;
     if (!this.isContainTag(value)) {
-      // this.addTag(value);
+      this.addTag(value);
       this.tagInputReset();
     }
   }
 
   ngOnInit(): void {
-    // this.filteredTags = this.tagCtrl.valueChanges
-    //   .pipe(
-    //     map(value => {
-    //       return this._filter(value);
-    //     })
-    //   );
-    // this.articleTags = this.getArticleTags(this.articleId);
+    this.tagCtrl.valueChanges
+      .subscribe(value => {
+          this.tagService.search(value)
+            .subscribe(tags => {
+              this.filteredTags = value ? tags
+                : [];
+            });
+      });
   }
 
   ngOnChanges(): void {
-    // this.articleTags = this.getArticleTags(this.articleId);
+    this.tagService.getTagsByArticle(this.articleId)
+      .subscribe(tags => {
+        this.articleTags = tags;
+      });
   }
 
-  // private addTag(value: string) {
-  //   this.tagService.add(value);
-  //   const tag = this.tagService.getByTagValueIgnoreCase(value);
-  //   this.articleService.addTagToArticle(this.articleId, tag.id);
-  //   this.articleTags = this.getArticleTags(this.articleId);
-  // }
+  private addTag(value: string): void {
+    this.tagService.addTagToArticle(this.articleId, value)
+      .subscribe(() => this.tagService.getTagsByArticle(this.articleId)
+        .subscribe(tags => this.articleTags = tags));
+  }
 
-  private isContainTag(tagValue: string) {
+  private isContainTag(tagValue: string): boolean {
     const index = this.articleTags.findIndex(t => t.value.toLowerCase() === tagValue.toLowerCase());
     return index >= 0;
   }
 
-  private _filter(value: string): Tag[] {
-    const filterValue = value.toLowerCase();
-    return value
-      ? this.allTags.filter(option => option.value.toLowerCase().includes(filterValue))
-      : [];
-  }
-
-  // private getArticleTags(articleId: number): Tag[] {
-  //   const article = this.articleService.get(articleId);
-  //   return article.tags.map(tagId => this.tagService.getById(tagId));
-  // }
-
-  private tagInputReset() {
+  private tagInputReset(): void {
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue('');
   }
+
 }
