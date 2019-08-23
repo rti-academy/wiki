@@ -1,0 +1,19 @@
+<div mat-dialog-content>
+    <p>Укажите название новой рубрики</p>    
+</div>
+<app-article-search
+    type="rubric"
+    (selected)="setRubric($event)"
+></app-article-search>
+<div mat-dialog-actions>
+    <button
+        mat-button
+        mat-raised-button
+        color="primary"
+        [disabled]="disabled"
+        [mat-dialog-close]="result">Ok</button>
+    <button
+        mat-button
+        mat-dialog-close 
+        (click)="onNoClick()">Отмена</button>
+</div>
