@@ -9,12 +9,14 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Rubric } from '@app/models/rubric';
 import { Article } from '@app/models/article';
 import { Observable, forkJoin } from 'rxjs';
-
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { AddRubricDialogComponent } from '@app/components/rubric/add-rubric-dialog/add-rubric-dialog.component';
 interface TreeNode {
   id: number;
   title: string;
-  children?: TreeNode[];
-  type?: string;
+  children ?: TreeNode[];
+  type ?: string;
 }
 
 @Component({
@@ -29,30 +31,34 @@ export class RubricComponent implements OnInit {
   dataSource = new MatTreeNestedDataSource<TreeNode>();
   id: number;
   rubrics: Rubric[] = [];
-  articles: Article [] = [];
+  articles: Article[] = [];
 
   constructor(private rubricService: RubricService,
               private articleService: ArticleService,
-              private router: Router, ) { }
+              private router: Router,
+              public dialog: MatDialog, ) { }
 
   ngOnInit() {
-    const rubrics =  this.rubricService.getAll();
-    const articles = this.articleService.getAll();
-    forkJoin([rubrics, articles]).subscribe(this.observer);
+    this.loadTree();
     this.activeNodeSubscribe();
 
   }
 
-
+  private loadTree() {
+    const rubrics = this.rubricService.getAll();
+    const articles = this.articleService.getAll();
+    forkJoin([rubrics, articles]).subscribe(this.observer);
+  }
   private observer = (response) => {
     this.treeControl = new NestedTreeControl<TreeNode>(node => node.children);
     this.dataSource = new MatTreeNestedDataSource<TreeNode>();
     this.rubrics = response[0].articles;
+    this.articles = response[1].articles;
     this.rubrics.forEach(rubric => {
       this.dataSource.data.push({
         id: rubric.id,
         title: rubric.title,
-        children: this.getChildren(response[1].articles, rubric.id),
+        children: this.getChildren(this.articles, rubric.id),
         type: 'rubric',
       });
     });
@@ -60,7 +66,7 @@ export class RubricComponent implements OnInit {
   }
 
 
-  private getChildren(articles: Article [], rubricId: number): Article[] {
+  private getChildren(articles: Article[], rubricId: number): Article[] {
     return articles.filter(article => article.parentId === rubricId);
   }
 
@@ -80,10 +86,59 @@ export class RubricComponent implements OnInit {
     }
     );
   }
+
   getIdFromUrl(): number {
     const parts = location.pathname.split('/');
     return parts.length > 2 ? Number(parts[2]) : null;
   }
+  public openDeleteDialog(node): void {
+    const dialogRef = this.dialog.open(
+      DeleteDialogComponent,
+      {
+        width: '400px',
+        data: 'рубрику и все входящие в нее статьи'
+      },
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+        const articlesToDelete: Article[] = this.getChildren(this.articles, node.id);
+        console.log(articlesToDelete);
+        let deleteRequests: any[]=[];
+        articlesToDelete.forEach(article => {
+          deleteRequests.push(this.articleService.delete(article.id));
+        });
+        deleteRequests.push(this.articleService.delete(node.id));
+        forkJoin(deleteRequests)
+          .subscribe(() => {
+            this.router.navigate([``])
+              .then(() => {
+                window.location.reload(); // Временный костыль
+              });
+          });
+      }
+    });
+  }
+
+  public openAddRubricDialog(node): void {
+    const dialogRef = this.dialog.open(
+      AddRubricDialogComponent,
+      {
+        width: '400px',
+      },
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.rubricService.addRubric(result)
+          .subscribe((response) => {
+            this.loadTree();
+           });
+      }
+    });
+  }
+
 
   isRubric = (_: number, node: TreeNode) => node.type === 'rubric';
   hasChild = (_: number, node: TreeNode) => !!node.children && node.children.length > 0;

@@ -36,7 +36,9 @@ export class ArticleComponent implements OnInit {
   public openDeleteDialog(): void {
     const dialogRef = this.dialog.open(
       DeleteDialogComponent,
-      {width: '400px'},
+      {width: '400px',
+       data: 'статью'
+    },
     );
 
     dialogRef.afterClosed().subscribe(result => {

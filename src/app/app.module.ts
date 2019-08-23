@@ -32,6 +32,7 @@ import { RubricComponent } from './components/rubric/rubric.component';
 import { CommentComponent } from './components/comments/comment/comment.component';
 
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { AddRubricDialogComponent } from './components/rubric/add-rubric-dialog/add-rubric-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     ArticleSearchComponent,
     RubricComponent,
     CommentComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    AddRubricDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +76,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
   ],
   entryComponents: [
     DeleteDialogComponent,
+    AddRubricDialogComponent,
   ],
   providers: [
     CommentsService,
