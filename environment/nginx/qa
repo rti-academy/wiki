@@ -7,12 +7,14 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
+    # Path to directory with index.html
     root /home/gorod/wiki/dist/wiki;
 
     index index.html;
 
     server_name _;
 
+    # Path to access logs directory
     access_log                  /var/log/nginx/wiki.access.log combined;
     error_log                   /var/log/nginx/wiki.error.log warn;
 
@@ -34,8 +36,13 @@ server {
         proxy_redirect          off;
     }
 
+    location /uploads/ {
+        # Path to directory with "uploads" directory
+        root /home/gorod/wiki-backend;
+    }
+
     location / {
-            try_files $uri $uri/ /index.html;
+        try_files $uri $uri/ /index.html;
     }
 
 }
