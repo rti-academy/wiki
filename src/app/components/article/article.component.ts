@@ -4,6 +4,7 @@ import { Article } from '@app/models/article';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { SetRubricDialogComponent } from '../set-rubric-dialog/set-rubric-dialog.component';
 
 @Component({
   selector: 'app-article',
@@ -52,6 +53,12 @@ export class ArticleComponent implements OnInit {
           });
       }
     });
+  }
+
+  private openSetRubricDialog(): void {
+    const dialogRef = this.dialog.open(
+      SetRubricDialogComponent,
+    );
   }
 
 }
