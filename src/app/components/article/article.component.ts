@@ -59,6 +59,17 @@ export class ArticleComponent implements OnInit {
     const dialogRef = this.dialog.open(
       SetRubricDialogComponent,
     );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.articleService.edit(
+          this.article.id,
+          {parentId: result}
+        ).subscribe(() => {
+          window.location.reload(); // Временный костыль
+        });
+      }
+    });
   }
 
 }
