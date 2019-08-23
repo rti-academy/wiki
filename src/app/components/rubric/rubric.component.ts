@@ -133,7 +133,7 @@ export class RubricComponent implements OnInit {
       if (result) {
         this.rubricService.addRubric(result)
           .subscribe((response) => {
-            this.loadTree();
+              window.location.reload(); // Временный костыль
            });
       }
     });
