@@ -16,7 +16,7 @@ export class SetRubricDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<SetRubricDialogComponent>,
   ) { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
   public setRubric(event: Article): void {

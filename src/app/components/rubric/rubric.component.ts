@@ -15,8 +15,8 @@ import { AddRubricDialogComponent } from '@app/components/rubric/add-rubric-dial
 interface TreeNode {
   id: number;
   title: string;
-  children ?: TreeNode[];
-  type ?: string;
+  children?: TreeNode[];
+  type?: string;
 }
 
 @Component({
@@ -32,11 +32,14 @@ export class RubricComponent implements OnInit {
   id: number;
   rubrics: Rubric[] = [];
   articles: Article[] = [];
+  buttonVisible = false;
 
-  constructor(private rubricService: RubricService,
-              private articleService: ArticleService,
-              private router: Router,
-              public dialog: MatDialog, ) { }
+  constructor(
+    private rubricService: RubricService,
+    private articleService: ArticleService,
+    private router: Router,
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
     this.loadTree();
@@ -63,6 +66,9 @@ export class RubricComponent implements OnInit {
       });
     });
     this.expandActive();
+    if (this.rubrics.length === 0) {
+      this.buttonVisible = true;
+    }
   }
 
 
@@ -105,7 +111,7 @@ export class RubricComponent implements OnInit {
 
         const articlesToDelete: Article[] = this.getChildren(this.articles, node.id);
         console.log(articlesToDelete);
-        let deleteRequests: any[]=[];
+        let deleteRequests: any[] = [];
         articlesToDelete.forEach(article => {
           deleteRequests.push(this.articleService.delete(article.id));
         });
@@ -133,8 +139,8 @@ export class RubricComponent implements OnInit {
       if (result) {
         this.rubricService.addRubric(result)
           .subscribe((response) => {
-              window.location.reload(); // Временный костыль
-           });
+            window.location.reload(); // Временный костыль
+          });
       }
     });
   }
