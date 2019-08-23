@@ -1,10 +1,8 @@
 import { Article } from '../models/article';
 import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Tag } from '@app/models/tag';
-import { TagService } from './tag.service';
+import { catchError, map } from 'rxjs/operators';
 
 export interface AddParams {
   title: string;
@@ -18,7 +16,6 @@ export class ArticleService {
   public update: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    private tagService: TagService,
     private http: HttpClient,
   ) {}
 
@@ -51,34 +48,17 @@ export class ArticleService {
     return this.http.delete(`/api/article/${id}`);
   }
 
-  // public search(searchString: string): Article[] {
-  //   searchString = searchString.toLowerCase();
-  //   return searchString ? this.articles.filter(article => {
-  //     return article.title.toLowerCase().includes(searchString) ||
-  //       article.content.toLowerCase().includes(searchString) ||
-  //       this.getArticleTags(article).findIndex(tag => tag.value.toLowerCase() === searchString) >= 0;
-  //   })
-  //     : [];
-  // }
+  public search(query?: string): Observable<Article[]> {
+    let params = new HttpParams()
+      .set('type', 'note');
 
-  // public deleteTagFromArticle(articleId, tagId) {
-  //   const article = this.get(articleId);
-  //   const tagIndex = article.tags.findIndex(t => t === tagId);
-  //   article.tags.splice(tagIndex, 1);
-  // }
+    if (query) {
+      params = params.set('query', query);
+    }
 
-  // public addTagToArticle(articleId: number, tagId: number) {
-  //   const article = this.get(articleId);
-  //   article.tags.push(tagId);
-  // }
-
-  // private getArticleTags(article: Article): Tag[] {
-  //   const result: Tag[] = [];
-
-  //   for (const tagId of article.tags) {
-  //     result.push(this.tagService.getById(tagId));
-  //   }
-
-  //   return result;
-  // }
+    return this.http.get('/api/article', { params })
+      .pipe(
+        map((response: any) => response.articles)
+      );
+  }
 }
