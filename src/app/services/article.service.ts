@@ -72,13 +72,13 @@ export class ArticleService {
   //   article.tags.push(tagId);
   // }
 
-  private getArticleTags(article: Article): Tag[] {
-    const result: Tag[] = [];
+  // private getArticleTags(article: Article): Tag[] {
+  //   const result: Tag[] = [];
 
-    for (const tagId of article.tags) {
-      result.push(this.tagService.getById(tagId));
-    }
+  //   for (const tagId of article.tags) {
+  //     result.push(this.tagService.getById(tagId));
+  //   }
 
-    return result;
-  }
+  //   return result;
+  // }
 }

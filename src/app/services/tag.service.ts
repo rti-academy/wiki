@@ -1,51 +1,47 @@
 import { Injectable } from '@angular/core';
 import { Tag } from '../models/tag';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-const tagsMock = [
-  { id: 1, value: 'Базовые знания' },
-  { id: 2, value: 'Продвинутые знания' },
-];
+const BASE_TAG_URL = '/api/tag';
+const BASE_ARTICLE_URL = '/api/article';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagService {
-  public tags: Tag[] = tagsMock;
-  public idCount = 3;
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient,
+  ) { }
 
-  public add(value: string): Tag[] {
-    if (!this.exists(value)) {
-      this.idCount++;
-      this.tags.push({ id: this.idCount, value });
+  public addTagToArticle(articleId: number, value: string): Observable<unknown> {
+    return this.httpClient.post(`${BASE_ARTICLE_URL}/${articleId}/tag`, { tag: { articleId, value } });
+  }
+
+  public getTagsByArticle(articleId: number): Observable<Tag[]> {
+    return this.httpClient.get(`${BASE_ARTICLE_URL}/${articleId}/tag`)
+      .pipe(
+        map((response: any) => response.tags)
+      );
+  }
+
+  public search(query?: string): Observable<Tag[]> {
+    let params = new HttpParams();
+
+    if (query) {
+      params = params.set('query', query);
     }
-    return this.tags;
+
+    return this.httpClient.get(BASE_TAG_URL, { params })
+      .pipe(
+        map((response: any) => response.tags)
+      );
   }
 
-  public remove(tag: Tag): Tag[] {
-    const index = this.tags.indexOf(tag);
-    if (index >= 0) {
-      this.tags.splice(index, 1);
-    }
-    return this.tags;
-
+  public deleteTagFormArticle(articleId: number, tagId: number): Observable<unknown> {
+    return this.httpClient.delete(`${BASE_ARTICLE_URL}/${articleId}/tag/${tagId}`);
   }
 
-  public getAll(): Tag[] {
-    return this.tags;
-  }
-
-  public getById(id: number): Tag {
-    return this.tags.find(element => (element.id === id));
-  }
-
-  public getByTagValueIgnoreCase(value: string): Tag {
-    return this.tags.find(tag => tag.value.toLowerCase() === value.toLowerCase());
-  }
-
-  public exists(tagValue: string): boolean {
-    const index = this.tags.findIndex(t => t.value.toLowerCase() === tagValue.toLowerCase());
-    return index >= 0;
-  }
 }
