@@ -36,16 +36,14 @@ export class ArticleSearchComponent implements OnInit {
                 map(value => typeof value === 'string' ? value : value.title),
             )
             .subscribe(value => {
-                if (value) {
-                    this.articleService.search(value, this.type)
-                        .subscribe(articles => {
-                            this.filteredArticles = value ? articles : [];
-                        });
-                }
+                this.articleService.search(value, this.type)
+                    .subscribe(articles => {
+                        this.filteredArticles = value ? articles : [];
+                    });
             });
     }
 
-    public handleselecte(event: MatAutocompleteSelectedEvent): void {
+    public handleSelect(event: MatAutocompleteSelectedEvent): void {
         const article: Article = event.option.value;
         this.selected.emit(article);
         this.filteredArticles = [];
