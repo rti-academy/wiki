@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <p>Название новой рубрики</p>
+  <mat-form-field class = "input-container">
+    <input matInput [(ngModel)]="data">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button  mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Добавить</button>
+    <button mat-button mat-raised-button (click)="onNoClick()">Отмена</button>
+  
+</div>

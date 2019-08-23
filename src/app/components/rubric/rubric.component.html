@@ -33,11 +33,11 @@
               <mat-icon>edit</mat-icon>
               Редактировать рубрику
             </button>
-            <button mat-menu-item disabled>
+            <button mat-menu-item (click)="openDeleteDialog(node)">
               <mat-icon>delete</mat-icon>
               Удалить рубрику
             </button>
-            <button mat-menu-item disabled>
+            <button mat-menu-item (click)="openAddRubricDialog()">
                 <mat-icon>create_new_folder</mat-icon>
                 Добавить рубрику
               </button>
