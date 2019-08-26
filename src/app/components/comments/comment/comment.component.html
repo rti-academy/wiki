@@ -5,7 +5,7 @@
         (menuClosed)="menuUp=false">
             <mat-icon>more_horiz</mat-icon>
         </button>
-        <mat-menu 
+        <mat-menu
             #beforeMenu="matMenu"
             xPosition="before">
             <button mat-menu-item (click)="edit()">
@@ -24,8 +24,8 @@
             <mat-form-field class="comment-field">
                 <textarea matInput placeholder="Отредактировать комментарий" [formControl]="commentTextField" cdkTextareaAutosize></textarea>
             </mat-form-field>
-            <button mat-raised-button color="primary" class="button" (click)="save()">Сохранить</button>
-            <button mat-raised-button class="button" (click)="editing=false">Отмена</button>
+            <button mat-button mat-raised-button color="primary" class="button" (click)="save()">Сохранить</button>
+            <button mat-button class="button" (click)="editing=false">Отмена</button>
         </form>
     </ng-container>
 </div>

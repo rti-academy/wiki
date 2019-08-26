@@ -5,13 +5,12 @@
 }
 
 .heading-link {
-    color: #222;
+    color: #616161;
     text-decoration: none;
     padding: 12px 24px;
     display: block;
     text-overflow: ellipsis;
     overflow: hidden;
-    
 }
 
 .heading-link:hover {
@@ -21,6 +20,9 @@
 .heading-tree-item {
     padding: 0 0 0 12px;
 }
+
 .selected {
-    font-weight: bold;
+    color: #212121;
+
+    font-weight: 500;
 }

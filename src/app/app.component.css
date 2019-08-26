@@ -9,7 +9,14 @@ mat-sidenav {
 }
 
 mat-sidenav-content {
-    padding: 24px 40px;
+    padding: 40px;
     background: #ffffff;
     box-sizing: border-box;
+}
+
+.sidenav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    color: #616161;
 }

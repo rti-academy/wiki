@@ -5,6 +5,10 @@
 .title {
   flex:1;
   margin: 0;
+
+  color: #212121;
+
+  line-height: 1;
   font-size: 60px;
   font-weight: 300;
 }
@@ -26,4 +30,4 @@
 
  .btn-controls {
   margin-left: 24px;
-} 
+}

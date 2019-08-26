@@ -2,9 +2,11 @@
   display: block;
   padding: 0 12px;
 }
+
 .hidden {
   display: none;
 }
+
 .tree-invisible {
   display: none;
 }
@@ -13,16 +15,15 @@
 .tree ul{
   margin: 0;
   padding: 0;
-  
 }
+
 .tree li {
   list-style: none;
   padding: 0px;
-  
 }
 
 .heading-link {
-  color: #222;
+  color: #616161;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -30,7 +31,7 @@
   overflow: hidden;
   width: 100%;
 }
- 
+
 .heading-link-content {
   white-space: nowrap;
   overflow: hidden;
@@ -42,13 +43,20 @@
 }
 
 .selected {
-  font-weight: bold;
+  color: #212121;
+
+  font-weight: 500;
 }
 
 .kebab-button {
   margin-left: auto;
   visibility: hidden;
 }
+
+.mat-tree-node {
+  color: #616161;
+}
+
 .mat-tree-node:hover .kebab-button, .kebab-button:hover{
   visibility: visible;
 }

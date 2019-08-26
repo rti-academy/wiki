@@ -4,13 +4,15 @@
 
 .comment {
   box-sizing: border-box;
-  padding: 6px 20px;
+  margin: 0 0 24px 24px;
 
   position: relative;
 }
 
 .comment-date {
-  margin: 8px 0;
+  margin: 0 0 8px;
+
+  font-size: 12px;
 }
 
 .comment-text {

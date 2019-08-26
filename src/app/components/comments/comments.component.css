@@ -3,14 +3,16 @@
     flex-direction: column;
     box-sizing: border-box;
     padding: 0;
-
 }
 
 .caption {
-    font-size: 1.35rem;
-    margin: 10px 0;
+    margin: 0 0 24px;
+
+    color: #212121;
+
+    font-size: 24px;
 }
 
 .button {
-     align-self: flex-start;
+    align-self: flex-start;
 }
