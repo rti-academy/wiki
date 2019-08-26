@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ArticleService } from '@app/services/article.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Article } from '@app/models/article';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-article-search',
@@ -31,16 +30,7 @@ export class ArticleSearchComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.searchControl.valueChanges
-            .pipe(
-                map(value => typeof value === 'string' ? value : value.title),
-            )
-            .subscribe(value => {
-                this.articleService.search(value, this.type)
-                    .subscribe(articles => {
-                        this.filteredArticles = value ? articles : [];
-                    });
-            });
+        this.handleInputValue();
     }
 
     public handleSelect(event: MatAutocompleteSelectedEvent): void {
@@ -55,5 +45,35 @@ export class ArticleSearchComponent implements OnInit {
 
     public display(article?: Article): string | undefined {
         return article ? article.title : undefined;
+    }
+
+    private handleInputValue() {
+        let subscription: Subscription;
+
+        this.getInputValues().pipe(
+            filter(value => value !== ''),
+        ).subscribe(value => {
+            subscription = this.articleService.search(value, this.type)
+                .subscribe(articles => {
+                    this.filteredArticles = articles;
+                });
+        });
+
+        this.getInputValues().pipe(
+            filter(value => value === ''),
+        ).subscribe(() => {
+            if (subscription) {
+                subscription.unsubscribe();
+            }
+            this.filteredArticles = [];
+        });
+    }
+
+    private getInputValues(): Observable<string> {
+        return this.searchControl.valueChanges
+            .pipe(
+                map(value => typeof value === 'string' ? value : value.title),
+                map(value => value.trim()),
+            );
     }
 }
