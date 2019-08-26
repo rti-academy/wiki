@@ -1,0 +1,11 @@
+.main-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.header-link {
+  color: black;
+  font-weight: 400;
+  font-size: 28px;
+  text-decoration: none;
+}
