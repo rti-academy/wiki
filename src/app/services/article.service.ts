@@ -9,11 +9,14 @@ export interface AddParams {
   type: string;
   content: string;
   parentId: number;
+  status: string;
 }
 
 @Injectable()
 export class ArticleService {
   public update: EventEmitter<any> = new EventEmitter();
+
+  // private mockStatus = ['actual', 'archive', 'draft'];
 
   constructor(
     private http: HttpClient,
@@ -61,4 +64,8 @@ export class ArticleService {
         map((response: any) => response.articles)
       );
   }
+
+  // public getStatus() {
+  //   return this.mockStatus;
+  // }
 }

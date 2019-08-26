@@ -13,12 +13,11 @@
   display: flex;
 }
 .info {
-  font-size: 12px;
+  display: flex;
+  flex-direction: column;
   margin: 24px 0;
-}
 
-.version {
-  display: block;
+  font-size: 12px;
 }
 
 .content {
