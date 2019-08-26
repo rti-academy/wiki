@@ -39,6 +39,7 @@ import { SidenavSearchComponent } from './components/sidenav-search/sidenav-sear
 import { SetRubricDialogComponent } from './components/set-rubric-dialog/set-rubric-dialog.component';
 import { UpdateRubricDialogComponent } from './components/rubric/update-rubric-dialog/update-rubric-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import { HeaderComponent } from './components/header/header.component';
     SetRubricDialogComponent,
     UpdateRubricDialogComponent,
     HeaderComponent,
+    FileUploaderComponent,
   ],
   imports: [
     BrowserModule,
