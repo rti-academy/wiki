@@ -31,11 +31,13 @@
       Последнее обновление: {{ article.updateTime | date: "dd.MM.yyyy HH:mm" }}      
     </div>
 
-    <quill-view [content]="article.content" format="text" theme="snow"></quill-view>
+    <quill-view
+      [content]="article.content"
+      format="text"
+      [modules]="{clipboard: {matchVisual: false}}"
+      theme="snow"></quill-view>
 
   </div>
-
-
 
   <app-tags [articleId]="article.id"></app-tags>
 

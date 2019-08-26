@@ -23,10 +23,13 @@ export class ArticleEditorComponent implements OnInit {
       [{ list: 'ordered' }, { list: 'bullet' }],
       [{ align: [] }],
       [{ size: ['small', 'large', 'huge'] }],
-      [{ header: [1, 2, 3, 4, 5, 6] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
       [{ font: [] }],
       ['link', 'image'],
-    ]
+    ],
+    clipboard: {
+      matchVisual: false,
+    },
   };
 
   constructor(
