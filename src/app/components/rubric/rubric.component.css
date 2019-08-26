@@ -1,6 +1,7 @@
 :host {
   display: block;
-  padding: 0 12px;
+
+  padding: 28px 12px 12px;
 }
 
 .hidden {
@@ -53,6 +54,10 @@
   visibility: hidden;
 }
 
+.mat-tree {
+  background: none;
+}
+
 .mat-tree-node {
   color: #616161;
 }
@@ -68,6 +73,8 @@
   /* margin-left: 12px; */
   padding: 0;
   padding-right: 12px;
+
+  background: none;
 }
 
 .tree-node {

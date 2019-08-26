@@ -4,18 +4,32 @@
   left: 0;
   z-index: 2;
 
+  display: flex;
   box-sizing: border-box;
+
   width: 100%;
   height: 72px;
-  padding: 24px;
 
   background: #fff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .header-link {
+  display: block;
+  flex-grow: 1;
+
+  padding: 24px 40px;
+
   color: #212121;
-  font-weight: 400;
-  font-size: 16px;
   text-decoration: none;
+
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.header-link-content {
+  display: block;
+
+  max-width: 1220px;
+  margin: 0 auto;
 }

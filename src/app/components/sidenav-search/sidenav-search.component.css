@@ -1,8 +1,20 @@
-:host ::ng-deep .mat-form-field-flex {
-    height: 72px;
-    padding: 10px 24px 16px;
+:host {
+    box-sizing: border-box;
+
+    width: 320px;
+
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-:host ::ng-deep  .mat-form-field-underline {
-    background: rgba(0, 0, 0, 0.12);
+:host ::ng-deep .mat-form-field-flex {
+    height: 72px;
+    padding: 7px 24px 23px;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+    background: none;
+}
+
+:host ::ng-deep .mat-icon {
+    font-size: 24px;
 }
