@@ -4,21 +4,21 @@ import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { RubricService } from '@app/services/rubric.service';
 import { ArticleService } from '@app/services/article.service';
 import { filter } from 'rxjs/operators';
-import { DataSource } from '@angular/cdk/collections';
 import { Router, NavigationEnd } from '@angular/router';
 import { Rubric } from '@app/models/rubric';
-import { Article } from '@app/models/article';
-import { Observable, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { AddRubricDialogComponent } from '@app/components/rubric/add-rubric-dialog/add-rubric-dialog.component';
 import { UpdateRubricDialogComponent } from '@app/components/rubric/update-rubric-dialog/update-rubric-dialog.component';
 
+
 interface TreeNode {
   id: number;
   title: string;
-  children ?: TreeNode[];
-  type ?: string;
+  parentId: number;
+  children?: TreeNode[];
+  type?: string;
 }
 
 @Component({
@@ -33,7 +33,7 @@ export class RubricComponent implements OnInit {
   dataSource = new MatTreeNestedDataSource<TreeNode>();
   id: number;
   rubrics: Rubric[] = [];
-  articles: Article[] = [];
+  articles: TreeNode[] = [];
   buttonVisible = false;
 
   constructor(
@@ -47,51 +47,69 @@ export class RubricComponent implements OnInit {
     this.loadTree();
     this.activeNodeSubscribe();
   }
-
   private loadTree() {
-    const rubrics = this.rubricService.getAll();
-    const articles = this.articleService.getAll();
-    forkJoin([rubrics, articles]).subscribe(this.observer);
-  }
-  private observer = (response) => {
-    this.treeControl = new NestedTreeControl<TreeNode>(node => node.children);
-    this.dataSource = new MatTreeNestedDataSource<TreeNode>();
-    this.rubrics = response[0].articles;
-    this.articles = response[1].articles;
-    this.rubrics.forEach(rubric => {
-      this.dataSource.data.push({
-        id: rubric.id,
-        title: rubric.title,
-        children: this.getChildren(this.articles, rubric.id),
-        type: 'rubric',
+    let rootNodes: TreeNode[] = [];
+    this.rubricService.getAll().subscribe((response: any) => {
+
+      this.treeControl = new NestedTreeControl<TreeNode>(node => node.children);
+      this.dataSource = new MatTreeNestedDataSource<TreeNode>();
+      this.articles = response.articles;
+      rootNodes = response.articles.filter(rootNode => rootNode.parentId === 0);
+      rootNodes.forEach(rootNode => {
+        rootNode.children = this.getChildren(response.articles, rootNode.id);
       });
+      this.dataSource.data = rootNodes;
+      this.expand();
+
     });
-    this.expandActive();
-    if (this.rubrics.length === 0) {
-      this.buttonVisible = true;
-    }
-  }
 
 
-  private getChildren(articles: Article[], rubricId: number): Article[] {
-    return articles.filter(article => article.parentId === rubricId);
   }
+  private getChildren(articles: TreeNode[], parentId: number): TreeNode[] {
+    const nodes = articles.filter(node => node.parentId === parentId)
+      .sort(c => {
+        return c.type === 'rubric' ? -1 : 1;
+      });
+    nodes.forEach(node => {
+      node.children = this.getChildren(articles, node.id);
+    });
+    return nodes;
+  }
+
 
   private activeNodeSubscribe() {
+    this.treeControl.collapseAll()
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         this.id = this.getIdFromUrl();
-        this.expandActive();
+        this.expand();
       });
   }
-  private expandActive() {
-    this.dataSource.data.forEach(node => {
-      if (node.children.filter(childNode => childNode.id === this.id).length !== 0) {
+
+  private expand() {
+    // this.treeControl.collapseAll()
+    for (const node of this.dataSource.data) {
+      const result = this.expandActive(node);
+      if (result) {
         this.treeControl.expand(node);
+        break;
       }
     }
-    );
+  }
+
+  private expandActive(node: TreeNode) {
+    if (node.children.filter(childNode => childNode.id === this.id).length !== 0) {
+      this.treeControl.expand(node);
+      return true;
+    } else {
+      for (const child of node.children) {
+        if (this.expandActive(child)) {
+          return true;
+        }
+      }
+      return false;
+    }
   }
 
   getIdFromUrl(): number {
@@ -110,8 +128,7 @@ export class RubricComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
 
-        const articlesToDelete: Article[] = this.getChildren(this.articles, node.id);
-        console.log(articlesToDelete);
+        const articlesToDelete: TreeNode[] = this.getChildren(this.articles, node.id);
         const deleteRequests: any[] = [];
         articlesToDelete.forEach(article => {
           deleteRequests.push(this.articleService.delete(article.id));
@@ -128,7 +145,7 @@ export class RubricComponent implements OnInit {
     });
   }
 
-  public openAddRubricDialog(): void {
+  public openAddRubricDialog(parentId: number): void {
     const dialogRef = this.dialog.open(
       AddRubricDialogComponent,
       {
@@ -137,7 +154,7 @@ export class RubricComponent implements OnInit {
     );
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.rubricService.addRubric(result)
+        this.rubricService.addRubric(result, parentId)
           .subscribe(() => {
             window.location.reload(); // Временный костыль
           });
@@ -155,7 +172,7 @@ export class RubricComponent implements OnInit {
     );
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.rubricService.updateRubric({ id: node.id, title: result })
+        this.rubricService.updateRubric({ id: node.id, title: result, parentId: node.parentId })
           .subscribe((response) => {
             window.location.reload(); // Временный костыль
           });

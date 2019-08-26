@@ -13,7 +13,6 @@
 .tree ul{
   margin: 0;
   padding: 0;
-  white-space: nowrap;
   
 }
 .tree li {
@@ -25,16 +24,23 @@
 .heading-link {
   color: #222;
   text-decoration: none;
-  padding: 12px 24px;
-  display: block;
+  display: flex;
+  align-items: center;
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
 }
-
-.heading-link:hover {
+ 
+.heading-link-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 20px;
+}
+.heading-link:hover .heading-link-content {
   text-decoration: underline;
 }
+
 .selected {
   font-weight: bold;
 }
@@ -46,12 +52,38 @@
 .mat-tree-node:hover .kebab-button, .kebab-button:hover{
   visibility: visible;
 }
-.add-rubric-icon {
-  margin-right: 6px;
-}
+
 .add-rubric-button {
   /* font-size: 16px; */
   display: flex;
-  align-content: center;
-  margin-left: 12px;
+  align-items: center;
+  /* margin-left: 12px; */
+  padding: 0;
+  padding-right: 12px;
+}
+
+.tree-node {
+  display: block;
+  padding-left: 40px;
+  cursor: pointer;
+  user-select: none;
+  /* text-overflow: ellipsis; */
+}
+
+.tree > .tree-node {
+  padding: 0;
+}
+
+.icon-wrapper {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0,0,0,.54);
+  width: 40px;
+  height: 40px;
+}
+
+.icon:hover {
+  text-decoration: none;
 }

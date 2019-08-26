@@ -17,23 +17,18 @@ const rubricMock = [
 export class RubricService {
 
   constructor(private articleService: ArticleService, private http: HttpClient) { }
-  private rubrics: Rubric[] = rubricMock;
 
-
-  // public getAll() {
-  //   return this.rubrics;
-  // }
   public getAll() {
-    return this.http.get('api/article?type=rubric');
+    return this.http.get('api/article');
   }
 
 
-  public addRubric(title:string) {
+  public addRubric(title: string,parentId: number) {
     return this.http.post('api/article', {
       article: {
         title: title,
+        parentId: parentId,
         type: "rubric",
-        parentId:0,
       }
     });
   }
