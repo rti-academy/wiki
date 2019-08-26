@@ -27,7 +27,7 @@
   
   <div class="content">
     <div class="info">
-      <span>Статус: status</span>
+      <span>Статус: {{ article.status }}</span>
       <span>Версия: {{ article.version }}</span>
       <span>Последнее обновление: {{ article.updateTime | date: "dd.MM.yyyy HH:mm" }}</span>      
     </div>

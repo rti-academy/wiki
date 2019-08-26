@@ -15,7 +15,11 @@ export class ArticleEditorComponent implements OnInit {
   public title: string;
   public content: string;
   public action: string;
-  public mockStatus = [];
+  public mockStatus = [
+    {value: 'archive', view: 'В архиве'},
+    {value: 'active', view: 'Актуальный'},
+    {value: 'draft', view: 'Черновик'},
+  ];
   public articleStatus: string;
 
   public quillConfig = {
@@ -50,21 +54,21 @@ export class ArticleEditorComponent implements OnInit {
           .subscribe((response: any) => {
             this.title = response.article.title;
             this.content = response.article.content;
-            this.articleStatus = 'В архиве';
+            this.articleStatus = response.article.status;
+            console.log(this.articleStatus);
           });
       }
       if (this.action === 'add') {
         this.parentId = +params.get('id');
         this.title = '';
         this.content = '';
-        this.articleStatus = 'Черновик';
+        this.articleStatus = 'draft';
       }
     });
 
-    this.articleService.getStatus().forEach((value) => {
-      this.mockStatus.push(value);
-    });
-    console.log(this.mockStatus);
+    // this.articleService.getStatus().forEach((value) => {
+    //   this.mockStatus.push(value);
+    // });
   }
 
   public goBack(): void {
@@ -86,6 +90,7 @@ export class ArticleEditorComponent implements OnInit {
       this.id, {
         title: this.title,
         content: this.content,
+        status: this.articleStatus,
       }).subscribe(() => this.goBack());
   }
 
@@ -95,6 +100,7 @@ export class ArticleEditorComponent implements OnInit {
       content: this.content,
       parentId: this.parentId,
       type: 'note',
+      status: this.articleStatus,
     }).subscribe((response: any) => {
       console.log(response.id);
       this.router.navigateByUrl(`/articles/${response.id}`)

@@ -29,6 +29,7 @@ export class ArticleComponent implements OnInit {
           .subscribe((response: any) => {
             this.article = response.article;
             this.article.updateTime = new Date(this.article.updateTime);
+            this.article.status = Article.getStatus(this.article.status);
         });
       }
     });

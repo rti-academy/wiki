@@ -4,8 +4,8 @@
 
 <mat-form-field>
   <mat-select placeholder="Статус" [(value)]="articleStatus">
-    <mat-option *ngFor="let status of mockStatus" [value]="status">
-      {{ status }}
+    <mat-option *ngFor="let status of mockStatus" [value]="status.value">
+      {{ status.view }}
     </mat-option>
   </mat-select>
 </mat-form-field>
