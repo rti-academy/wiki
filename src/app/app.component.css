@@ -1,14 +1,15 @@
 mat-sidenav-container {
     height: 100%;
+    padding-top: 72px;
 }
 
 mat-sidenav {
-    padding: 40px 0;
     width: 320px;
+    padding-top: 72px;
 }
 
 mat-sidenav-content {
-    padding: 40px;
+    padding: 24px 40px;
     background: #ffffff;
     box-sizing: border-box;
 }

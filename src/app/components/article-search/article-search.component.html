@@ -1,9 +1,22 @@
 <form>
     <mat-form-field class="search-field">
-        <input #searchInput type="text" placeholder="Поиск..." matInput [formControl]="searchControl"
-            [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="handleSelect($event)" [displayWith]="display">
-            <mat-option *ngFor="let article of filteredArticles" [value]="article">
+        <input
+            #searchInput
+            type="text"
+            placeholder="Поиск"
+            matInput
+            [formControl]="searchControl"
+            [matAutocomplete]="auto"
+        >
+        <mat-autocomplete
+            #auto="matAutocomplete"
+            [displayWith]="display"
+            (optionSelected)="handleSelect($event)"
+        >
+            <mat-option
+                [value]="article"
+                *ngFor="let article of filteredArticles"
+            >
                 {{ article.title }}
             </mat-option>
         </mat-autocomplete>

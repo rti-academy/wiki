@@ -1,4 +1,8 @@
-.search {
-    display: block;
-    padding: 0 24px;
+:host ::ng-deep .mat-form-field-flex {
+    height: 72px;
+    padding: 10px 24px 16px;
+}
+
+:host ::ng-deep  .mat-form-field-underline {
+    background: rgba(0, 0, 0, 0.12);
 }
