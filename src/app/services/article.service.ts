@@ -15,6 +15,8 @@ export interface AddParams {
 export class ArticleService {
   public update: EventEmitter<any> = new EventEmitter();
 
+  private mockStatus = ['Актуальный', 'В архиве', 'Черновик'];
+
   constructor(
     private http: HttpClient,
   ) {}
@@ -60,5 +62,9 @@ export class ArticleService {
       .pipe(
         map((response: any) => response.articles)
       );
+  }
+
+  public getStatus() {
+    return this.mockStatus;
   }
 }

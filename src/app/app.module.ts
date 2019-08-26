@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -64,6 +65,7 @@ import { UpdateRubricDialogComponent } from './components/rubric/update-rubric-d
     MatIconModule,
     MatMenuModule,
     FormsModule,
+    MatSelectModule,
     QuillModule.forRoot(),
     MatChipsModule,
     MatIconModule,

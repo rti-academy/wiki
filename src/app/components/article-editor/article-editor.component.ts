@@ -15,6 +15,8 @@ export class ArticleEditorComponent implements OnInit {
   public title: string;
   public content: string;
   public action: string;
+  public mockStatus = [];
+  public articleStatus: string;
 
   public quillConfig = {
     toolbar: [
@@ -48,14 +50,21 @@ export class ArticleEditorComponent implements OnInit {
           .subscribe((response: any) => {
             this.title = response.article.title;
             this.content = response.article.content;
+            this.articleStatus = 'В архиве';
           });
       }
       if (this.action === 'add') {
         this.parentId = +params.get('id');
         this.title = '';
         this.content = '';
+        this.articleStatus = 'Черновик';
       }
     });
+
+    this.articleService.getStatus().forEach((value) => {
+      this.mockStatus.push(value);
+    });
+    console.log(this.mockStatus);
   }
 
   public goBack(): void {
