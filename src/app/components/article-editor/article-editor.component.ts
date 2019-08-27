@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ArticleService } from '@app/services/article.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { ArticleStatusService, StatusValueViewPair } from '@app/services/article-status.service';
 @Component({
   selector: 'app-article-editor',
   templateUrl: './article-editor.component.html',
@@ -15,11 +15,7 @@ export class ArticleEditorComponent implements OnInit {
   public title: string;
   public content: string;
   public action: string;
-  public mockStatus = [
-    {value: 'archive', view: 'В архиве'},
-    {value: 'active', view: 'Актуальный'},
-    {value: 'draft', view: 'Черновик'},
-  ];
+  public statuses: StatusValueViewPair[];
   public articleStatus: string;
 
   public quillConfig = {
@@ -40,10 +36,13 @@ export class ArticleEditorComponent implements OnInit {
 
   constructor(
     private articleService: ArticleService,
+    private articleStatusService: ArticleStatusService,
     private route: ActivatedRoute,
     private location: Location,
     private router: Router,
-  ) { }
+  ) {
+    this.statuses = articleStatusService.statuses;
+  }
 
   public ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -55,7 +54,6 @@ export class ArticleEditorComponent implements OnInit {
             this.title = response.article.title;
             this.content = response.article.content;
             this.articleStatus = response.article.status;
-            console.log(this.articleStatus);
           });
       }
       if (this.action === 'add') {
@@ -65,10 +63,6 @@ export class ArticleEditorComponent implements OnInit {
         this.articleStatus = 'draft';
       }
     });
-
-    // this.articleService.getStatus().forEach((value) => {
-    //   this.mockStatus.push(value);
-    // });
   }
 
   public goBack(): void {
@@ -91,7 +85,10 @@ export class ArticleEditorComponent implements OnInit {
         title: this.title,
         content: this.content,
         status: this.articleStatus,
-      }).subscribe(() => this.goBack());
+      }).subscribe(() => {
+        window.location.replace(`/articles/${this.id}`); // Временный костыль
+        // this.goBack();
+      });
   }
 
   private createArticle() {
@@ -102,11 +99,11 @@ export class ArticleEditorComponent implements OnInit {
       type: 'note',
       status: this.articleStatus,
     }).subscribe((response: any) => {
-      console.log(response.id);
-      this.router.navigateByUrl(`/articles/${response.id}`)
-        .then(() => {
-          window.location.reload(); // Временный костыль
-        });
+      window.location.replace(`/articles/${response.id}`); // Временный костыль
+      // this.router.navigateByUrl(`/articles/${response.id}`)
+      //   .then(() => {
+      //     window.location.reload(); // Временный костыль
+      //   });
     });
   }
 

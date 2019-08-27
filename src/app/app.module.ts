@@ -23,6 +23,7 @@ import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
 import { CommentsComponent } from './components/comments/comments.component';
 import { ArticleService } from './services/article.service';
+import { ArticleStatusService } from './services/article-status.service';
 import { HeadingTreeComponent } from './components/heading-tree/heading-tree.component';
 import { HeadingTreeNodeComponent } from './components/heading-tree/heading-tree-node/heading-tree-node.component';
 import { ArticleComponent } from './components/article/article.component';
@@ -93,6 +94,7 @@ import { HeaderComponent } from './components/header/header.component';
   providers: [
     CommentsService,
     ArticleService,
+    ArticleStatusService,
   ],
   bootstrap: [AppComponent]
 })

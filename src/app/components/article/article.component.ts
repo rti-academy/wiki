@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { SetRubricDialogComponent } from '../set-rubric-dialog/set-rubric-dialog.component';
+import { ArticleStatusService } from '@app/services/article-status.service';
 
 @Component({
   selector: 'app-article',
@@ -17,6 +18,7 @@ export class ArticleComponent implements OnInit {
   constructor(
     private router: Router,
     private articleService: ArticleService,
+    private articleStatusService: ArticleStatusService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
   ) { }
@@ -29,7 +31,7 @@ export class ArticleComponent implements OnInit {
           .subscribe((response: any) => {
             this.article = response.article;
             this.article.updateTime = new Date(this.article.updateTime);
-            this.article.status = Article.getStatus(this.article.status);
+            this.article.status = this.articleStatusService.getView(this.article.status);
         });
       }
     });
