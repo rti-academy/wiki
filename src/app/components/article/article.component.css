@@ -31,3 +31,8 @@
  .btn-controls {
   margin-left: 24px;
 }
+
+.files-wrapper {
+  display: block;
+  margin-bottom: 24px;
+}

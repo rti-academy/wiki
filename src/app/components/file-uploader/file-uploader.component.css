@@ -1,6 +1,6 @@
 :host {
     display: block;
-    margin-bottom: 24px;
+    margin: 24px 0;
 }
 input[type="file"] {
     display: none;
@@ -18,23 +18,19 @@ input[type="file"] {
     font-size: 14px;
 }
 
-.download-container {
-    padding: 0 8px;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-}
-.download-link {
-    text-decoration: none;
-    color: #616161;
-    display: inline-flex;
-    align-items: center;
-    
-}
 .upload-button {
     margin-bottom: 12px;
     display: block;
 }
+.uploaded-files-wrapper {
+    display: flex;
+}
+.uploaded-files-wrapper {
+    text-decoration: none;
+    color: #616161;
+    align-items: center;
+    font-size: 14px;
+}
 .mat-icon {
-    margin: 8px;
+    margin-right: 0;
 }
