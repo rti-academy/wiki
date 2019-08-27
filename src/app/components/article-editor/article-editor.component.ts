@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ArticleService } from '@app/services/article.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleStatusService, StatusValueViewPair } from '@app/services/article-status.service';
+import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { FileService } from '@app/services/file.service';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-article-editor',
   templateUrl: './article-editor.component.html',
@@ -17,6 +21,9 @@ export class ArticleEditorComponent implements OnInit {
   public action: string;
   public statuses: StatusValueViewPair[];
   public articleStatus: string;
+  @ViewChild(FileUploaderComponent, { static: false })
+  fileUploader: FileUploaderComponent;
+  public uploadForm: FormGroup;
 
   public quillConfig = {
     toolbar: [
@@ -40,6 +47,8 @@ export class ArticleEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private router: Router,
+    private fileService: FileService,
+    private formBuilder: FormBuilder,
   ) {
     this.statuses = articleStatusService.statuses;
   }
@@ -62,6 +71,9 @@ export class ArticleEditorComponent implements OnInit {
         this.content = '';
         this.articleStatus = 'draft';
       }
+    });
+    this.uploadForm = this.formBuilder.group({
+      profile: ['']
     });
   }
 
@@ -86,7 +98,9 @@ export class ArticleEditorComponent implements OnInit {
         content: this.content,
         status: this.articleStatus,
       }).subscribe(() => {
-        window.location.replace(`/articles/${this.id}`); // Временный костыль
+        this.fileRequests(this.id).subscribe(() => {
+          window.location.replace(`/articles/${this.id}`); // Временный костыль
+        });
         // this.goBack();
       });
   }
@@ -99,12 +113,24 @@ export class ArticleEditorComponent implements OnInit {
       type: 'note',
       status: this.articleStatus,
     }).subscribe((response: any) => {
-      window.location.replace(`/articles/${response.id}`); // Временный костыль
-      // this.router.navigateByUrl(`/articles/${response.id}`)
-      //   .then(() => {
-      //     window.location.reload(); // Временный костыль
-      //   });
+      this.fileRequests(response.id).subscribe(() => {
+        window.location.replace(`/articles/${response.id}`); // Временный костыль
+      });
     });
+  }
+  private fileRequests(articleId: number) {
+    const uploadRequests = this.fileUploader.files
+      .map(file => {
+        this.uploadForm.get('profile').setValue(file);
+        const formData = new FormData();
+        formData.append('file', this.uploadForm.get('profile').value);
+        return this.fileService.upload(formData, articleId);
+      });
+    const deleteRequests = this.fileUploader.fileView.filesToDelete
+      .map(fileId =>
+        this.fileService.delete(fileId, articleId)
+        );
+    return forkJoin(uploadRequests.concat(deleteRequests));
   }
 
 }

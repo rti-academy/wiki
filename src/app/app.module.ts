@@ -41,6 +41,7 @@ import { UpdateRubricDialogComponent } from './components/rubric/update-rubric-d
 import { HeaderComponent } from './components/header/header.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { DeleteRubricDialogComponent } from './components/rubric/delete-rubric-dialog/delete-rubric-dialog.component';
+import { FileViewComponent } from './components/file-view/file-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +62,7 @@ import { DeleteRubricDialogComponent } from './components/rubric/delete-rubric-d
     HeaderComponent,
     FileUploaderComponent,
     DeleteRubricDialogComponent,
+    FileViewComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,9 @@
+<div *ngFor="let file of files; let i = index" class="download-container">            
+    <a href="/api/article/{{articleId}}/file/{{file.id}}" target="_blank" class = "download-link">
+        <mat-icon class="mat-icon">attachment</mat-icon>
+        {{file.name}}
+    </a>
+    <button *ngIf="deleteEnabled" mat-icon-button (click)="deleteFile(i)">
+        <mat-icon  class="mat-icon">close</mat-icon>
+    </button>
+</div>
