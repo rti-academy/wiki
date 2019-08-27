@@ -2,5 +2,9 @@
   "/api": {
     "target": "http://82.202.226.246:3050",
     "secure": false
+  },
+  "/uploads": {
+    "target": "http://82.202.226.246",
+    "secure": false
   }
 }

@@ -1,0 +1,22 @@
+
+<div>
+        <form [formGroup] = "uploadForm">      
+          <!-- <div>
+            <input type="file" name="profile" (change)="onFileSelect($event)" />
+          </div> -->
+          <button mat-raised-button color="primary" class="upload-button"><label for="file-upload">
+            Загрузить файл
+          </label></button>
+        <input id="file-upload" type="file" (change)="onFileSelect($event)"/>
+         <div *ngFor="let file of files"  class="download-container">            
+           <a href="/api/article/{{articleId}}/file/{{file.id}}" target="_blank" class = "download-link">
+
+               <mat-icon class="mat-icon">attachment</mat-icon>
+              {{file.name}}
+            </a>
+           <button mat-icon-button (click)="openDeleteDialog(file)">
+             <mat-icon  class="mat-icon">close</mat-icon>
+            </button>
+          </div>
+        </form>
+      </div>
