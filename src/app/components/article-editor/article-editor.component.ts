@@ -6,7 +6,7 @@ import { ArticleStatusService, StatusValueViewPair } from '@app/services/article
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { FileService } from '@app/services/file.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 @Component({
   selector: 'app-article-editor',
   templateUrl: './article-editor.component.html',
@@ -92,17 +92,18 @@ export class ArticleEditorComponent implements OnInit {
   }
 
   private saveChange() {
-    this.articleService.edit(
+    const editArticleRequest: Observable<any> = this.articleService.edit(
       this.id, {
         title: this.title,
         content: this.content,
         status: this.articleStatus,
-      }).subscribe(() => {
-        this.fileRequests(this.id).subscribe(() => {
-          window.location.replace(`/articles/${this.id}`); // Временный костыль
-        });
-        // this.goBack();
       });
+
+    const fileRequest = this.fileRequests(this.id);
+    fileRequest.push(editArticleRequest);
+    forkJoin(fileRequest).subscribe(() => {
+      window.location.replace(`/articles/${this.id}`); // Временный костыль
+    });
   }
 
   private createArticle() {
@@ -113,9 +114,16 @@ export class ArticleEditorComponent implements OnInit {
       type: 'note',
       status: this.articleStatus,
     }).subscribe((response: any) => {
-      this.fileRequests(response.id).subscribe(() => {
+
+      const fileRequests = this.fileRequests(response.id);
+
+      if (fileRequests.length > 0) {
+        forkJoin(fileRequests).subscribe(() => {
+          window.location.replace(`/articles/${response.id}`); // Временный костыль
+        });
+      } else {
         window.location.replace(`/articles/${response.id}`); // Временный костыль
-      });
+      }
     });
   }
   private fileRequests(articleId: number) {
@@ -129,8 +137,8 @@ export class ArticleEditorComponent implements OnInit {
     const deleteRequests = this.fileUploader.fileView.filesToDelete
       .map(fileId =>
         this.fileService.delete(fileId, articleId)
-        );
-    return forkJoin(uploadRequests.concat(deleteRequests));
+      );
+    return uploadRequests.concat(deleteRequests);
   }
 
 }
