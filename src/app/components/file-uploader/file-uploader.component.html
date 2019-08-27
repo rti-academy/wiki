@@ -7,8 +7,16 @@
           <button mat-raised-button color="primary" class="upload-button"><label for="file-upload">
             Загрузить файл
           </label></button>
-        <input id="file-upload" type="file"/>
-        <a></a>
-         <div *ngFor="let file of files" (click)="download(file)" class="download">{{file.name}}</div>
+        <input id="file-upload" type="file" (change)="onFileSelect($event)"/>
+         <div *ngFor="let file of files"  class="download-container">            
+           <a href="/api/article/{{articleId}}/file/{{file.id}}" target="_blank" class = "download-link">
+
+               <mat-icon class="mat-icon">attachment</mat-icon>
+              {{file.name}}
+            </a>
+           <button mat-icon-button (click)="openDeleteDialog(file)">
+             <mat-icon  class="mat-icon">close</mat-icon>
+            </button>
+          </div>
         </form>
       </div>
