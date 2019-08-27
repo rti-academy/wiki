@@ -40,6 +40,7 @@ import { SetRubricDialogComponent } from './components/set-rubric-dialog/set-rub
 import { UpdateRubricDialogComponent } from './components/rubric/update-rubric-dialog/update-rubric-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
+import { DeleteRubricDialogComponent } from './components/rubric/delete-rubric-dialog/delete-rubric-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +60,7 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
     UpdateRubricDialogComponent,
     HeaderComponent,
     FileUploaderComponent,
+    DeleteRubricDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
     DeleteDialogComponent,
     AddRubricDialogComponent,
     SetRubricDialogComponent,
-    UpdateRubricDialogComponent
+    UpdateRubricDialogComponent,
+    DeleteRubricDialogComponent,
   ],
   providers: [
     CommentsService,

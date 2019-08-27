@@ -8,9 +8,9 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Rubric } from '@app/models/rubric';
 import { forkJoin } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { AddRubricDialogComponent } from '@app/components/rubric/add-rubric-dialog/add-rubric-dialog.component';
 import { UpdateRubricDialogComponent } from '@app/components/rubric/update-rubric-dialog/update-rubric-dialog.component';
+import { DeleteRubricDialogComponent } from './delete-rubric-dialog/delete-rubric-dialog.component';
 
 
 interface TreeNode {
@@ -78,7 +78,7 @@ export class RubricComponent implements OnInit {
 
 
   private activeNodeSubscribe() {
-    this.treeControl.collapseAll()
+    this.treeControl.collapseAll();
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -116,30 +116,30 @@ export class RubricComponent implements OnInit {
     const parts = location.pathname.split('/');
     return parts.length > 2 ? Number(parts[2]) : null;
   }
-  public openDeleteDialog(node): void {
+
+  public openDeleteDialog(node: TreeNode): void {
+    const nodesToDelete = this.convertNodeTreeToList(node);
+    const rubricTitle = node.title;
+
     const dialogRef = this.dialog.open(
-      DeleteDialogComponent,
+      DeleteRubricDialogComponent,
       {
         width: '400px',
-        data: 'рубрику и все входящие в нее статьи'
-      },
+        data: {
+          rubricTitle,
+          nodesToDelete,
+        }
+      }
     );
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        const deleteRequests = nodesToDelete
+          .map(n => this.articleService.delete(n.id));
 
-        const articlesToDelete: TreeNode[] = this.getChildren(this.articles, node.id);
-        const deleteRequests: any[] = [];
-        articlesToDelete.forEach(article => {
-          deleteRequests.push(this.articleService.delete(article.id));
-        });
-        deleteRequests.push(this.articleService.delete(node.id));
         forkJoin(deleteRequests)
           .subscribe(() => {
-            this.router.navigate([``])
-              .then(() => {
-                window.location.reload(); // Временный костыль
-              });
+            window.location.replace('/'); // Временный костыль
           });
       }
     });
@@ -180,7 +180,16 @@ export class RubricComponent implements OnInit {
     });
   }
 
-
   isRubric = (_: number, node: TreeNode) => node.type === 'rubric';
   hasChild = (_: number, node: TreeNode) => !!node.children && node.children.length > 0;
+
+  private convertNodeTreeToList(node: TreeNode, initial: TreeNode[] = []) {
+    initial.push(node);
+
+    for (const childNode of node.children) {
+      this.convertNodeTreeToList(childNode, initial);
+    }
+
+    return initial;
+  }
 }
