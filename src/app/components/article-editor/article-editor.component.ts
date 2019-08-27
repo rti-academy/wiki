@@ -28,7 +28,7 @@ export class ArticleEditorComponent implements OnInit {
       ['blockquote'],
       [{ list: 'ordered' }, { list: 'bullet' }],
       [{ align: [] }],
-      [{ size: ['small', 'large', 'huge'] }],
+      [{ size: ['small', false, 'large', 'huge'] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
       [{ font: [] }],
       ['link', 'image'],
