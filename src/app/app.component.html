@@ -1,9 +1,12 @@
 <app-header></app-header>
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened disableClose>
+  <mat-sidenav opened disableClose #sidenav mode="side">
     <app-rubric></app-rubric>
   </mat-sidenav>
   <mat-sidenav-content>
+    <button mat-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
     <div class="sidenav-content">
       <router-outlet></router-outlet>
     </div>
