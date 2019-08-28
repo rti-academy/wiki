@@ -32,7 +32,7 @@ export class ArticleEditorComponent implements OnInit {
       [{ list: 'ordered' }, { list: 'bullet' }],
       [{ align: [] }],
       [{ size: ['small', false, 'large', 'huge'] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ header: [1, 2, 3, 4, false] }],
       [{ font: [] }],
       ['link', 'image'],
     ],
