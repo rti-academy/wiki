@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Article } from '@app/models/article';
+
+export interface SetRubricDialogData {
+  incincludedNodeParentIDs: number[];
+}
 
 @Component({
   selector: 'app-set-rubric-dialog',
@@ -14,6 +18,7 @@ export class SetRubricDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<SetRubricDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: SetRubricDialogData,
   ) { }
 
   public ngOnInit() {

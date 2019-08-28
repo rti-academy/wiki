@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter }
 import { FormControl } from '@angular/forms';
 import { ArticleService } from '@app/services/article.service';
 import { Observable, Subscription } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, findIndex } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Article } from '@app/models/article';
 
@@ -15,13 +15,14 @@ export class ArticleSearchComponent implements OnInit {
     public filteredArticles: Article[];
 
     @Input()
+    includedNodeIDs: number[] = [];
+
+    @Input()
     public type = 'note';
 
     @Output()
     public selected = new EventEmitter();
 
-    @ViewChild('searchInput', { static: false })
-    public searchInput: ElementRef<HTMLInputElement>;
     public searchControl = new FormControl();
 
     constructor(
@@ -55,6 +56,13 @@ export class ArticleSearchComponent implements OnInit {
         ).subscribe(value => {
             subscription = this.articleService.search(value, this.type)
                 .subscribe(articles => {
+
+                    if (this.includedNodeIDs && this.includedNodeIDs.length > 0) {
+                        articles = articles.filter(article =>
+                            this.includedNodeIDs.findIndex(id =>
+                                article.parentId === id) >= 0);
+                    }
+
                     this.filteredArticles = articles;
                 });
         });

@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddRubricDialogComponent } from '@app/components/rubric/add-rubric-dialog/add-rubric-dialog.component';
 import { UpdateRubricDialogComponent } from '@app/components/rubric/update-rubric-dialog/update-rubric-dialog.component';
 import { DeleteRubricDialogComponent } from './delete-rubric-dialog/delete-rubric-dialog.component';
+import { SetRubricDialogComponent } from '../set-rubric-dialog/set-rubric-dialog.component';
 
 
 interface TreeNode {
@@ -141,6 +142,27 @@ export class RubricComponent implements OnInit {
           .subscribe(() => {
             window.location.replace('/'); // Временный костыль
           });
+      }
+    });
+  }
+
+  public openSetRubricDialog(node: TreeNode): void {
+    const dialogRef = this.dialog.open(
+      SetRubricDialogComponent,
+      {
+        width: '400px',
+        data: {
+          incincludedNodeParentIDs: [0]
+        }
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        node.parentId = result;
+        this.rubricService.updateRubric(node).subscribe(() => {
+          window.location.reload();
+        });
       }
     });
   }

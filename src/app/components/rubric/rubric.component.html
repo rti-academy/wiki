@@ -44,6 +44,10 @@
             <mat-icon>edit</mat-icon>
             Редактировать рубрику
           </button>
+          <button *ngIf="node.parentId" mat-menu-item (click)="openSetRubricDialog(node)">
+            <mat-icon>subdirectory_arrow_right</mat-icon>
+            Переместить
+          </button>
           <button mat-menu-item (click)="openDeleteDialog(node)">
             <mat-icon>delete</mat-icon>
             Удалить рубрику

@@ -41,6 +41,7 @@ export class RubricService {
     return this.http.put<Rubric>(`/api/article/${rubric.id}`, {
       article:{
         title: rubric.title,
+        parentId: rubric.parentId
       }
     });
   };
