@@ -24,6 +24,7 @@
         </div>
         <div class="heading-link-content">{{ node.title }}</div>
       </a>
+      <app-article-menu [articleId]="node.id" class="kebab-button"></app-article-menu>
     </li>
   </mat-tree-node>
   <!-- This is the tree node template for expandable nodes -->
