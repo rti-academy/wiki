@@ -92,12 +92,12 @@ body {
 
 .ql-snow .ql-picker.ql-header .ql-picker-label::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item::before {
-  content: "Обычный";
+  content: "Абзац";
 }
 
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="small"]::before,
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="small"]::before {
-  content: "маленький";
+  content: "Маленький";
 }
 
 .ql-snow .ql-picker.ql-size .ql-picker-label::before,
