@@ -1,0 +1,14 @@
+<li class="mat-tree-node" [matTooltip]="node.title" matTooltipPosition="after" (mouseenter)="nodeHover=true" (mouseleave)="nodeHover=false">
+    <a class="heading-link" [routerLink]="['articles', node.id]" routerLinkActive="selected">
+        <div class="icon-wrapper">
+            <mat-icon class="icon">insert_drive_file</mat-icon>
+        </div>
+        <div class="heading-link-content">{{ node.title }}</div>
+    </a>
+    <app-article-menu 
+        [articleId]="node.id" 
+        class="kebab-button" 
+        (menuClosed)="menuUp=false" 
+        (menuOpened)="menuUp=true"
+        [class.hidden]="!(nodeHover||menuUp)"></app-article-menu>
+</li>

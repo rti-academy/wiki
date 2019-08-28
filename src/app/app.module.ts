@@ -43,6 +43,8 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
 import { DeleteRubricDialogComponent } from './components/rubric/delete-rubric-dialog/delete-rubric-dialog.component';
 import { FileViewComponent } from './components/file-view/file-view.component';
 import { ArticleMenuComponent } from './components/article-menu/article-menu.component';
+import { RubricNestedNodeComponent } from './components/rubric/rubric-nested-node/rubric-nested-node.component';
+import { RubricNodeComponent } from './components/rubric/rubric-node/rubric-node.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +67,8 @@ import { ArticleMenuComponent } from './components/article-menu/article-menu.com
     DeleteRubricDialogComponent,
     FileViewComponent,
     ArticleMenuComponent,
+    RubricNestedNodeComponent,
+    RubricNodeComponent,
   ],
   imports: [
     BrowserModule,

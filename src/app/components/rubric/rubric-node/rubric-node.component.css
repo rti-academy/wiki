@@ -1,0 +1,38 @@
+.heading-link {
+  color: #616161;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+
+.heading-link-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 20px;
+}
+
+.heading-link:hover .heading-link-content {
+  text-decoration: underline;
+}
+
+.icon-wrapper {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.54);
+  width: 40px;
+  height: 40px;
+}
+
+.mat-tree-node {
+  color: #616161;
+}
+
+.hidden {
+  opacity: 0;
+}
