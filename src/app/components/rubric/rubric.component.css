@@ -12,7 +12,6 @@
   display: none;
 }
 
-
 .tree ul{
   margin: 0;
   padding: 0;
@@ -23,54 +22,19 @@
   padding: 0px;
 }
 
-.heading-link {
-  color: #616161;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 100%;
-}
-
-.heading-link-content {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-right: 20px;
-}
-.heading-link:hover .heading-link-content {
-  text-decoration: underline;
-}
-
 .selected {
   color: #212121;
 
   font-weight: 500;
 }
 
-.kebab-button {
-  margin-left: auto;
-  visibility: hidden;
-}
-
 .mat-tree {
   background: none;
 }
 
-.mat-tree-node {
-  color: #616161;
-}
-
-.mat-tree-node:hover .kebab-button, .kebab-button:hover{
-  visibility: visible;
-}
-
 .add-rubric-button {
-  /* font-size: 16px; */
   display: flex;
   align-items: center;
-  /* margin-left: 12px; */
   padding: 0;
   padding-right: 12px;
 
@@ -83,6 +47,7 @@
   cursor: pointer;
   user-select: none;
   /* text-overflow: ellipsis; */
+  color: #616161;
 }
 
 .tree > .tree-node {
