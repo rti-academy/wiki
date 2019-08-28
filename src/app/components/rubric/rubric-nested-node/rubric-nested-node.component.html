@@ -1,0 +1,39 @@
+<div class="mat-tree-node" matTreeNodeToggle (mouseenter)="nodeHover=true" (mouseleave)="nodeHover=false">
+    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.title">
+        <mat-icon class="mat-icon-rtl-mirror">
+            {{ expanded ? 'expand_more' : 'chevron_right' }}
+        </mat-icon>
+    </button>
+    {{ node.title }}
+    <button class="kebab-button" 
+        mat-icon-button 
+        mat-button 
+        [matMenuTriggerFor]="beforeMenu"
+        (menuOpened)="menuUp=true"
+        (menuClosed)="menuUp=false"
+        [class.hidden]="!(nodeHover||menuUp)">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="openUpdateRubricDialog(node)">
+            <mat-icon>edit</mat-icon>
+            Редактировать рубрику
+        </button>
+        <button *ngIf="node.parentId" mat-menu-item (click)="openSetRubricDialog(node)">
+            <mat-icon>subdirectory_arrow_right</mat-icon>
+            Переместить
+        </button>
+        <button mat-menu-item (click)="openDeleteDialog(node)">
+            <mat-icon>delete</mat-icon>
+            Удалить рубрику
+        </button>
+        <button *ngIf="!node.parentId" mat-menu-item (click)="openAddRubricDialog(node.id)">
+            <mat-icon>create_new_folder</mat-icon>
+            Добавить рубрику
+        </button>
+        <button mat-menu-item [routerLink]="['/articles', node.id, 'add']">
+            <mat-icon>note_add</mat-icon>
+            Добавить статью
+        </button>
+    </mat-menu>
+</div>

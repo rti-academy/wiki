@@ -1,0 +1,21 @@
+<button mat-icon-button mat-button 
+        [matMenuTriggerFor]="beforeMenu"
+        (menuOpened)="menuOpened.emit()"
+        (menuClosed)="menuClosed.emit()">
+    <mat-icon>{{ menuIcon }}</mat-icon>
+</button>
+
+<mat-menu #beforeMenu="matMenu" xPosition="before">
+    <button mat-menu-item [routerLink]="['/articles', articleId, 'edit']">
+        <mat-icon>create</mat-icon>
+        Редактировать
+    </button>
+    <button mat-menu-item (click)="openSetRubricDialog()">
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        Переместить
+    </button>
+    <button mat-menu-item (click)="openDeleteDialog()">
+        <mat-icon>delete</mat-icon>
+        Удалить
+    </button>
+</mat-menu>

@@ -1,0 +1,17 @@
+.mat-tree-node {
+  color: #616161;
+}
+
+.kebab-button {
+  margin-left: auto;
+  /* visibility: hidden; */
+}
+
+.hidden {
+  opacity: 0;
+}
+
+/* .mat-tree-node:hover .kebab-button,
+.kebab-button:hover {
+  visibility: visible;
+} */

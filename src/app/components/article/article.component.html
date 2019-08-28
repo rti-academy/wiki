@@ -4,7 +4,7 @@
       {{ article.title }}
     </h1>
     <div class="btn-controls">    
-      <button mat-icon-button mat-button [matMenuTriggerFor]="beforeMenu">
+      <!-- <button mat-icon-button mat-button [matMenuTriggerFor]="beforeMenu">
         <mat-icon>more_horiz</mat-icon>
       </button>
   
@@ -21,7 +21,11 @@
           <mat-icon>delete</mat-icon>
           Удалить
         </button>
-      </mat-menu>  
+      </mat-menu>   -->
+      <app-article-menu 
+        [articleId]="article.id"
+        [menuIcon]="'more_horiz'"
+      ></app-article-menu>
     </div>
   </div>
   
