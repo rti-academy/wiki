@@ -30,6 +30,8 @@
 .header-link-content {
   display: block;
 
-  max-width: 1220px;
+  /* max-width: 1220px; */
   margin: 0 auto;
+
+  text-align: center;
 }
