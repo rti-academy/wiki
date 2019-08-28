@@ -3,6 +3,7 @@
     <app-article-search
         type="rubric"
         (selected)="setRubric($event)"
+        [includedNodeIDs]="data !==null ? data.incincludedNodeParentIDs : []"
     ></app-article-search>
 </div>
 <div mat-dialog-actions>
@@ -11,7 +12,7 @@
         mat-raised-button
         color="primary"
         [disabled]="disabled"
-        [mat-dialog-close]="result">Ok</button>
+        [mat-dialog-close]="result">ОК</button>
     <button
         mat-button
         mat-dialog-close
