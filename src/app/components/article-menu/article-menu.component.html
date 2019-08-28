@@ -1,4 +1,7 @@
-<button mat-icon-button mat-button [matMenuTriggerFor]="beforeMenu">
+<button mat-icon-button mat-button 
+        [matMenuTriggerFor]="beforeMenu"
+        (menuOpened)="menuOpened.emit()"
+        (menuClosed)="menuClosed.emit()">
     <mat-icon>{{ menuIcon }}</mat-icon>
 </button>
 

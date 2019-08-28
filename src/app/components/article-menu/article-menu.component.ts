@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
@@ -17,6 +17,12 @@ export class ArticleMenuComponent {
 
   @Input()
   public menuIcon = 'more_vert';
+
+  @Output()
+  public menuOpened = new EventEmitter();
+
+  @Output()
+  public menuClosed = new EventEmitter();
 
   constructor(
     private router: Router,
