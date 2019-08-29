@@ -1,10 +1,12 @@
-<div class="mat-tree-node" matTreeNodeToggle (mouseenter)="nodeHover=true" (mouseleave)="nodeHover=false">
+<div class="mat-tree-node" (mouseenter)="nodeHover=true" (mouseleave)="nodeHover=false">
     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.title">
         <mat-icon class="mat-icon-rtl-mirror">
             {{ expanded ? 'expand_more' : 'chevron_right' }}
         </mat-icon>
     </button>
-    {{ node.title }}
+    <div matTreeNodeToggle class="node-title">
+        {{ node.title }}
+    </div>
     <button class="kebab-button" 
         mat-icon-button 
         mat-button 
