@@ -152,7 +152,8 @@ export class RubricComponent implements OnInit {
       {
         width: '400px',
         data: {
-          incincludedNodeParentIDs: [0]
+          includedNodeParentIDs: [0],
+          excludedNodeParentIDs: [],
         }
       }
     );

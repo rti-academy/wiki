@@ -56,7 +56,7 @@
             <mat-icon>create_new_folder</mat-icon>
             Добавить рубрику
           </button>
-          <button mat-menu-item [routerLink]="['/articles', node.id, 'add']">
+          <button *ngIf="node.parentId" mat-menu-item [routerLink]="['/articles', node.id, 'add']">
             <mat-icon>note_add</mat-icon>
             Добавить статью
           </button>

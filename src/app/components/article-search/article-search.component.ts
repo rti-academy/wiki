@@ -18,6 +18,9 @@ export class ArticleSearchComponent implements OnInit {
     includedNodeIDs: number[] = [];
 
     @Input()
+    excludedNodeIDs: number[] = [];
+
+    @Input()
     public type = 'note';
 
     @Output()
@@ -61,6 +64,12 @@ export class ArticleSearchComponent implements OnInit {
                         articles = articles.filter(article =>
                             this.includedNodeIDs.findIndex(id =>
                                 article.parentId === id) >= 0);
+                    }
+
+                    if (this.excludedNodeIDs && this.excludedNodeIDs.length > 0) {
+                        articles = articles.filter(article =>
+                            this.excludedNodeIDs.findIndex(id =>
+                                article.parentId === id) === -1);
                     }
 
                     this.filteredArticles = articles;
