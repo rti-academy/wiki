@@ -3,7 +3,8 @@
     <app-article-search
         type="rubric"
         (selected)="setRubric($event)"
-        [includedNodeIDs]="data !==null ? data.incincludedNodeParentIDs : []"
+        [includedNodeIDs]="data !==null ? data.includedNodeParentIDs : []"
+        [excludedNodeIDs]="data !==null ? data.excludedNodeParentIDs : []"
     ></app-article-search>
 </div>
 <div mat-dialog-actions>

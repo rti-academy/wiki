@@ -3,7 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Article } from '@app/models/article';
 
 export interface SetRubricDialogData {
-  incincludedNodeParentIDs: number[];
+  includedNodeParentIDs: number[];
+  excludedNodeParentIDs: number[];
 }
 
 @Component({

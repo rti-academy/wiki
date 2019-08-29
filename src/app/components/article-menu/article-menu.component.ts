@@ -71,6 +71,13 @@ export class ArticleMenuComponent {
   public openSetRubricDialog(): void {
     const dialogRef = this.dialog.open(
       SetRubricDialogComponent,
+      {
+        width: '400px',
+        data: {
+          includedNodeParentIDs: [],
+          excludedNodeParentIDs: [0],
+        }
+      }
     );
 
     dialogRef.afterClosed().subscribe((result) => {
