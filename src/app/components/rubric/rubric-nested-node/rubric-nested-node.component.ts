@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TreeNode } from '../rubric.component';
+import { TreeNode } from '@app/models/tree-node';
 import { forkJoin } from 'rxjs';
 import { RubricService } from '@app/services/rubric.service';
 import { ArticleService } from '@app/services/article.service';

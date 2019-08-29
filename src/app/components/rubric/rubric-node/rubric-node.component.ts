@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TreeNode } from '../rubric.component';
+import { TreeNode } from '@app/models/tree-node';
 
 @Component({
   selector: 'app-rubric-node',
