@@ -69,7 +69,8 @@ export class RubricNestedNodeComponent implements OnInit {
       {
         width: '400px',
         data: {
-          incincludedNodeParentIDs: [0]
+          includedNodeParentIDs: [0],
+          excludedNodeParentIDs: []
         }
       }
     );

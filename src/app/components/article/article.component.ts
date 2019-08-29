@@ -36,43 +36,4 @@ export class ArticleComponent implements OnInit {
       }
     });
   }
-
-  // public openDeleteDialog(): void {
-  //   const dialogRef = this.dialog.open(
-  //     DeleteDialogComponent,
-  //     {width: '400px',
-  //      data: 'статью'
-  //   },
-  //   );
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       this.articleService.delete(this.article.id)
-  //         .subscribe(() => {
-  //           this.router.navigate([``])
-  //             .then(() => {
-  //               window.location.reload(); // Временный костыль
-  //             });
-  //         });
-  //     }
-  //   });
-  // }
-
-  // public openSetRubricDialog(): void {
-  //   const dialogRef = this.dialog.open(
-  //     SetRubricDialogComponent,
-  //   );
-
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     if (result) {
-  //       this.articleService.edit(
-  //         this.article.id,
-  //         {parentId: result}
-  //       ).subscribe(() => {
-  //         window.location.reload(); // Временный костыль
-  //       });
-  //     }
-  //   });
-  // }
-
 }
