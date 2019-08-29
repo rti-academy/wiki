@@ -5,7 +5,8 @@
         </mat-icon>
     </button>
     {{ node.title }}
-    <button class="kebab-button" 
+    <button *ngIf="!((isHandset | async) || (isSmall | async))"
+        class="kebab-button"
         mat-icon-button 
         mat-button 
         [matMenuTriggerFor]="beforeMenu"
