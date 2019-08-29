@@ -32,7 +32,8 @@ mat-sidenav-content {
     }
 
     mat-sidenav-content {
-        z-index: -1;
+        position: relative;
+
         padding-left: 70px;
         padding-right: 70px;
     }
