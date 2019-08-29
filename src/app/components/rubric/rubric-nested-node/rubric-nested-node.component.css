@@ -4,14 +4,15 @@
 
 .kebab-button {
   margin-left: auto;
-  /* visibility: hidden; */
 }
 
 .hidden {
   opacity: 0;
 }
 
-/* .mat-tree-node:hover .kebab-button,
-.kebab-button:hover {
-  visibility: visible;
-} */
+.node-title {
+  flex: 1;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
