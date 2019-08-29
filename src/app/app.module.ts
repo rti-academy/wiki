@@ -40,11 +40,11 @@ import { SetRubricDialogComponent } from './components/set-rubric-dialog/set-rub
 import { UpdateRubricDialogComponent } from './components/rubric/update-rubric-dialog/update-rubric-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
-import { DeleteRubricDialogComponent } from './components/rubric/delete-rubric-dialog/delete-rubric-dialog.component';
 import { FileViewComponent } from './components/file-view/file-view.component';
 import { ArticleMenuComponent } from './components/article-menu/article-menu.component';
 import { RubricNestedNodeComponent } from './components/rubric/rubric-nested-node/rubric-nested-node.component';
 import { RubricNodeComponent } from './components/rubric/rubric-node/rubric-node.component';
+import { DialogService } from './services/dialog.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +64,6 @@ import { RubricNodeComponent } from './components/rubric/rubric-node/rubric-node
     UpdateRubricDialogComponent,
     HeaderComponent,
     FileUploaderComponent,
-    DeleteRubricDialogComponent,
     FileViewComponent,
     ArticleMenuComponent,
     RubricNestedNodeComponent,
@@ -102,12 +101,12 @@ import { RubricNodeComponent } from './components/rubric/rubric-node/rubric-node
     AddRubricDialogComponent,
     SetRubricDialogComponent,
     UpdateRubricDialogComponent,
-    DeleteRubricDialogComponent,
   ],
   providers: [
     CommentsService,
     ArticleService,
     ArticleStatusService,
+    DialogService,
   ],
   bootstrap: [AppComponent]
 })
