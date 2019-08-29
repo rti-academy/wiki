@@ -7,7 +7,8 @@
     <div matTreeNodeToggle class="node-title">
         {{ node.title }}
     </div>
-    <button class="kebab-button" 
+    <button *ngIf="!((isHandset | async) || (isSmall | async))"
+        class="kebab-button"
         mat-icon-button 
         mat-button 
         [matMenuTriggerFor]="beforeMenu"

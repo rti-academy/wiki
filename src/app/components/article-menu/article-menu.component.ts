@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { ArticleService } from '@app/services/article.service';
 import { DialogService } from '@app/services/dialog.service';
 import { RubricTreeService } from '@app/services/rubric-tree.service';
+import { Observable } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-article-menu',
@@ -23,11 +26,24 @@ export class ArticleMenuComponent {
   @Output()
   public menuClosed = new EventEmitter();
 
+  public isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay(),
+    );
+
+  public isSmall: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Small)
+    .pipe(
+      map(result => result.matches),
+      shareReplay(),
+    );
+
   constructor(
     private router: Router,
     private articleService: ArticleService,
     private dialogService: DialogService,
     private rubricTreeService: RubricTreeService,
+    private breakpointObserver: BreakpointObserver,
   ) {
   }
 
