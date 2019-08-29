@@ -1,5 +1,10 @@
 <div mat-dialog-content>
-    <p>Вы уверены, что хотите удалить {{data}}?</p>
+    <p>{{ data.title }}</p>
+    <ul *ngIf="data.itemsToDelete" class="list">
+        <li *ngFor="let item of data.itemsToDelete" class="list-item">
+            {{ item }}
+        </li>
+    </ul>
 </div>
 <div mat-dialog-actions>
     <button mat-button mat-raised-button color="primary" [mat-dialog-close]="true">Да</button>

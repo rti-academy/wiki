@@ -1,9 +1,7 @@
-import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { ArticleService } from '@app/services/article.service';
-import { SetRubricDialogComponent } from '../set-rubric-dialog/set-rubric-dialog.component';
+import { DialogService } from '@app/services/dialog.service';
 
 @Component({
   selector: 'app-article-menu',
@@ -26,20 +24,14 @@ export class ArticleMenuComponent {
 
   constructor(
     private router: Router,
-    private dialog: MatDialog,
     private articleService: ArticleService,
+    private dialogService: DialogService,
   ) {
   }
 
   public openDeleteDialog(): void {
-    const dialogRef = this.dialog.open(
-      DeleteDialogComponent,
-      {width: '400px',
-       data: 'статью'
-    },
-    );
-
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogService.openDeleteDialog({title: 'Вы уверены, что хотите удалить статью?'})
+    .subscribe(result => {
       if (result) {
         this.articleService.delete(this.articleId)
           .subscribe(() => {
@@ -53,18 +45,11 @@ export class ArticleMenuComponent {
   }
 
   public openSetRubricDialog(): void {
-    const dialogRef = this.dialog.open(
-      SetRubricDialogComponent,
-      {
-        width: '400px',
-        data: {
-          includedNodeParentIDs: [],
-          excludedNodeParentIDs: [0],
-        }
-      }
-    );
-
-    dialogRef.afterClosed().subscribe((result) => {
+    this.dialogService.openSetRubricDialog({
+            includedNodeParentIDs: [],
+            excludedNodeParentIDs: [0],
+          })
+          .subscribe((result) => {
       if (result) {
         this.articleService.edit(
           this.articleId,

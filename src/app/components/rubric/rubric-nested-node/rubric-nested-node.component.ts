@@ -1,14 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TreeNode } from '../rubric.component';
-import { AddRubricDialogComponent } from '../add-rubric-dialog/add-rubric-dialog.component';
-import { UpdateRubricDialogComponent } from '../update-rubric-dialog/update-rubric-dialog.component';
-import { SetRubricDialogComponent } from '@app/components/set-rubric-dialog/set-rubric-dialog.component';
-import { DeleteRubricDialogComponent } from '../delete-rubric-dialog/delete-rubric-dialog.component';
 import { forkJoin } from 'rxjs';
 import { RubricService } from '@app/services/rubric.service';
-import { MatDialog } from '@angular/material/dialog';
 import { ArticleService } from '@app/services/article.service';
 import { Rubric } from '@app/models/rubric';
+import { DialogService } from '@app/services/dialog.service';
 
 @Component({
   selector: 'app-rubric-nested-node',
@@ -29,7 +25,7 @@ export class RubricNestedNodeComponent implements OnInit {
   constructor(
     private rubricService: RubricService,
     private articleService: ArticleService,
-    private dialog: MatDialog,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit() {
@@ -37,20 +33,13 @@ export class RubricNestedNodeComponent implements OnInit {
 
   public openDeleteDialog(node: TreeNode): void {
     const nodesToDelete = this.convertNodeTreeToList(node);
-    const rubricTitle = node.title;
+    const nodeTitlesToDelete = nodesToDelete.map(n => n.title);
 
-    const dialogRef = this.dialog.open(
-      DeleteRubricDialogComponent,
-      {
-        width: '400px',
-        data: {
-          rubricTitle,
-          nodesToDelete,
-        }
-      }
-    );
-
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogService.openDeleteDialog({
+      title: 'Вы уверены, что хотите удалить следующие элементы?',
+      itemsToDelete: nodeTitlesToDelete,
+    })
+    .subscribe(result => {
       if (result) {
         const deleteRequests = nodesToDelete
           .map(n => this.articleService.delete(n.id));
@@ -64,18 +53,11 @@ export class RubricNestedNodeComponent implements OnInit {
   }
 
   public openSetRubricDialog(node: TreeNode): void {
-    const dialogRef = this.dialog.open(
-      SetRubricDialogComponent,
-      {
-        width: '400px',
-        data: {
-          includedNodeParentIDs: [0],
-          excludedNodeParentIDs: []
-        }
-      }
-    );
-
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogService.openSetRubricDialog({
+      includedNodeParentIDs: [0],
+      excludedNodeParentIDs: []
+    })
+    .subscribe(result => {
       if (result) {
         node.parentId = result;
         this.rubricService.updateRubric(node).subscribe(() => {
@@ -86,13 +68,11 @@ export class RubricNestedNodeComponent implements OnInit {
   }
 
   public openAddRubricDialog(parentId: number): void {
-    const dialogRef = this.dialog.open(
-      AddRubricDialogComponent,
-      {
-        width: '400px',
-      },
-    );
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogService.openSaveRubricDialog({
+      title: 'Добавление новой рубрики',
+      rubricTitle: '',
+    })
+    .subscribe(result => {
       if (result) {
         this.rubricService.addRubric(result, parentId)
           .subscribe(() => {
@@ -103,14 +83,11 @@ export class RubricNestedNodeComponent implements OnInit {
   }
 
   public openUpdateRubricDialog(node: Rubric): void {
-    const dialogRef = this.dialog.open(
-      UpdateRubricDialogComponent,
-      {
-        width: '400px',
-        data: node.title,
-      },
-    );
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogService.openSaveRubricDialog({
+      title: 'Редактирование рубрики',
+      rubricTitle: node.title,
+    })
+    .subscribe(result => {
       if (result) {
         this.rubricService.updateRubric({ id: node.id, title: result, parentId: node.parentId })
           .subscribe((response) => {

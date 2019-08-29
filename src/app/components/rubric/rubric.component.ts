@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { RubricService } from '@app/services/rubric.service';
-import { ArticleService } from '@app/services/article.service';
 import { filter } from 'rxjs/operators';
 import { Router, NavigationEnd } from '@angular/router';
 import { Rubric } from '@app/models/rubric';
-import { MatDialog } from '@angular/material/dialog';
-import { AddRubricDialogComponent } from '@app/components/rubric/add-rubric-dialog/add-rubric-dialog.component';
+import { DialogService } from '@app/services/dialog.service';
 
 
 export interface TreeNode {
@@ -36,7 +34,7 @@ export class RubricComponent implements OnInit {
   constructor(
     private rubricService: RubricService,
     private router: Router,
-    private dialog: MatDialog,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit() {
@@ -114,13 +112,10 @@ export class RubricComponent implements OnInit {
   }
 
   public openAddRubricDialog(parentId: number): void {
-    const dialogRef = this.dialog.open(
-      AddRubricDialogComponent,
-      {
-        width: '400px',
-      },
-    );
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogService.openSaveRubricDialog({
+      title: 'Добавление новой рубрики',
+      rubricTitle: '',
+    }).subscribe(result => {
       if (result) {
         this.rubricService.addRubric(result, parentId)
           .subscribe(() => {
