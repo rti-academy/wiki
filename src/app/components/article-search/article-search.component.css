@@ -1,3 +1,12 @@
 .search-field {
     display: block;
+    text-align: left;
 }
+
+@media(max-width: 960px) {
+    .search-field {
+        text-align: center;
+        border-bottom: 1px solid #c4c4c4;
+    }
+}
+
