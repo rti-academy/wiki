@@ -34,10 +34,8 @@ import { RubricComponent } from './components/rubric/rubric.component';
 import { CommentComponent } from './components/comments/comment/comment.component';
 
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
-import { AddRubricDialogComponent } from './components/rubric/add-rubric-dialog/add-rubric-dialog.component';
 import { SidenavSearchComponent } from './components/sidenav-search/sidenav-search.component';
 import { SetRubricDialogComponent } from './components/set-rubric-dialog/set-rubric-dialog.component';
-import { UpdateRubricDialogComponent } from './components/rubric/update-rubric-dialog/update-rubric-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { FileViewComponent } from './components/file-view/file-view.component';
@@ -45,6 +43,7 @@ import { ArticleMenuComponent } from './components/article-menu/article-menu.com
 import { RubricNestedNodeComponent } from './components/rubric/rubric-nested-node/rubric-nested-node.component';
 import { RubricNodeComponent } from './components/rubric/rubric-node/rubric-node.component';
 import { DialogService } from './services/dialog.service';
+import { SaveRubricDialogComponent } from './components/save-rubric-dialog/save-rubric-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,16 +57,15 @@ import { DialogService } from './services/dialog.service';
     RubricComponent,
     CommentComponent,
     DeleteDialogComponent,
-    AddRubricDialogComponent,
     SidenavSearchComponent,
     SetRubricDialogComponent,
-    UpdateRubricDialogComponent,
     HeaderComponent,
     FileUploaderComponent,
     FileViewComponent,
     ArticleMenuComponent,
     RubricNestedNodeComponent,
     RubricNodeComponent,
+    SaveRubricDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,9 +96,8 @@ import { DialogService } from './services/dialog.service';
   ],
   entryComponents: [
     DeleteDialogComponent,
-    AddRubricDialogComponent,
     SetRubricDialogComponent,
-    UpdateRubricDialogComponent,
+    SaveRubricDialogComponent,
   ],
   providers: [
     CommentsService,

@@ -1,10 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TreeNode } from '../rubric.component';
-import { AddRubricDialogComponent } from '../add-rubric-dialog/add-rubric-dialog.component';
-import { UpdateRubricDialogComponent } from '../update-rubric-dialog/update-rubric-dialog.component';
 import { forkJoin } from 'rxjs';
 import { RubricService } from '@app/services/rubric.service';
-import { MatDialog } from '@angular/material/dialog';
 import { ArticleService } from '@app/services/article.service';
 import { Rubric } from '@app/models/rubric';
 import { DialogService } from '@app/services/dialog.service';
@@ -28,7 +25,6 @@ export class RubricNestedNodeComponent implements OnInit {
   constructor(
     private rubricService: RubricService,
     private articleService: ArticleService,
-    private dialog: MatDialog,
     private dialogService: DialogService,
   ) { }
 
@@ -72,13 +68,11 @@ export class RubricNestedNodeComponent implements OnInit {
   }
 
   public openAddRubricDialog(parentId: number): void {
-    const dialogRef = this.dialog.open(
-      AddRubricDialogComponent,
-      {
-        width: '400px',
-      },
-    );
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogService.openSaveRubricDialog({
+      title: 'Добавление новой рубрики',
+      rubricTitle: '',
+    })
+    .subscribe(result => {
       if (result) {
         this.rubricService.addRubric(result, parentId)
           .subscribe(() => {
@@ -89,14 +83,11 @@ export class RubricNestedNodeComponent implements OnInit {
   }
 
   public openUpdateRubricDialog(node: Rubric): void {
-    const dialogRef = this.dialog.open(
-      UpdateRubricDialogComponent,
-      {
-        width: '400px',
-        data: node.title,
-      },
-    );
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogService.openSaveRubricDialog({
+      title: 'Редактирование рубрики',
+      rubricTitle: node.title,
+    })
+    .subscribe(result => {
       if (result) {
         this.rubricService.updateRubric({ id: node.id, title: result, parentId: node.parentId })
           .subscribe((response) => {
