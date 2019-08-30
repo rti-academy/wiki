@@ -3,6 +3,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { FileViewComponent } from '../file-view/file-view.component';
 import { Observable } from 'rxjs';
 
+
+interface UploaderItem {
+  file: File;
+  isUploaded: boolean;
+}
+
 @Component({
   selector: 'app-file-uploader',
   templateUrl: './file-uploader.component.html',
@@ -12,13 +18,16 @@ export class FileUploaderComponent implements OnInit, OnChanges {
   public uploadForm: FormGroup;
   @Input()
   public articleId: number;
+  @Input()
+  public isUploading = false;
   @ViewChild(FileViewComponent, { static: false })
   fileView: FileViewComponent;
   @ViewChild('fileUpload', { static: false })
   fileUpload: ElementRef<HTMLInputElement>;
 
   uploadRequests: Observable<any>[] = [];
-  public files: File[] = [];
+  //public files: File[] = [];
+  public uploaderItems: UploaderItem[] = [];
 
   constructor(
     private formBuilder: FormBuilder
@@ -34,11 +43,14 @@ export class FileUploaderComponent implements OnInit, OnChanges {
   public onFileSelect(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.files.push(file);
+      const isUploaded = false;
+      this.uploaderItems.push({ file, isUploaded })
+      //this.files.push(file);
       this.fileUpload.nativeElement.value = '';
     }
   }
   public delete(index: number) {
-    this.files.splice(index, 1);
+    // this.files.splice(index, 1);
+    this.uploaderItems.splice(index, 1);
   }
 }

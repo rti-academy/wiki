@@ -22,12 +22,6 @@
   padding: 0px;
 }
 
-.selected {
-  color: #212121;
-
-  font-weight: 500;
-}
-
 .mat-tree {
   background: none;
 }

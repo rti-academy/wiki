@@ -36,3 +36,8 @@
 .hidden {
   opacity: 0;
 }
+.selected {
+  color: #212121;
+
+  font-weight: 500;
+}

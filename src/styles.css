@@ -129,6 +129,10 @@ quill-editor .ql-container {
   height: 500px;
 }
 
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #616161;
+}
+
 @media (max-width: 960px) {
   .ql-snow .ql-editor h1 {
     font-size: 24px;

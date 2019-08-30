@@ -6,6 +6,8 @@ import { ArticleService } from '@app/services/article.service';
 import { Rubric } from '@app/models/rubric';
 import { DialogService } from '@app/services/dialog.service';
 import { BreakpointService } from '@app/services/breakpoint.service';
+import { RubricTreeService } from '@app/services/rubric-tree.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rubric-nested-node',
@@ -31,6 +33,8 @@ export class RubricNestedNodeComponent implements OnInit {
     private articleService: ArticleService,
     private dialogService: DialogService,
     private breakpointService: BreakpointService,
+    private rubricTreeService: RubricTreeService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -51,7 +55,8 @@ export class RubricNestedNodeComponent implements OnInit {
 
         forkJoin(deleteRequests)
           .subscribe(() => {
-            window.location.replace('/'); // Временный костыль
+            this.router.navigate(['']);
+            this.rubricTreeService.rerenderTree.emit('openDeleteDialog');
           });
       }
     });
@@ -81,7 +86,7 @@ export class RubricNestedNodeComponent implements OnInit {
       if (result) {
         this.rubricService.addRubric(result, parentId)
           .subscribe(() => {
-            window.location.reload(); // Временный костыль
+            this.rubricTreeService.rerenderTree.emit('openAddRubricDialog');
           });
       }
     });
@@ -96,7 +101,7 @@ export class RubricNestedNodeComponent implements OnInit {
       if (result) {
         this.rubricService.updateRubric({ id: node.id, title: result, parentId: node.parentId })
           .subscribe((response) => {
-            window.location.reload(); // Временный костыль
+            this.rubricTreeService.rerenderTree.emit('openUpdateRubricDialog');
           });
       }
     });

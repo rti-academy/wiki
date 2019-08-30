@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { filter } from 'rxjs/operators';
 import { TreeNode } from '@app/models/tree-node';
 import { RubricService } from '@app/services/rubric.service';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +18,16 @@ export class RubricTreeService {
   id: number;
   rootNode: TreeNode;
   allNodes: TreeNode[] = [];
+  rerenderTree: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private rubricService: RubricService,
     private router: Router,
-  ) { }
+  ) {this.rerenderTree.subscribe(event => {
+      console.log(event);
+      this.loadTree();
+    });
+  }
 
   public getTreeControl(): NestedTreeControl<TreeNode> {
     return this.treeControl;
