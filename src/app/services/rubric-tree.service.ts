@@ -23,11 +23,10 @@ export class RubricTreeService {
   constructor(
     private rubricService: RubricService,
     private router: Router,
-  ) { 
-    this.rerenderTree.subscribe(event => {
+  ) {this.rerenderTree.subscribe(event => {
       console.log(event);
       this.loadTree();
-    })
+    });
   }
 
   public getTreeControl(): NestedTreeControl<TreeNode> {

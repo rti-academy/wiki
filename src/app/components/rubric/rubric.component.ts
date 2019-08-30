@@ -30,7 +30,6 @@ export class RubricComponent implements OnInit {
     this.rubricTreeService.loadTree();
     this.rubricTreeService.activeNodeSubscribe();
   }
- 
 
   public openAddRubricDialog(parentId: number): void {
     this.dialogService.openSaveRubricDialog({
