@@ -29,6 +29,11 @@ export class ArticleComponent implements OnInit {
       if (id) {
         this.articleService.getById(id)
           .subscribe((response: any) => {
+
+            if (response.article.type === 'rubric') {
+              this.router.navigate(['/']);
+            }
+
             this.article = response.article;
             this.article.updateTime = new Date(this.article.updateTime);
             this.article.status = this.articleStatusService.getView(this.article.status);
