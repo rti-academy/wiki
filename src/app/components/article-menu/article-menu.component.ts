@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArticleService } from '@app/services/article.service';
 import { DialogService } from '@app/services/dialog.service';
+import { RubricTreeService } from '@app/services/rubric-tree.service';
 
 @Component({
   selector: 'app-article-menu',
@@ -26,6 +27,7 @@ export class ArticleMenuComponent {
     private router: Router,
     private articleService: ArticleService,
     private dialogService: DialogService,
+    private rubricTreeService: RubricTreeService,
   ) {
   }
 
@@ -37,7 +39,7 @@ export class ArticleMenuComponent {
           .subscribe(() => {
             this.router.navigate([``])
               .then(() => {
-                window.location.reload(); // Временный костыль
+                this.rubricTreeService.rerenderTree.emit('openDeleteDialog');
               });
           });
       }
@@ -55,7 +57,7 @@ export class ArticleMenuComponent {
           this.articleId,
           {parentId: result}
         ).subscribe(() => {
-          window.location.reload(); // Временный костыль
+          this.rubricTreeService.rerenderTree.emit('openSetRubricDialog');
         });
       }
     });

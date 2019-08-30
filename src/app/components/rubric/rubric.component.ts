@@ -30,7 +30,6 @@ export class RubricComponent implements OnInit {
     this.rubricTreeService.loadTree();
     this.rubricTreeService.activeNodeSubscribe();
   }
- 
 
   public openAddRubricDialog(parentId: number): void {
     this.dialogService.openSaveRubricDialog({
@@ -40,7 +39,7 @@ export class RubricComponent implements OnInit {
       if (result) {
         this.rubricService.addRubric(result, parentId)
           .subscribe(() => {
-            window.location.reload(); // Временный костыль
+            this.rubricTreeService.rerenderTree.emit('openAddRubricDialog');
           });
       }
     });
