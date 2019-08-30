@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointService } from './services/breakpoint.service';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,19 +10,11 @@ import { map, shareReplay } from 'rxjs/operators';
 export class AppComponent {
   title = 'wiki';
 
-  public isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay(),
-    );
-
-  public isSmall: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Small)
-    .pipe(
-      map(result => result.matches),
-      shareReplay(),
-    );
+  public isHandset: Observable<boolean> = this.breakpointServise.getHandset();
+  public isSmall: Observable<boolean> = this.breakpointServise.getSmall();
 
   constructor(
-    private breakpointObserver: BreakpointObserver,
+    private breakpointServise: BreakpointService,
   ) { }
+
 }

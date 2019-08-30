@@ -7,8 +7,7 @@ import { Rubric } from '@app/models/rubric';
 import { DialogService } from '@app/services/dialog.service';
 import { RubricTreeService } from '@app/services/rubric-tree.service';
 import { Router } from '@angular/router';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, shareReplay } from 'rxjs/operators';
+import { BreakpointService } from '@app/services/breakpoint.service';
 
 @Component({
   selector: 'app-rubric-nested-node',
@@ -26,17 +25,8 @@ export class RubricNestedNodeComponent implements OnInit {
   @Input()
   public expanded = false;
 
-  public isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay(),
-    );
-
-  public isSmall: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Small)
-    .pipe(
-      map(result => result.matches),
-      shareReplay(),
-    );
+  public isHandset: Observable<boolean> = this.breakpointService.getHandset();
+  public isSmall: Observable<boolean> = this.breakpointService.getSmall();
 
   constructor(
     private rubricService: RubricService,
@@ -44,7 +34,7 @@ export class RubricNestedNodeComponent implements OnInit {
     private dialogService: DialogService,
     private rubricTreeService: RubricTreeService,
     private router: Router,
-    private breakpointObserver: BreakpointObserver,
+    private breakpointService: BreakpointService,
   ) { }
 
   ngOnInit() {
