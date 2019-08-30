@@ -18,6 +18,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { CommentsService } from './services/comments.service';
@@ -93,6 +94,7 @@ import { SaveRubricDialogComponent } from './components/save-rubric-dialog/save-
     MatTreeModule,
     MatTooltipModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
   ],
   entryComponents: [
     DeleteDialogComponent,

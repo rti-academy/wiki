@@ -1,19 +1,23 @@
-
 <div>
-  <form [formGroup] = "uploadForm">
-  <input #fileUpload type="file" (change)="onFileSelect($event)"/>
+  <form [formGroup]="uploadForm">
+    <input #fileUpload type="file" (change)="onFileSelect($event)" />
     <button mat-raised-button color="primary" (click)="fileUpload.click()">
       Загрузить файл
     </button>
   </form>
   <app-file-view [articleId]="articleId" [deleteEnabled]="true"></app-file-view>
-  <div *ngFor="let file of files; let i = index "  class="uploaded-files-wrapper">            
-      <div class = "uploaded-files-wrapper">
-          <mat-icon class="mat-icon">attach_file</mat-icon>
-          {{file.name}}
-      </div>
-      <button mat-icon-button (click)="delete(i)">
-          <mat-icon  class="mat-icon">close</mat-icon>
+  <div *ngFor="let uploaderItem of uploaderItems; let i = index " class="uploaded-files-wrapper">
+    <div class="uploaded-files-wrapper">
+      <mat-icon class="mat-icon">attach_file</mat-icon>
+      {{ uploaderItem.file.name}}
+    </div>
+    <div class="loading" *ngIf="isUploading">
+      <mat-spinner *ngIf="!uploaderItem.isUploaded" class="spinner" [diameter]="20">
+      </mat-spinner>
+      <mat-icon *ngIf="uploaderItem.isUploaded">check_circle_outline</mat-icon>
+    </div>
+    <button *ngIf="!isUploading" mat-icon-button (click)="delete(i)">
+        <mat-icon class="mat-icon">close</mat-icon>
       </button>
   </div>
 </div>
