@@ -5,11 +5,15 @@
 }
 
 :host ::ng-deep .mat-form-field-flex {
-    height: 72px;
     padding: 7px 24px 23px;
 }
 
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+
 :host ::ng-deep .mat-form-field-underline {
+    position: static;
     background: none;
 }
 
@@ -18,11 +22,10 @@
 }
 
 @media(max-width: 960px) {
-    :host ::ng-deep .mat-form-field-flex {
-        height: 72px;
-        padding: 7px 24px 23px;
+    :host {
+        width: 100%;
     }
-    .mat-form-field-wrapper {
-        padding-bottom: 0;
+    :host ::ng-deep .mat-form-field-flex {
+        padding: 0;
     }
   }

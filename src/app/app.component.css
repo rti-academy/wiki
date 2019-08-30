@@ -27,9 +27,12 @@ mat-sidenav-content {
 }
 
 @media (max-width: 960px) {
-    mat-sidenav-content {
-        position: relative;
+    mat-sidenav-container {
+        background-color: #ffffff;
+    }
 
+    mat-sidenav-content {
+        z-index: -1;
         padding-left: 70px;
         padding-right: 70px;
     }
@@ -38,11 +41,12 @@ mat-sidenav-content {
         position: fixed;
         top: 100px;
         left: 5px;
+        z-index: 100;
     }
     
     .sidenav-btn-close {
         position: absolute;
-        top: 82px;
+        top: 100px;
         right: 5px;
     }
 }
