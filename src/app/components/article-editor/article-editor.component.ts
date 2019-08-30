@@ -7,6 +7,7 @@ import { FileUploaderComponent } from '../file-uploader/file-uploader.component'
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { FileService } from '@app/services/file.service';
 import { forkJoin, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 @Component({
   selector: 'app-article-editor',
   templateUrl: './article-editor.component.html',
@@ -24,6 +25,7 @@ export class ArticleEditorComponent implements OnInit {
   @ViewChild(FileUploaderComponent, { static: false })
   fileUploader: FileUploaderComponent;
   public uploadForm: FormGroup;
+  public isUploading = false;
 
   public quillConfig = {
     toolbar: [
@@ -92,6 +94,7 @@ export class ArticleEditorComponent implements OnInit {
   }
 
   private saveChange() {
+    this.isUploading = true;
     const editArticleRequest: Observable<any> = this.articleService.edit(
       this.id, {
         title: this.title,
@@ -127,12 +130,13 @@ export class ArticleEditorComponent implements OnInit {
     });
   }
   private fileRequests(articleId: number) {
-    const uploadRequests = this.fileUploader.files
-      .map(file => {
-        this.uploadForm.get('profile').setValue(file);
+    // const uploadRequests = this.fileUploader.files
+    const uploadRequests = this.fileUploader.uploaderItems
+      .map(uploaderItem => {
+        this.uploadForm.get('profile').setValue(uploaderItem.file);
         const formData = new FormData();
         formData.append('file', this.uploadForm.get('profile').value);
-        return this.fileService.upload(formData, articleId);
+        return this.fileService.upload(formData, articleId).pipe(tap(() => uploaderItem.isUploaded = true));
       });
     const deleteRequests = this.fileUploader.fileView.filesToDelete
       .map(fileId =>

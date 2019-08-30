@@ -130,3 +130,7 @@ quill-view .ql-editor {
 quill-editor .ql-container {
   height: 500px;
 }
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #616161;
+}
