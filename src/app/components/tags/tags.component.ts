@@ -15,7 +15,7 @@ import { TagService } from '../../services/tag.service';
 })
 export class TagsComponent implements OnInit, OnChanges {
   removable = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
+  separatorKeysCodes: number[] = [ENTER];
 
   @Input()
   public articleId: number;
