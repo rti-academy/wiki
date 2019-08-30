@@ -15,6 +15,7 @@ export class RubricTreeService {
   dataSource = new MatTreeNestedDataSource<TreeNode>();
   id: number;
   rootNode: TreeNode;
+  allNodes: TreeNode[] = [];
 
   constructor(
     private rubricService: RubricService,
@@ -32,12 +33,13 @@ export class RubricTreeService {
   public loadTree(): void {
     let rootNodes: TreeNode[] = [];
     this.rubricService.getAll().subscribe((response: any) => {
-      rootNodes = response.articles.filter(article => article.parentId === 0);
+      this.allNodes = response.articles;
+      rootNodes = this.allNodes.filter(node => node.parentId === 0);
       rootNodes.forEach(rootNode => {
-        rootNode.children = this.getChildren(response.articles, rootNode.id);
+        rootNode.children = this.getChildren(this.allNodes, rootNode.id);
       });
       this.dataSource.data = rootNodes;
-      this.expand();
+      this.expandActive();
     });
   }
 
@@ -47,7 +49,7 @@ export class RubricTreeService {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         this.id = this.getIdFromUrl();
-        this.expand();
+        this.expandActive();
       });
   }
 
@@ -66,22 +68,11 @@ export class RubricTreeService {
     return parts.length > 2 ? Number(parts[2]) : null;
   }
 
-  private expand(): void {
-    for (const rootNode of this.dataSource.data) {
-      this.rootNode = rootNode;
-      this.expandActive(rootNode);
-    }
-  }
-
-  private expandActive(node: TreeNode) {
-    const activeArticle = node.children.find(childNode => childNode.id === this.id);
+  private expandActive(): void {
+    const activeArticle = this.allNodes.find(node => node.id === this.id);
     if (activeArticle) {
       const treeNodesForExpand = this.getTreeNodesForExpand(activeArticle);
       this.expandTreeNodes(treeNodesForExpand);
-    } else {
-      for (const child of node.children) {
-        this.expandActive(child);
-      }
     }
   }
 
@@ -89,20 +80,16 @@ export class RubricTreeService {
     const treeNodesForExpand: TreeNode[] = [];
     let treeNode: TreeNode;
     let id = node.parentId;
-
-    const descendants = this.treeControl.getDescendants(this.rootNode);
-    descendants.push(this.rootNode);
-
-    do {
-      treeNode = this.getTreeNodeByIdFromDescendants(id, descendants);
+    while (id) {
+      treeNode = this.getTreeNodeById(id);
       treeNodesForExpand.push(treeNode);
       id = treeNode.parentId;
-    } while (id);
+    }
     return treeNodesForExpand;
   }
 
-  private getTreeNodeByIdFromDescendants(id: number, descendants: TreeNode[]): TreeNode {
-    return descendants.find(treeNode => treeNode.id === id);
+  private getTreeNodeById(id: number): TreeNode {
+    return this.allNodes.find(treeNode => treeNode.id === id);
   }
 
   private expandTreeNodes(treeNodesForExpand: TreeNode[]): void {
