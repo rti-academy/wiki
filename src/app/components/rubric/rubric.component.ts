@@ -40,7 +40,7 @@ export class RubricComponent implements OnInit {
       if (result) {
         this.rubricService.addRubric(result, parentId)
           .subscribe(() => {
-            window.location.reload(); // Временный костыль
+            this.rubricTreeService.rerenderTree.emit('openAddRubricDialog');
           });
       }
     });

@@ -6,6 +6,7 @@ import { ArticleStatusService, StatusValueViewPair } from '@app/services/article
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { FileService } from '@app/services/file.service';
+import { RubricTreeService } from '@app/services/rubric-tree.service';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 @Component({
@@ -51,6 +52,7 @@ export class ArticleEditorComponent implements OnInit {
     private router: Router,
     private fileService: FileService,
     private formBuilder: FormBuilder,
+    private rubricTreeService: RubricTreeService,
   ) {
     this.statuses = articleStatusService.statuses;
   }
@@ -105,7 +107,8 @@ export class ArticleEditorComponent implements OnInit {
     const fileRequest = this.fileRequests(this.id);
     fileRequest.push(editArticleRequest);
     forkJoin(fileRequest).subscribe(() => {
-      window.location.replace(`/articles/${this.id}`); // Временный костыль
+      this.router.navigate([`/articles/${this.id}`]);
+      this.rubricTreeService.rerenderTree.emit('saveChange');
     });
   }
 
@@ -122,10 +125,12 @@ export class ArticleEditorComponent implements OnInit {
 
       if (fileRequests.length > 0) {
         forkJoin(fileRequests).subscribe(() => {
-          window.location.replace(`/articles/${response.id}`); // Временный костыль
+          this.router.navigate([`/articles/${response.id}`]);
+          this.rubricTreeService.rerenderTree.emit('createArticle');
         });
       } else {
-        window.location.replace(`/articles/${response.id}`); // Временный костыль
+        this.router.navigate([`/articles/${response.id}`]);
+        this.rubricTreeService.rerenderTree.emit('createArticle');
       }
     });
   }
