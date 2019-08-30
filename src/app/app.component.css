@@ -34,13 +34,13 @@ mat-sidenav-content {
     mat-sidenav-content {
         z-index: -1;
         padding-left: 70px;
-        padding-right: 70px;
+        padding-right: 30px;
     }
 
     .sidenav-btn-open {
         position: fixed;
         top: 100px;
-        left: 5px;
+        left: 0;
         z-index: 100;
     }
     

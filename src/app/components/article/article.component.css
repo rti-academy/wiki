@@ -36,3 +36,9 @@
   display: block;
   margin-bottom: 24px;
 }
+
+@media (max-width: 960px) {
+  .title {
+    font-size: 28px;
+  }
+}
