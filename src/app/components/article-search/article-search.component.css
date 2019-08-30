@@ -5,6 +5,7 @@
 
 @media(max-width: 960px) {
     .search-field {
+        font-size: 14px;
         text-align: center;
         border-bottom: 1px solid #c4c4c4;
     }
