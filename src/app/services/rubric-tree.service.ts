@@ -13,49 +13,35 @@ export class RubricTreeService {
 
   treeControl = new NestedTreeControl<TreeNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<TreeNode>();
-  articles: TreeNode[] = [];
   id: number;
+  rootNode: TreeNode;
 
   constructor(
     private rubricService: RubricService,
     private router: Router,
   ) { }
 
-  public getTreeControl() {
+  public getTreeControl(): NestedTreeControl<TreeNode> {
     return this.treeControl;
   }
 
-  public getDataSource() {
+  public getDataSource(): MatTreeNestedDataSource<TreeNode> {
     return this.dataSource;
   }
 
-  public loadTree() {
+  public loadTree(): void {
     let rootNodes: TreeNode[] = [];
     this.rubricService.getAll().subscribe((response: any) => {
-
-      this.articles = response.articles;
-      rootNodes = response.articles.filter(rootNode => rootNode.parentId === 0);
+      rootNodes = response.articles.filter(article => article.parentId === 0);
       rootNodes.forEach(rootNode => {
         rootNode.children = this.getChildren(response.articles, rootNode.id);
       });
       this.dataSource.data = rootNodes;
       this.expand();
-
     });
   }
 
-  private getChildren(articles: TreeNode[], parentId: number): TreeNode[] {
-    const nodes = articles.filter(node => node.parentId === parentId)
-      .sort(c => {
-        return c.type === 'rubric' ? -1 : 1;
-      });
-    nodes.forEach(node => {
-      node.children = this.getChildren(articles, node.id);
-    });
-    return nodes;
-  }
-
-  public activeNodeSubscribe() {
+  public activeNodeSubscribe(): void {
     this.treeControl.collapseAll();
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -65,33 +51,61 @@ export class RubricTreeService {
       });
   }
 
-  private expand() {
-    // this.treeControl.collapseAll()
-    for (const node of this.dataSource.data) {
-      const result = this.expandActive(node);
-      if (result) {
-        this.treeControl.expand(node);
-        break;
-      }
+  private getChildren(treeNodes: TreeNode[], parentId: number): TreeNode[] {
+    const childNodes = treeNodes.filter(node => node.parentId === parentId)
+      .sort(childNode => childNode.type === 'rubric' ? -1 : 1);
+
+    childNodes.forEach(childNode => {
+      childNode.children = this.getChildren(treeNodes, childNode.id);
+    });
+    return childNodes;
+  }
+
+  private getIdFromUrl(): number {
+    const parts = location.pathname.split('/');
+    return parts.length > 2 ? Number(parts[2]) : null;
+  }
+
+  private expand(): void {
+    for (const rootNode of this.dataSource.data) {
+      this.rootNode = rootNode;
+      this.expandActive(rootNode);
     }
   }
 
   private expandActive(node: TreeNode) {
-    if (node.children.filter(childNode => childNode.id === this.id).length !== 0) {
-      this.treeControl.expand(node);
-      return true;
+    const activeArticle = node.children.find(childNode => childNode.id === this.id);
+    if (activeArticle) {
+      const treeNodesForExpand = this.getTreeNodesForExpand(activeArticle);
+      this.expandTreeNodes(treeNodesForExpand);
     } else {
       for (const child of node.children) {
-        if (this.expandActive(child)) {
-          return true;
-        }
+        this.expandActive(child);
       }
-      return false;
     }
   }
 
-  getIdFromUrl(): number {
-    const parts = location.pathname.split('/');
-    return parts.length > 2 ? Number(parts[2]) : null;
+  private getTreeNodesForExpand(node: TreeNode): TreeNode[] {
+    const treeNodesForExpand: TreeNode[] = [];
+    let treeNode: TreeNode;
+    let id = node.parentId;
+
+    const descendants = this.treeControl.getDescendants(this.rootNode);
+    descendants.push(this.rootNode);
+
+    do {
+      treeNode = this.getTreeNodeByIdFromDescendants(id, descendants);
+      treeNodesForExpand.push(treeNode);
+      id = treeNode.parentId;
+    } while (id);
+    return treeNodesForExpand;
+  }
+
+  private getTreeNodeByIdFromDescendants(id: number, descendants: TreeNode[]): TreeNode {
+    return descendants.find(treeNode => treeNode.id === id);
+  }
+
+  private expandTreeNodes(treeNodesForExpand: TreeNode[]): void {
+    treeNodesForExpand.forEach(treeNode => this.treeControl.expand(treeNode));
   }
 }
