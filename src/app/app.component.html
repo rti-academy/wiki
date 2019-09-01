@@ -2,10 +2,10 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav
       [mode]="((isHandset | async) || (isSmall | async)) ? 'over' : 'side'"
-      [opened]="((isHandset | async) || (isSmall | async)) === false">
+      [opened]="!((isHandset | async) || (isSmall | async))">
     <button class="sidenav-btn-close"
         mat-button
-        (click)="sidenav.toggle()"
+        (click)="sidenav.close()"
         *ngIf="((isHandset | async) || (isSmall | async))">
       <mat-icon>close</mat-icon>
     </button>
@@ -14,7 +14,7 @@
   <mat-sidenav-content>
     <button class="sidenav-btn-open"
         mat-button
-        (click)="sidenav.toggle()"
+        (click)="sidenav.open()"
         *ngIf="((isHandset | async) || (isSmall | async))">
       <mat-icon>menu</mat-icon>
     </button>
