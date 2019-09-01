@@ -1,26 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-<<<<<<< HEAD
 import { TreeNode } from '@app/models/tree-node';
-=======
-import { TreeNode } from '../rubric.component';
-import { AddRubricDialogComponent } from '../add-rubric-dialog/add-rubric-dialog.component';
-import { UpdateRubricDialogComponent } from '../update-rubric-dialog/update-rubric-dialog.component';
-import { SetRubricDialogComponent } from '@app/components/set-rubric-dialog/set-rubric-dialog.component';
-import { DeleteRubricDialogComponent } from '../delete-rubric-dialog/delete-rubric-dialog.component';
->>>>>>> 0c39d4a9b87f3515c8bcd436fe274e4dfe09f82c
 import { forkJoin, Observable } from 'rxjs';
 import { RubricService } from '@app/services/rubric.service';
 import { ArticleService } from '@app/services/article.service';
 import { Rubric } from '@app/models/rubric';
-<<<<<<< HEAD
 import { DialogService } from '@app/services/dialog.service';
 import { BreakpointService } from '@app/services/breakpoint.service';
 import { RubricTreeService } from '@app/services/rubric-tree.service';
 import { Router } from '@angular/router';
-=======
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, shareReplay } from 'rxjs/operators';
->>>>>>> 0c39d4a9b87f3515c8bcd436fe274e4dfe09f82c
 
 @Component({
   selector: 'app-rubric-nested-node',
@@ -38,35 +25,16 @@ export class RubricNestedNodeComponent implements OnInit {
   @Input()
   public expanded = false;
 
-<<<<<<< HEAD
   public isHandset: Observable<boolean> = this.breakpointService.getHandset();
   public isSmall: Observable<boolean> = this.breakpointService.getSmall();
-=======
-  public isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay(),
-    );
-
-  public isSmall: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Small)
-    .pipe(
-      map(result => result.matches),
-      shareReplay(),
-    );
->>>>>>> 0c39d4a9b87f3515c8bcd436fe274e4dfe09f82c
 
   constructor(
     private rubricService: RubricService,
     private articleService: ArticleService,
-<<<<<<< HEAD
     private dialogService: DialogService,
     private breakpointService: BreakpointService,
     private rubricTreeService: RubricTreeService,
     private router: Router,
-=======
-    private dialog: MatDialog,
-    private breakpointObserver: BreakpointObserver,
->>>>>>> 0c39d4a9b87f3515c8bcd436fe274e4dfe09f82c
   ) { }
 
   ngOnInit() {
