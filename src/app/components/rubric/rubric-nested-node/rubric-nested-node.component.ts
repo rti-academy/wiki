@@ -71,7 +71,7 @@ export class RubricNestedNodeComponent implements OnInit {
       if (result) {
         node.parentId = result;
         this.rubricService.updateRubric(node).subscribe(() => {
-          window.location.reload();
+          this.rubricTreeService.rerenderTree.emit('openSetRubricDialog');
         });
       }
     });
