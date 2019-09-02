@@ -7,14 +7,14 @@
     <div matTreeNodeToggle class="node-title">
         {{ node.title }}
     </div>
-    <button *ngIf="!((isHandset | async) || (isSmall | async))"
+    <button *ngIf="!(isHandset || isSmall)"
         class="kebab-button"
         mat-icon-button 
         mat-button 
         [matMenuTriggerFor]="beforeMenu"
         (menuOpened)="menuUp=true"
         (menuClosed)="menuUp=false"
-        [class.hidden]="!(nodeHover||menuUp)">
+        [class.hidden]="!(nodeHover || menuUp)">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">

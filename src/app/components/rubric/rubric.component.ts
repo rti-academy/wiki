@@ -20,15 +20,23 @@ export class RubricComponent implements OnInit {
   treeControl: NestedTreeControl<TreeNode>;
   dataSource: MatTreeNestedDataSource<TreeNode>;
 
-  public isHandset: Observable<boolean> = this.breakpointService.getHandset();
-  public isSmall: Observable<boolean> = this.breakpointService.getSmall();
+  public isHandset: boolean;
+  public isSmall: boolean;
 
   constructor(
     private rubricService: RubricService,
     private dialogService: DialogService,
     private rubricTreeService: RubricTreeService,
     private breakpointService: BreakpointService,
-  ) { }
+  ) {
+    breakpointService.getHandset().subscribe(result => {
+      this.isHandset = result;
+    });
+
+    breakpointService.getSmall().subscribe(result => {
+      this.isSmall = result;
+    });
+  }
 
   ngOnInit() {
     this.treeControl = this.rubricTreeService.getTreeControl();
