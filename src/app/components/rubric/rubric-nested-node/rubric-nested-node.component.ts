@@ -1,12 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TreeNode } from '@app/models/tree-node';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { RubricService } from '@app/services/rubric.service';
 import { ArticleService } from '@app/services/article.service';
 import { Rubric } from '@app/models/rubric';
 import { DialogService } from '@app/services/dialog.service';
 import { RubricTreeService } from '@app/services/rubric-tree.service';
 import { Router } from '@angular/router';
+import { BreakpointService } from '@app/services/breakpoint.service';
 
 @Component({
   selector: 'app-rubric-nested-node',
@@ -24,13 +25,25 @@ export class RubricNestedNodeComponent implements OnInit {
   @Input()
   public expanded = false;
 
+  public isHandset: boolean;
+  public isSmall: boolean;
+
   constructor(
     private rubricService: RubricService,
     private articleService: ArticleService,
     private dialogService: DialogService,
     private rubricTreeService: RubricTreeService,
     private router: Router,
-  ) { }
+    private breakpointService: BreakpointService,
+  ) {
+    breakpointService.getHandset().subscribe(result => {
+      this.isHandset = result;
+    });
+
+    breakpointService.getSmall().subscribe(result => {
+      this.isSmall = result;
+    });
+  }
 
   ngOnInit() {
   }
@@ -66,7 +79,7 @@ export class RubricNestedNodeComponent implements OnInit {
       if (result) {
         node.parentId = result;
         this.rubricService.updateRubric(node).subscribe(() => {
-          window.location.reload();
+          this.rubricTreeService.rerenderTree.emit('openSetRubricDialog');
         });
       }
     });

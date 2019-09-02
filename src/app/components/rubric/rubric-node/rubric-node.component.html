@@ -1,5 +1,5 @@
 <li class="mat-tree-node" [matTooltip]="node.title" matTooltipPosition="after" (mouseenter)="nodeHover=true" (mouseleave)="nodeHover=false">
-    <a class="heading-link" [routerLink]="['articles', node.id]" routerLinkActive="selected">
+    <a class="heading-link" [routerLink]="['articles', node.id]" routerLinkActive="selected" (click)="sidenavClose()">
         <div class="icon-wrapper">
             <mat-icon class="icon">insert_drive_file</mat-icon>
         </div>

@@ -1,4 +1,5 @@
-<button mat-icon-button mat-button 
+<button *ngIf="!((isHandset | async) || (isSmall | async))"
+        mat-icon-button mat-button 
         [matMenuTriggerFor]="beforeMenu"
         (menuOpened)="menuOpened.emit()"
         (menuClosed)="menuClosed.emit()">

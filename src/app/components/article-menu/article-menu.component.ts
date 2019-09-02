@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ArticleService } from '@app/services/article.service';
 import { DialogService } from '@app/services/dialog.service';
 import { RubricTreeService } from '@app/services/rubric-tree.service';
+import { Observable } from 'rxjs';
+import { BreakpointService } from '@app/services/breakpoint.service';
 
 @Component({
   selector: 'app-article-menu',
@@ -23,11 +25,15 @@ export class ArticleMenuComponent {
   @Output()
   public menuClosed = new EventEmitter();
 
+  public isHandset: Observable<boolean> = this.breakpointService.getHandset();
+  public isSmall: Observable<boolean> = this.breakpointService.getSmall();
+
   constructor(
     private router: Router,
     private articleService: ArticleService,
     private dialogService: DialogService,
     private rubricTreeService: RubricTreeService,
+    private breakpointService: BreakpointService,
   ) {
   }
 

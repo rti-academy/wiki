@@ -1,9 +1,23 @@
 <app-header></app-header>
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened disableClose>
+  <mat-sidenav #sidenav
+      [mode]="(isHandset || isSmall) ? 'over' : 'side'"
+      [opened]="!(isHandset || isSmall)">
+    <button class="sidenav-btn-close"
+        mat-button
+        (click)="sidenav.close()"
+        *ngIf="(isHandset || isSmall)">
+      <mat-icon>close</mat-icon>
+    </button>
     <app-rubric></app-rubric>
   </mat-sidenav>
   <mat-sidenav-content>
+    <button class="sidenav-btn-open"
+        mat-button
+        (click)="sidenav.open()"
+        *ngIf="(isHandset || isSmall)">
+      <mat-icon>menu</mat-icon>
+    </button>
     <div class="sidenav-content">
       <router-outlet></router-outlet>
     </div>

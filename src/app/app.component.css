@@ -25,3 +25,34 @@ mat-sidenav-content {
 
     color: #616161;
 }
+
+@media (max-width: 960px) {
+    mat-sidenav-container {
+        background-color: #ffffff;
+    }
+
+    mat-sidenav-content {
+        z-index: -1;
+        padding-left: 70px;
+        padding-right: 30px;
+    }
+
+    .sidenav-btn-open {
+        position: fixed;
+        top: 100px;
+        left: 0;
+        z-index: 100;
+    }
+    
+    .sidenav-btn-close {
+        position: absolute;
+        top: 100px;
+        right: 5px;
+    }
+}
+
+@media (max-width: 600px) {
+    mat-sidenav {
+        width: 100%;
+    }
+}
