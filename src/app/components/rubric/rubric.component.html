@@ -1,5 +1,5 @@
 <div>
-  <button *ngIf="!((isHandset | async) || (isSmall | async))"
+  <button *ngIf="!(isHandset || isSmall)"
       class='add-rubric-button'
       mat-button
       mat-flat-button

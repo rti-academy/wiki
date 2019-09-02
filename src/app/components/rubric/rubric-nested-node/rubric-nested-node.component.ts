@@ -25,8 +25,8 @@ export class RubricNestedNodeComponent implements OnInit {
   @Input()
   public expanded = false;
 
-  public isHandset: Observable<boolean> = this.breakpointService.getHandset();
-  public isSmall: Observable<boolean> = this.breakpointService.getSmall();
+  public isHandset: boolean;
+  public isSmall: boolean;
 
   constructor(
     private rubricService: RubricService,
@@ -35,7 +35,15 @@ export class RubricNestedNodeComponent implements OnInit {
     private breakpointService: BreakpointService,
     private rubricTreeService: RubricTreeService,
     private router: Router,
-  ) { }
+  ) {
+    breakpointService.getHandset().subscribe(result => {
+      this.isHandset = result;
+    });
+
+    breakpointService.getSmall().subscribe(result => {
+      this.isSmall = result;
+    });
+  }
 
   ngOnInit() {
   }
